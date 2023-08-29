@@ -1,0 +1,58 @@
+{% extends 'core/base_grafica.html' %}
+
+{% block filas %}
+	{% include 'core/includes/configura.html' %}
+{% endblock %}
+
+{% block conf %}
+
+	<style type="text/css">
+		div.container {
+			height: 1000px;
+			overflow: auto;}
+			#titulo{font-weight: bold;}
+	</style>
+
+	<div class="container border mt-3">
+		<div class="row">
+			<div id="titulo" class="col mb-2 mt-3">
+				Primera fila cuarta columna
+			</div>
+		</div>
+		<!-- <div class="row"> -->
+            <form class="mt-3" action="" method="post" enctype="multipart/form-data">
+            	{% csrf_token %}
+
+				<div class="row">
+					<div  name="ele" id="l_altocolumnaenizquierda" class="col-12 controles-label mt-3">
+						Altura columna
+					</div>
+					<div id="c_altocolumnaenizquierda" class="col-12 controles_control">
+					  {{form.altocolumnalogin}}
+					</div>
+				</div>
+				<div class="row">
+					<div  name="ele" id="l_colorcolumnaenizquierda" class="col-12 controles-label mt-3">
+						Color columna
+					</div>
+					<div id="c_colorcolumnaenizquierda" class="col-12 controles_control">
+					  {{form.colorcolumnalogin}}
+					</div>
+				</div>
+				<div class="row">
+					<div  name="ele" id="l_numerocolumnaenizquierda" class="col-12 controles-label mt-3">
+						Numero secciones
+					</div>
+					<div id="c_numerocolumnaenizquierda" class="col-12 controles_control">
+					  {{form.numerocolumnalogin}}
+					</div>
+				</div>
+
+				<div class="row">
+		              <input type="submit" class="btn btn-primary btn-block mt-4 mb-5" value="Confirmar">
+		              <input type="text" hidden="true" value="{{proyecto.id}}" name="proyecto_id">
+              	</div>
+            </form>
+		<!-- </div> -->
+	</div>
+{% endblock %}

@@ -1,0 +1,1326 @@
+  
+  {% load static %}
+  <script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'core/js/popper.min.js' %}"></script>
+  <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'core/js/js_propios.js' %}"></script>
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script>
+    $(document).ready(function(){
+        elementos = $("[id^='imagen_principal']");
+        for (let i = 0; i < elementos.length; i++) {
+            col = elementos.slice(i).parent();
+            row = elementos.slice(i).parent().parent();
+            elementos.slice(i).css('width',col.width().toString())
+            elementos.slice(i).css('height',row.height().toString())
+        };
+    });
+</script>
+
+<script>
+    // $("[title~='hello']")
+    // $(document).ready(function(){
+    // var img=$('#imagen_principal');
+    // var div = $('#imagen_principal').parent().parent();
+    // alert(img.attr("src"));
+    // alert(div.css('height'));
+    // img.css("width", div.width().toString());
+    // img.css("height", div.height().toString());
+    // alert('lista');
+// });
+
+</script>
+<script>
+  (function(){
+  var enlace = $('#link-busqueda');
+  enlace.on('click',function(){
+    var texto = $('#textob');
+    // alert(texto.val())
+    enlace.attr('href','http://127.0.0.1:8000/proyectos/lista?duplica=0&criterio=' + texto.val());
+    // enlace.attr('href',"{% url 'proyectos:lista' %}" + '?criterio=' + texto);
+    // enlace.attr('href','http://www.microsoft.com');
+  });
+}());
+</script>
+    <script>
+        CKEDITOR.replace('id_texto');
+        function insertContent(html) {
+            for (var i in CKEDITOR.instances) {
+                CKEDITOR.instances[i].insertHtml(html);
+                // CKEDITOR.instances[i].setData(html);
+                var t = $('#id_texto');
+                // t.val('<p> Proyecto ese pues</p>');
+                // alert(t.val());
+            }
+            return true;
+        }
+
+        // $("#insert").click(function () {
+        //     insertContent($("#data").val())
+        // });
+
+    $("[id^='inserta_']").click(function() {
+      var status= $('#id_lineacontigua').prop('checked');
+      if ($(this).val() == 'fin')
+      {
+        insertContent("]");
+      } else if ($(this).val() == 'Proyecto')
+      {
+        var texto = '<p><span style="font-size:20px"><u><strong>Proyecto [npr ]</strong></u></span></p>'
+        if( status == true){
+          texto += '<p>La descripcion del proyecto es: [dpr ]. El titulo del proyecto es: [tit ]. El proyecto tiene seguridad [pcs]. El proyecto maneja roles [pcr]. El proyecto tiene el codigo para la opcion de busqueda [pcb]</p><p></p>';
+        } else{
+          texto += '<p>La descripcion del proyecto es: [dpr ]</p>';
+          texto += '<p>El titulo del proyecto es: [tit ]</p>';
+          texto += '<p>El proyecto tiene seguridad: [pcs]</p>';
+          texto += '<p>El proyecto maneja roles: [pcr]</p>';
+          texto += '<p>El proyecto tiene la opcion de busqueda: [pcb]</p>';
+          texto += '<p></p>';
+        };
+        insertContent(texto);
+      } else if ($(this).val() == 'Aplicacion')
+      {
+        var texto = '<p><span style="font-size:18px"><u><strong>Aplicacion [nap ]</strong></u></span></p>'
+        if (status == true){
+          texto += '<p>La descripcion de la aplicacion es: [dap ]. El texto de la opcion del menu para la aplicacion, es: [txma ]</p><p></p>';
+        } else{
+          texto += '<p>La descripcion de la aplicacion es: [dap ]</p>';
+          texto += '<p>El texto de la opcion del menu es: [txma ]</p>';
+          texto += '<p></p>';
+        };
+        insertContent(texto);
+      } else if ($(this).val() == 'Modelo')
+      {
+        var texto = '<p><span style="font-size:16px"><u><strong>Modelo [nmo ]</strong></u></span></p>'
+        if (status == true){
+          texto += '<p>La descripcion del modelo es: [dmo ]. Si el modelo es dependiente, el modelo padre es: [pmo ]. El modelo se identifica con la propiedad: [smo ]. La identificacion del borrado del modelo es la propiedad: [bmo ]. El modelo esta bajo la aplicacion: [amo ]. El texto de la opcion del menu para el modelo, es: [tom ]. El modelo padre del modelo es: [pmo].</p><p></p>';
+        }else{
+          texto += '<p>La descripcion del modelo es: [dmo ]</p>';
+          texto += '<p>El modelo padre es: [pmo ]</p>';
+          texto += '<p>La identificacion del modelo es la propiedad: [smo ]</p>';
+          texto += '<p>La identificacion del borrado del modelo es la propiedad: [bmo ]</p>';
+          texto += '<p>El texto de la opcion del menu es: [tom ]</p>';
+          texto += '<p></p>';
+        }
+        insertContent(texto);
+      } else if ($(this).val() == 'Propiedad')
+      {
+        var texto = '<p><span style="font-size:14px"><u><strong>Propiedad [npro ]</strong></u></span></p>'
+        if (status == true){
+          texto += '<p>La descripcion de la propiedad es: [dpro ]. El tipo de la propiedad es: [tpro ]. Si la propiedad es de tipo foranea. el modelo para esta propiedad es: [prf ]. Si la propiedad es de tipo string, su longitud es: [lst ]. Para una propiedad de tipo RadioButton, el texto de la lista para los botones, es: [txb ]. El valor inicial de la propiedad es: [vdf]. El texto para el placeholder es: [tph]. La etiqueta para la propiedad es: [epro]. La propiedad aparece en la lista [enl]. Numero de secciones para la columna de la lista (1-12) [ncl ]. La propiedad aparece en los mobiles [emb]. La propiedad participa en la busqueda de las listas [pbl]. La propiedad se totaliza [tlz]. </p><p></p>';
+        }else{
+          texto += '<p>La descripcion de la propiedad es: [dpro ]</p>';
+          texto += '<p>El tipo de la propiedad es: [tpro ]</p>';
+          texto += '<p>El modelo para la propiedad foranea es: [prf ]</p>';
+          texto += '<p>La longitud de la propiedad tipo string es: [lst ]</p>';
+          texto += '<p>El texto de los RadioButtons de una propiedad RadioButton es: [txb ]</p>';
+          texto += '<p>El valor inicial de la propiedad es: [vdf]</p>';
+          texto += '<p>El texto del placeholder es: [tph]</p>';
+          texto += '<p>La etiqueta de la propiedad es: [epro]</p>';
+          texto += '<p>La propiedad aparece en la lista [enl]</p>';
+          texto += '<p>Numero de secciones para la columna de la lista (1-12) [ncl ]</p>';
+          texto += '<p>La propiedad aparece en los mobiles [emb]</p>';
+          texto += '<p>La propiedad participa en la busqueda de la lista [pbl]</p>';
+          texto += '<p>La propiedad se totaliza [tlz]</p>';
+          texto += '<p></p>';
+        }
+        insertContent(texto);
+      } else if ($(this).val() == 'Regla')
+      {
+        var texto = '<p><span style="font-size:12px"><u><strong>Regla</strong></u></span></p>'
+        texto += '<p>El mensaje de error de la regla es: [msj ]</p>';
+        texto += '<p>El codigo de la regla es: [crg ]</p><p></p>';
+        insertContent(texto);
+      }
+      else{
+        // alert('hola');
+        insertContent('[ ' + $(this).val());
+      };
+            // alert("Has pulsado el elemento: " + $(this).attr('id'));
+    });
+    </script>
+ 
+ <script>
+$( document ).ready(function() {
+      // Handler for .ready() called.
+    // var element = $('.fiarriba').length; //obtienes el total de elementos dentro del tag ul con clase caja
+    var i =0;
+    $( ".fiarriba" ).each(function( index ) {
+        if ((i >= 0  && i<= 4) || (i>=6 && i<=8) || (i>=10 && i<=11) || i==12 )
+        {
+            $(this).hide();
+        };
+        // if (i == 12)
+        // {
+        //     $(this).attr('src','/static/core/img/abajopequeSF.png');
+        // };
+        i++;
+
+    });
+
+    i = 0;
+    $( ".fiabajo" ).each(function( index ) {
+        if ((i >= 1  && i<= 4) || (i>=6 && i<=8) || (i>=9 && i<=11))
+        {
+            $(this).hide();
+        };
+        i++;
+    });
+
+    i = 0;
+    $( ".fiiarriba" ).each(function( index ) {
+        if (i >= 0  && i<= 11)
+        {
+            $(this).hide();
+        };
+        i++;
+    });
+
+    i =0;
+    $( ".fiizquierda" ).each(function( index ) {
+        // if (i == 5 || i == 9)
+        // {
+        //     $(this).attr('src','/static/core/img/derechapequeSF.png');
+        // };
+        if (i==0 || i ==12 || i ==5 || i== 9)
+        {
+            $(this).hide();
+        }
+        i++;
+    });
+
+    i = 0;
+    $( ".fimizquierda" ).each(function( index ) {
+        // if (i == 5 || i == 9)
+        // {
+        //     $(this).attr('src','/static/core/img/derechapequeSF.png');
+        // };
+        if (i==0 || i ==3 )
+        {
+            $(this).hide();
+        }
+        var obj = $("[name=hijos_abajo]");
+        if (obj.attr("name") != undefined)
+        {
+            if (i==6)
+            {
+                $(this).hide();
+            };
+
+        };
+
+        if (obj.attr("name") == undefined)
+        {
+            if (i==7)
+            {
+                $(this).hide();
+            };
+
+        };
+
+        i++;
+    });
+
+    i = 0;
+    $( ".fimderecha" ).each(function( index ) {
+        // if (i == 5 || i == 9)
+        // {
+        //     $(this).attr('src','/static/core/img/derechapequeSF.png');
+        // };
+        // if (i==2 )
+        // {
+        //     $(this).hide();
+        // }
+        var obj = $("[name=hijos_abajo]");
+        if (obj.attr("name") != undefined)
+        {
+            // if ( i == 8)
+            // {
+            //     $(this).hide();
+            // };
+
+        };
+
+        if (obj.attr("name") == undefined)
+        {
+            // if (i==9)
+            // {
+            //     $(this).hide();
+            // };
+
+        };
+
+        i++;
+    });
+
+
+    i=0;
+    $( ".fiderecha" ).each(function( index ) {
+        // if (i == 4 || i ==11)
+        // {
+        //     $(this).attr('src','/static/core/img/izquierdapequeSF.png');
+        // };
+        if ( i ==12 )
+        {
+            $(this).hide();
+        }
+        i++;
+    });
+
+});
+
+
+// $( document ).ready(function() {
+//     $( "#divpfsc" ).each(function() {
+//     $(this).dblclick(function(){
+//         alert($(this).attr('class'));
+//         alert("Has hecho doble click en el párrafos con id=parrafo");
+//     });
+
+//     });
+// });
+
+$(document).ready(function(){
+    $('div').dblclick(function(){
+
+        const columnas = [['pfpc','colorcolumnaenizquierda'],
+                          ['pfsc','colorcolumnalogo'],
+                          ['pftc','colorcolumnatitulo'],
+                          ['pfcc','colorcolumnalogin'],
+                          ['pfqc','colorcolumnaenderecha'],
+                          ['sfpc','colorcolumnabumeizquierda'],
+                          ['sfsc','colorcolumnabusqueda'],
+                          ['sftc','colorcolumnamenu'],
+                          ['sfcc','colorcolumnabumederecha'],
+                          ['tfpc','colorcolumnamedioizquierda'],
+                          ['tfsc','colorcolumnamediocentro'],
+                          ['tftc','colorcolumnamedioderecha'],
+                          ['cfpc','colorcolumnapie']
+                          ];
+        var i = 0;
+        for (i; i <= 12; i++) {
+            if ($(this).attr('name') == columnas[i][0]){
+                id = $(this).attr('id');
+                window.location.replace('http://127.0.0.1:8000/crear/paleta/?proyecto_id=' + id + '&div=' + columnas[i][1] + '&configuracion_proyecto=proyecto&red=&green=&blue=');
+            };        
+        }; 
+
+
+        // if ($(this).attr('name') == 'pfpc'){
+        //     id = $(this).attr('id');
+        //     window.location.replace('http://127.0.0.1:8000/crear/paleta/?proyecto_id=' + id + '&div=colorcolumnaenizquierda&configuracion_proyecto=proyecto&red=&green=&blue=');
+        // };
+        // if ($(this).attr('name') == 'pfsc'){
+        //     id = $(this).attr('id');
+        //     window.location.replace('http://127.0.0.1:8000/crear/paleta/?proyecto_id=' + id + '&div=colorcolumnaenizquierda&configuracion_proyecto=proyecto&red=&green=&blue=');
+        // };
+
+    });
+});
+
+$(".fabajo").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    // alert('hola');
+    // alert($(this));
+    name = $(this).parent().parent().attr('name');
+    id = $(this).parent().parent().attr('id');
+    // alert(name);
+    $(this).attr('href','http://127.0.0.1:8000/crear/conf_base_nueva/?proyecto_id=' + id + '&name=' + name + '&crece=abajo');
+    //(... rest of your JS code)
+});
+
+$(".faarriba").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    // alert('hola');
+    // alert($(this));
+    name = $(this).parent().parent().attr('name');
+    id = $(this).parent().parent().attr('id');
+    // alert(name);
+    $(this).attr('href','http://127.0.0.1:8000/crear/conf_base_nueva/?proyecto_id=' + id + '&name=' + name + '&crece=arriba');
+    //(... rest of your JS code)
+});
+
+$(".farriba").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    // alert('hola');
+    // alert($(this));
+    name = $(this).parent().parent().attr('name');
+    id = $(this).parent().parent().attr('id');
+    // alert(name);
+    $(this).attr('href','http://127.0.0.1:8000/crear/conf_base_nueva/?proyecto_id=' + id + '&name=' + name + '&crece=arriba');
+    //(... rest of your JS code)
+});
+$(".fizquierda").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    // alert('hola');
+    // alert($(this));
+    name = $(this).parent().parent().parent().attr('name');
+    id = $(this).parent().parent().parent().attr('id');
+    // alert(name);
+    $(this).attr('href','http://127.0.0.1:8000/crear/conf_base_nueva/?proyecto_id=' + id + '&name=' + name + '&crece=izquierda');
+    //(... rest of your JS code)
+});
+
+$(".fderecha").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    // alert('hola');
+    // alert($(this));
+    name = $(this).parent().parent().parent().attr('name');
+    id = $(this).parent().parent().parent().attr('id');
+    // alert(name);
+    $(this).attr('href','http://127.0.0.1:8000/crear/conf_base_nueva/?proyecto_id=' + id + '&name=' + name + '&crece=derecha');
+    //(... rest of your JS code)
+});
+
+$(".fmizquierda").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    // alert('hola');
+    // alert($(this));
+    name = $(this).parent().parent().parent().attr('name');
+    idmodelo = $(this).parent().parent().parent().attr('id');
+    idproyecto = $(this).parent().parent().parent().parent().attr('id');
+    // alert(name);
+    $(this).attr('href','http://127.0.0.1:8000/crear/conf_modelo/?proyecto_id=' + idproyecto + '&modelo_id=' + idmodelo + '&name=' + name + '&crece=izquierda');
+    //(... rest of your JS code)
+});
+$(".fmderecha").on('click', function(event){
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    // alert('hola');
+    // alert($(this));
+    name = $(this).parent().parent().parent().attr('name');
+    idmodelo = $(this).parent().parent().parent().attr('id');
+    idproyecto = $(this).parent().parent().parent().parent().attr('id');
+    // alert(name);
+    $(this).attr('href','http://127.0.0.1:8000/crear/conf_modelo/?proyecto_id=' + idproyecto + '&modelo_id=' + idmodelo + '&name=' + name + '&crece=derecha');
+    //(... rest of your JS code)
+});
+   
+ </script>
+<!--   <script>
+  $( function() {
+    // La lista de los elementos sobre el canvas
+    var diagram = [];
+    // Recupera el canvas
+    var canvas = $( "#droppable" );
+    // Recupera el basurero
+    var basurero = $( "#basurero" );
+    // Recupera el no padre
+    var nop = $( "#nop" );
+    // Recupera el enviar
+    var enviar = $( "#enviar" );
+    // Recupera el proyecto
+    var proyecto = $( "#proyecto" );
+    // Recupera la aplicacion
+    var aplicacion = $( "#aplicacion" );
+    // Recupera la propiedad
+    var modelo = $( "#modelo" );
+    // Recupera la propiedad
+    var propiedad = $( "#propiedad" );
+    // Recupera las propiedades
+    var string = $( "#string" );
+    var boolean = $( "#boolean" );
+    var decimal = $( "#decimal" );
+    var richtextbox = $( "#richtextbox" );
+    var entero = $( "#entero" );
+    var fecha = $( "#fecha" );
+    var hora = $( "#hora" );
+    var horafecha = $( "#horafecha" );
+    var imagen = $( "#imagen" );
+    var radiobutton = $( "#radiobutton" );
+    var textfield = $( "#textfield" );
+    // Es el elemento que tiene los objetos a dropear
+    var fuentes = $(".fuentes");
+    var exterior = false;
+    var termina_efecto_draggable = false;
+    crearJSON();
+    // Establece que los tags con id=draggable seran dragables
+    // Y traslada no al elemento sino a su clon
+    $( "#draggable_modelo" ).draggable({
+      helper:"clone"
+    });
+    $( "#draggable_proyecto" ).draggable({
+      helper:"clone"
+    });
+    $( "#draggable_aplicacion" ).draggable({
+      helper:"clone"
+    });
+    $( "#draggable_modelo" ).draggable({
+      helper:"clone"
+    });
+
+    try {
+          var parametrosUrl = new URLSearchParams(window.location.search);
+          var json = parametrosUrl.get('json');
+          var id = parametrosUrl.get('id');
+          // alert('lee desde');
+          // alert(json);
+          // alert(JSON.parse(json).propiedades[0].back_color);
+
+          // reconstruye el diagram
+          var lista = JSON.parse(json).propiedades;
+          html = $('div[id="draggable_modelo');
+          for (var i in lista){
+            var elemento ={};
+            elemento._id = lista[i].id;
+            elemento.type = lista[i].type;
+            elemento.id_base = id;
+            elemento.position = html.position();
+            elemento.position.left = lista[i].left;
+            elemento.position.top = lista[i].top;
+            elemento.nombre_objeto = lista[i].nombre_objeto;
+            elemento.nombre = lista[i].nombre;
+            elemento.id_padre = lista[i].id_padre;
+            elemento.borrar = 0;
+            elemento.back_color = lista[i].back_color;
+            elemento.color_letra = lista[i].color_letra;
+            elemento.id_base = parseInt(id);
+            elemento.lista = {};
+            elemento.lista.tipo = lista[i].tipo;;
+            elemento.lista.largo_string = lista[i].largo_string;
+            elemento.lista.texto_botones = lista[i].texto_botones;
+            diagram.push(elemento);
+            alert(diagram[0].position);
+            // alert(lista[i]);
+          };
+          alert(diagram.length);
+          renderDiagram(diagram);
+    }
+    catch(err) {
+      alert('error ' + err);
+    };
+   
+
+    
+    // Define al canvas como elemento apto para recibir draggables
+    canvas.droppable({
+      // Lo que sucede cuando el draggable se suelta en el canvas
+      drop: function( event, ui ) {
+          // Crear un node que representa a cada elemento que se deposita en el canvas
+          // Este node tiene propiedades que identifica a cada elemento
+          // El _id es un numero entero y unico por elemento que representa la fecha y hora actual
+          // La posicion es la posicion del clone del elemento cuando cae sobre el canvas
+          var node = {_id:(new Date()).getTime(),
+                      position: ui.helper.position(),
+                      id_padre: "",
+                      borrar:0,
+                      back_color: "yellow",
+                      nombre:"objeto",
+                      nombre_objeto:"modelo",
+                      color_letra:"black",
+                      id_base:0,
+                      lista: {tipo:'', largo_string:30, texto_botones:''}};
+          // Acomodo el elemento para compemsar el ancho de fuentes
+          node.position.left -= fuentes.width();
+          // solo se transportan elementos que tengan en el atributo class 'modelo'
+          if (ui.helper.hasClass('modelo')){
+              // Se define un tipo para el node que sea 'Modelo'
+              node.type ='Modelo';
+          }else{
+            // Si no es un elemento 'modelo' se evita crear nada
+            return;
+          };
+          // Se inserta en la lista el node valido
+          diagram.push(node);
+          // Se redibuja toda la coleccion
+          renderDiagram(diagram);
+       }
+    });
+
+    // Funcion que redibuja la coleccion
+    function renderDiagram(diagram){
+      // Se vacia el canvas
+      // alert('render');
+      canvas.empty();
+      // Se recorre la lista de elementos node
+      for(var d in diagram){
+        var node = diagram[d];
+        html = '';
+        // Si el elemento node tiene el tipo 'Modelo'
+        alert('tipo ' + node.type);
+        if (node.type == "Modelo"){
+          alert('reconstruye');
+          str_id = node._id.toString().substr(9,13);
+          str_padre = node.id_padre.toString().substr(9,13);
+          // se lee el nombre del modelo
+          // Se formas el Html que queremos represente a ese elemento draggable
+          html = '<div id =' + '"' + node._id + '"' + ' title =' + '"' + node.id_padre + '"' + ' class="draggeado" style="display: flex; justify-content: center;align-items: center; height: 50px; width: 50px; border: 1pt solid black;">'
+          // html += '<a href="" style="height: 20px; width: 50px; font-size: 8pt; text-align: center;">' + str_id + ' ' + str_padre + '</a>'
+          html += '<span class="' + node.nombre_objeto + '"' + ' style="height: 20px; width: 50px; font-size: 8pt; text-align: center; color:' + node.color_letra + '">' + node.nombre + ' ' + node.lista.tipo + '</span>'
+          html += '</div>'
+          // alert(node.lista.tipo);
+        }
+        // Se definen propiedades CSS para el elemento HTML
+        // alert(node.nombre_objeto + ' ' + node.back_color);
+        var dom = $(html).css({
+          "position": "absolute",
+          "top": node.position.top,
+          "left": node.position.left,
+          "z-index": 2,
+          "background-color": node.back_color,
+          "color": node.color_letra
+          }).draggable({
+            stop: function(event,ui){
+              // Se recupera el id del elemento que se mueve
+              // alert('3' + exterior + ' ' + node.nombre_objeto + ' ' + node.back_color);
+              var id = ui.helper.attr("id");
+              // Encuentra el indice del diagram
+              var index_diagram = 0;
+              for (var i in diagram){
+                  if (diagram[i]._id == id){
+                    index_diagram = i;
+                    break;
+                  }
+              };              
+              // Cambio del nombre del objeto
+              var input_modelo=$('#nombre_modelo');
+              var nombre_modelo = input_modelo.val();
+              if (nombre_modelo != ''){
+                nombre_modelo += ' ' + diagram[index_diagram].lista.tipo;
+                $('div.draggeado[id=' + ui.helper.attr("id") + '] > span').html(nombre_modelo);
+                input_modelo.val('');
+              };
+              // Cambio del largo del string
+              span = $('div[id="' + id + '"] > span');
+              if (span.attr('class') == "propiedad"){
+                var input_prop=$('#longitud_string').val();
+                // alert(input_largo == '' ? '30' : input_largo);
+                diagram[index_diagram].lista.largo_string = parseInt(input_prop == '' ? '30' : input_prop);
+                input_prop=$('#texto_botones').val();
+                diagram[index_diagram].lista.texto_botones = input_prop;
+              };
+              // Texto botones
+
+              if (exterior == false){
+                for (var i in diagram){
+                  // Si el id del elemento que se mueve coincide con el id del draggable
+                  // se estabelece la nueva posicion del elemento draggable original
+                  if (diagram[i]._id == id){
+                    diagram[i].position.left = ui.position.left;
+                    diagram[i].position.top = ui.position.top;
+                    if (nombre_modelo != ''){
+                      diagram[i].nombre = nombre_modelo;
+                    };
+                    break;
+                  }
+                };
+              }else{
+                exterior = false;
+              };
+              une();
+            }
+          }).attr("id",node._id);
+          dom.droppable({
+            drop: function(event,ui){
+              //  Casos en los que no permite draggear sober el droppable
+              // 1. No se puede draggrear un padre hacia un hijo
+              // 2. No se puede draggear un hijo que ya tenga padre hacia otro padre
+              for (var i in diagram){
+                // Si el elemento de diagram es igual al que se mueve y quiere ser hijo
+                if (diagram[i]._id == ui.helper.attr("id")){
+                  // En este caso this es el droppable
+                  // El atributo id_padre del diagrama se hace igual al elemento droppable
+                  // El atributo title del html que se mueve se hace igual al elemento droppable
+                  if ($(this).attr("title") != ui.helper.attr("id")){
+                    // solo pueden unirde aplicacion con proyecto, modelo con aplicacion y propiedad con modelo
+                    div_droppeado = $('div[id="' + $(this).attr("id") + '"]');
+                    div_droppeable = $('div[id="' + ui.helper.attr("id") + '"]');
+                    span_droppeado = $('div[id="' + $(this).attr("id") + '"] > span');
+                    span_droppeable = $('div[id="' + ui.helper.attr("id") + '"] > span');
+                    // alert(span_droppeable.attr('class'));
+                    // alert(span_droppeado.attr('class'));
+                    if (span_droppeable.attr("class") == 'proyecto'){
+                      return;
+                    };
+                    if (span_droppeable.attr("class") == 'aplicacion' && (span_droppeado.attr("class") != "proyecto" )){
+                      return;
+                    };
+                    if (span_droppeable.attr("class") == 'modelo' && (span_droppeado.attr("class") != "aplicacion" && span_droppeado.attr("class") != 'modelo')){
+                      return;
+                    };
+                    if (span_droppeable.attr("class") == 'propiedad' && span_droppeado.attr("class") != "modelo"){
+                      return;
+                    };
+                    diagram[i].id_padre = $(this).attr("id");
+                    var color = 'red';
+                    var color_letra = "black";
+                    var nombre_padre = "modelo";
+                    if (diagram[i].nombre_objeto == "aplicacion"){
+                      nombre_padre = "proyecto";
+                      color = "gray";
+                    };
+                    if (diagram[i].nombre_objeto == 'modelo' && diagram[i].id_padre == ''){
+                      nombre_padre = "modelo";
+                      color = "yellow";
+                    };
+                    if (diagram[i].nombre_objeto == "propiedad" ){
+                      nombre_padre = "modelo";
+                      color = "blue";
+                      color_letra = "white"
+                    };
+                    if (diagram[i].nombre_objeto == "modelo" && span_droppeado.attr('class') == "aplicacion"){
+                      nombre_padre = "aplicacion";
+                      color = "yellow";
+                    };
+                    diagram[i].back_color = color;
+                    diagram[i].color_letra = color_letra;
+                    diagram[i].nombre_padre = nombre_padre;
+                    ui.helper.css("background-color",color);
+                    ui.helper.css("color",color_letra);
+                    ui.helper.attr("title",$(this).attr("id"));
+                    domA = $('div.draggeado[id=' + ui.helper.attr("id") + '] > span');
+                    str_id = diagram[i]._id.toString().substr(9,13);
+                    str_padre = diagram[i].id_padre.toString().substr(9,13);
+                    // domA.html(str_id + ' ' + str_padre);
+                  }
+                };
+                // alert(diagram[i].id_padre);
+              }
+            }
+          });
+        // Se inserta en el canvas el HTML del elemento dom
+        // Mantiene el color
+        // alert('2' + exterior + ' ' + node.nombre_objeto + ' ' + node.back_color);
+        canvas.append(dom);
+        div = "<div id='" + node._id + "1" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "2" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "3" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "4" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "5" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        une();
+      };
+    };
+
+    function leer(){
+      // alert('leo');
+      var nuevos = $("div.draggeado");
+      // alert(nuevos);
+    };
+
+
+function createJSON() {
+  var jsonTexto = '{"color":"blanco","km":100000,"esNuevo":false,"rueda":{"marca":"desconocida","estado":"malo"}}';
+  var coche = JSON.parse(jsonTexto);
+  alert(coche.color);
+};
+
+function crearJSON() {
+    var properties = new Object();
+    properties.version = "10";
+    properties.finish = "0";
+    properties.number = 3;
+     
+    var arrayProperties = new Array();
+    arrayProperties.push(properties);
+     
+     
+     
+    var miObjeto = new Object();
+    miObjeto.nombre = "Pedro";
+    miObjeto.edad = 12;
+    miObjeto.mascota = "Gato";
+    miObjeto.properties = arrayProperties;
+     
+    var myString = JSON.stringify(miObjeto);
+    // alert(myString);
+    var js = JSON.parse(myString);
+    js.properties.forEach(elemento=>{
+      // alert(elemento.version);
+    });
+    // alert(myString);
+    // alert(JSON.parse(myString)["nombre"]);
+    // alert(JSON.parse(myString)["properties"][0].version);
+
+};
+
+(function(){
+  var envio = $('#enviar');
+      envio.on('click',function(){
+
+        // construye desde diagram
+        var arreglo = new Array();
+        var nuevo = '0';
+        for (var i in diagram){
+          var obj = new Object;
+          alert(diagram[i]._id);
+          obj.id = diagram[i]._id;
+          obj.type = diagram[i].type;
+          obj.id_base = diagram[i].id_base;
+          nuevo = obj.id_base;
+          obj.left = diagram[i].position.left;
+          obj.top = diagram[i].position.top;
+          obj.id_padre = diagram[i].id_padre;
+          obj.back_color = diagram[i].back_color;
+          obj.nombre = diagram[i].nombre;
+          obj.nombre_objeto = diagram[i].nombre_objeto;
+          obj.color_letra = diagram[i].color_letra;
+          obj.tipo = diagram[i].lista.tipo;
+          obj.largo_string = diagram[i].lista.largo_string;
+          obj.texto_botones = diagram[i].lista.texto_botones;
+          arreglo.push(obj);
+        };
+        json_envio = new Object();
+        json_envio.propiedades = arreglo;
+          alert('envia hasta ' + diagram.length.toString());
+
+// alert(JSON.stringify(json_envio));
+// alert(JSON.parse(JSON.stringify(json_envio.propiedades[0].id)));
+        if (diagram.length > 0){
+          envio.attr('href','http://127.0.0.1:8000/proyectos/lista_json/?criterio=&json=' + JSON.stringify(json_envio) + '&nuevo=' + nuevo);
+        }else{
+          envio.attr('href','http://127.0.0.1:8000/proyectos/lista_json/?criterio=&json=' + JSON.stringify(json_envio) + '&nuevo=2');
+
+        }
+      })
+}());
+
+    proyecto.droppable({
+      drop:function(event,ui){
+        // alert('proyecto');
+        exterior = true;
+        for (var i in diagram){
+          if (diagram[i].nombre_objeto == "proyecto"){
+            renderDiagram(diagram);
+            return;
+          }
+        };
+        if (ui.helper.attr('title') != ""){
+          renderDiagram(diagram);
+          return;
+        };
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        if (hijos.length > 0){
+          renderDiagram(diagram);
+          return;
+        };
+
+        ui.helper.attr("title",'');
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].id_padre = "";
+            diagram[i].back_color = "beige";
+            diagram[i].nombre_objeto = "proyecto";
+            diagram[i].color_letra = "blue";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    aplicacion.droppable({
+      drop:function(event,ui){
+        exterior = true;
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        if (hijos.length > 0){
+          renderDiagram(diagram);
+          return;
+        };
+        if (ui.helper.attr('title') != ""){
+          renderDiagram(diagram);
+          return;
+        };
+
+        ui.helper.attr("title",'');
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].id_padre = "";
+            diagram[i].back_color = "gray";
+            diagram[i].nombre_objeto = "aplicacion";
+            diagram[i].color_letra = "white";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    modelo.droppable({
+      drop:function(event,ui){
+        exterior = true;
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        if (hijos.length > 0){
+          renderDiagram(diagram);
+          return;
+        };
+        if (ui.helper.attr("title") != ""){
+          renderDiagram(diagram);
+          return;
+        };
+
+        ui.helper.attr("title","");
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].id_padre = "";
+            diagram[i].back_color = "yellow";
+            diagram[i].nombre_objeto = "modelo";
+            diagram[i].color_letra = "black";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    propiedad.droppable({
+      drop:function(event,ui){
+        exterior = true;
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        if (hijos.length > 0){
+          renderDiagram(diagram);
+          return;
+        };
+        if (ui.helper.attr("title") != ""){
+          renderDiagram(diagram);
+          return;
+        };
+
+        ui.helper.attr("title","");
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].id_padre = "";
+            diagram[i].back_color = "blue";
+            diagram[i].nombre_objeto = "propiedad";
+            diagram[i].color_letra = "white";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    string.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'string');
+      }
+    });
+
+    boolean.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'boolean');
+      }
+    });
+
+    decimal.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'decimal');
+      }
+    });
+
+    hora.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'hora');
+      }
+    });
+
+    fecha.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'fecha');
+      }
+    });
+
+    horafecha.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'horafecha');
+      }
+    });
+
+    richtextbox.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'richtextbox');
+      }
+    });
+
+    entero.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'entero');
+      }
+    });
+
+    imagen.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'imagen');
+      }
+    });
+
+    radiobutton.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'radiobutton');
+      }
+    });
+
+    textfield.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'textfield');
+      }
+    });
+
+
+    function asignaPropiedad(ui,tipo){
+      // alert('entro');
+        exterior = true;
+        span = $('div[id="' + ui.helper.attr("id") + '"] > span');
+        if (span.attr('class') != "propiedad"){
+          renderDiagram(diagram);
+          return;
+        };
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].lista.tipo = tipo;
+            break;
+          };
+        };
+        renderDiagram(diagram);
+    };
+
+    nop.droppable({
+      drop:function(event,ui){
+        exterior=true;
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            if (diagram[i].nombre_objeto == "proyecto"){
+              break;
+            };
+            diagram[i].id_padre = "";
+            ui.helper.attr("title",'');
+            if (diagram[i].nombre_objeto == "modelo"){
+              diagram[i].back_color = "yellow";
+            };
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    basurero.droppable({
+      drop: function(event,ui){
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            Borrar(diagram,diagram[i],1);
+            break;
+          };
+        };
+        temp = [];
+        for (var i in diagram){
+          if (diagram[i].borrar == 0){
+              temp.push(diagram[i]);
+          };
+        };
+        // Actualizar el diagram
+        diagram = temp;
+        renderDiagram(diagram);
+      }
+    });
+
+  } );
+
+  function redibujaDiagram(diagram){
+    for (var i in diagram){
+      if (diagram.id_padre== ''){
+        // es modelo raiz ver cuantos hijos tiene
+        hijos = diagram.length;
+        if (hijos > 0){
+          // tiene un solo hijo
+          if (hijos==1){
+            for (var j in diagram){
+              if (diagram[j].id_padre == diagram[i]._id){
+                diagram[j].position.top = diagram[i].position.top + 100;
+              }
+            }
+          };
+        }
+      }
+    };
+    renderDiagram(diagram);
+  };
+
+  function Borrar(diagram, elemento,pasada){
+      for (var i in diagram){
+        if (diagram[i]._id == elemento._id){
+          elemento.borrar = 1
+        };
+        if (diagram[i].id_padre == elemento._id){
+          Borrar(diagram,diagram[i],pasada+1);
+        };
+      };
+      return diagram;
+  };
+
+  // function une(ui){
+  //   // buscar hijos
+  //   hijos = $('div[title=' + "'" + ui.helper.attr("id") + "'" + ']');
+  //   if (ui.helper.attr("title") != ''){
+  //     // es un hijo
+  //     // cambiar top y left de sus div para unirlo con su padre
+  //     // antes volver ui en html
+  //     div = $('div[id=' + "'" + ui.helper.attr("id") + "'" + ']');
+  //     unir(div);
+  //   };
+  //   // procesar hijos
+  //   for (let i = 0; i < hijos.length; i++) {
+  //     unir(hijos.slice(i));
+  //   }
+  // };
+
+  function une(){
+    elementos = $('div.draggeado');
+    // alert(elementos.length);
+    for (let i = 0; i < elementos.length; i++) {
+              // alert(elementos.slice(i).attr("title"));
+      if (elementos.slice(i).attr("title") != ""){
+
+        unir(elementos.slice(i));
+      }
+    }
+  };
+
+function unir(ui_hijo){
+  // alert(ui_hijo);
+    // encontrar al padre
+    ui_padre = $('div[id=' + "'" + ui_hijo.attr("title") + "'" + ']');
+    // encontrar las div de union del hijo
+    // divs = $('div[id^=' + "'" + ui_hijo.attr("id") + "'" + ']');
+    // Inivisibilizar las div
+    divs = $('div[id^=' + "'" + ui_hijo.attr("id") + "'" + ']');
+    for (let i = 0; i < divs.length; i++){
+      if (divs.slice(i).attr("id") != ui_hijo.attr("id")){
+        divs.slice(i).css('visibility','hidden');
+      };
+    };
+    // encontrar los top y left de ambos
+    Xp = parseInt(ui_padre.css("left"));
+    Yp = parseInt(ui_padre.css("top"));
+    Xh = parseInt(ui_hijo.css("left"));
+    Yh = parseInt(ui_hijo.css("top"));
+    w = parseInt(ui_hijo.css("width"));
+    h = parseInt(ui_hijo.css("height"));
+    desdeX = Xp + w/2;
+    desdeY = Yp + h;
+    hastaX = Xh + w/2;
+    hastaY = Yh;
+    // Ver donde se encuentra el hijo
+    // 1) Debajo del padre a la derecha
+    if ((Xp + w)< Xh && (Yp + h) < Yh ){
+      // alert('1');
+      delta = Math.abs(Yh - (Yp + h));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX;
+      by = hastaY - delta/2;
+      var valores = [by,bx,(hastaY-by),1,ay,ax,1,(bx-ax),desdeY,ax,(ay-desdeY),1];
+      procesaDiv(ui_hijo, valores,3);
+
+      // div1 = $('div[id=' + "'" + ui_hijo.attr("id") + "1'" + ']');
+      // div1.css("top",by.toString() + 'px');
+      // div1.css("left",bx.toString() + 'px');
+      // div1.css("height",(hastaY - by).toString() + 'px');
+      // div1.css("visibility",'visible');
+      // div2 = $('div[id=' + "'" + ui_hijo.attr("id") + "2'" + ']');
+      // div2.css("top",by.toString() + 'px');
+      // div2.css("left",ax.toString() + 'px');
+      // div2.css("width",(bx - ax).toString() + 'px');
+      // div2.css("height",'1px');
+      // div2.css("visibility",'visible');
+      // div3 = $('div[id=' + "'" + ui_hijo.attr("id") + "3'" + ']');
+      // div3.css("top",desdeY.toString() + 'px');
+      // div3.css("left",ax.toString() + 'px');
+      // div3.css("height",(ay-desdeY).toString() + 'px');
+      // div3.css("width",'1px');
+      // div3.css("visibility",'visible');
+    };
+    // 2) Debajo del padre a la izquierda
+    if(Xp > (Xh + w) && (Yp + h) < Yh){
+      // alert('2');
+      delta = Math.abs(Yh - (Yp + h));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX;
+      by = hastaY - delta/2;
+      var valores = [by,bx,(hastaY-by),1,by,bx,1,(ax-bx),desdeY,ax,(ay-desdeY),1];
+      procesaDiv(ui_hijo, valores,3);
+    };
+    // 3) Encima del padre a la derecha
+    if((Xp + w) < Xh && Yp > (Yh + h)){
+      // alert('3');
+      delta = Math.abs(Xh - (Xp + w));
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xp + w + delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by-cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 4) Encima del padre a la izquierda
+    if(Xp > (Xh + w) && Yp > (Yh + h)){
+      // alert('4');
+      delta = Math.abs(Xp - (Xh + w));
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xp - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by-cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 5) Debajo del padre a la derecha y en su ambito Y
+    if((Xp + w) < Xh && Yh > Yp && Yh < (Yp + h)){
+      // alert('5');
+      delta = Math.abs(Xh - (Xp + w));
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xh - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by-cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 6) Debajo del padre a la izquierda y en su ambito Y
+    if(Xp > (Xh + w) && Yh > Yp && Yh < (Yp + h)){
+      // alert('6');
+      delta = Math.abs(Xp - (Xh + w));
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xp - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by-cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 7) Arriba del padre a la derecha y en su ambito Y
+    if(Xh > (Xp + w) && Yp > Yh && Yp < (Yh + h)){
+      // alert('7');
+      delta = Math.abs(Xh - (Xp + w));
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xh - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by-cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 8) Arriba del padre a la izquierda y en su ambito Y
+    if(Xp > (Xh + w) && Yh + h > Yp && Yh + h < Yp + h){
+      // alert('8');
+      delta = Math.abs(Xp - (Xh + w));
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xp - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by-cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 9) Debajo del padre a la derecha y en su ambito X
+    if((Xh >= Xp && Xh < (Xp + w)) && (Yp + h) < Yh){
+      // alert('9');
+      delta = Math.abs(Yh-(Yp + h));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX
+      by = ay;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),by,bx,(hastaY - by),1];
+      procesaDiv(ui_hijo, valores,3);
+    };
+    // 10) Debajo del padre a la izquierda y en su ambito X
+    if(Xh + w < Xp + w && Xh + w > Xp && (Yp + h) < Yh){
+      // alert('10');
+      delta = Math.abs(Yh-(Yp + h));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX
+      by = ay;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),by,bx,(hastaY - by),1];
+      procesaDiv(ui_hijo, valores,3);
+    };
+    // 11) Arriba del padre a la derecha y en su ambito X
+    if(Yh + h < Yp && Xh > Xp && Xh < Xp + w){
+      // alert('11');
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xp - w/3;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by - cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY - dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 12) Arriba del padre a la izquierda y en su ambito X
+    if(Yh + h < Yp && Xh + w < Xp + w && Xh + w > Xp){
+      // alert('12');
+      ax = desdeX;
+      ay = desdeY + w/3;
+      bx = Xp + w + w/3;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by - cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY - dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+  };
+
+function procesaDiv(ui, valores,numero){
+  j = 0;
+  for (let i = 0; i < numero; i++) {
+      div = $('div[id=' + "'" + ui.attr("id") + (i+1).toString() + "'" + ']');
+      div.css("top",valores[j].toString() + 'px');
+      div.css("left",valores[j+1].toString() + 'px');
+      div.css("height",valores[j+2].toString() + 'px');
+      div.css("width",valores[j+3].toString() + 'px');
+      div.css("visibility",'visible');
+      j+=4;
+  }
+};
+
+  </script> -->
+      <!-- <script>
+      alert('init');
+    $(init);
+    function init() {
+      $( "#draggable" ).draggable({
+        helper:"clone";
+      });
+      $(".canvas").droppable({
+                    drop: function( event, ui ) {
+                      alert("dropped");
+                    }
+                  });
+    };
+  </script>  -->

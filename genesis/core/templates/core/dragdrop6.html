@@ -1,0 +1,63 @@
+<html>
+<head>
+    <script>
+        var canvas, ctx;
+        var linkText = "Authorcode";
+        var linkURL = "https://www.microsoft.com";
+        var linkX = 50;
+        var linkY = 25;
+        var linkHeight = 15;
+        var linkWidth;
+        var isLink = false;
+ 
+ 
+        function drawHyperLink() {
+            canvas = document.getElementById("myCanvas");
+            // check if supported
+            if (canvas.getContext) {
+                ctx = canvas.getContext("2d");
+                ctx.font = linkHeight + 'px sans-serif';
+                ctx.fillStyle = "#0000ff";
+                ctx.fillText(linkURL, linkX, linkY);
+                linkWidth = ctx.measureText(linkText).width;
+ 
+                canvas.addEventListener("mousemove", CanvasMouseMove, false);
+                canvas.addEventListener("click", Link_click, false);
+            }
+        }
+        function CanvasMouseMove(e) {
+            var x, y;
+            if (e.layerX || e.layerX == 0) { // for firefox
+                x = e.layerX;
+                y = e.layerY;
+            }
+            x -= canvas.offsetLeft;
+            y -= canvas.offsetTop;
+ 
+            if (x >= linkX && x <= (linkX + linkWidth) 
+                    && y <= linkY && y >= (linkY - linkHeight)) {
+                document.body.style.cursor = "pointer";
+                isLink = true;
+            }
+            else {
+                document.body.style.cursor = "";
+                isLink = false;
+            }
+        }
+ 
+        function Link_click(e) {
+            if (isLink) {
+                window.location = linkText;
+            }
+        }
+    </script>
+ 
+</head>
+<body onload="drawHyperLink()">
+    <center>
+        <canvas id="myCanvas" width="200" height="200" 
+        style="border-style: solid; border-width: 1px">
+                   Canvas not supported.</canvas>
+    </center>
+</body>
+</html>

@@ -1,0 +1,55 @@
+	
+	{% load static %}
+	<!-- Librerias js para sentencias jquery -->
+	<script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+
+<!-- #@[p_js_general_01] -->
+
+	<!-- Javas propios para busqueda -->
+	<script src="{% static 'core/js/js_propios.js' %}"></script>
+	<!-- Java para ckeditor -->
+	<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+	<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css"> 
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<script>
+	$(document).ready(function() {
+	    $('.datepicker').datepicker();
+	});
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+
+	<!-- #@[p_js_general_02] -->
+
+<script>
+	    $(document).ready(function(){
+// #@[p_js_general_03]
+        elementos = $("[id^='imagen_principal']");
+// #@[p_js_general_04]
+		for (let i = 0; i < elementos.length; i++) {
+// #@[p_js_general_05]
+			col = elementos.slice(i).parent();
+// #@[p_js_general_06]
+			if (col.prop("tagName") == 'A'){
+            	col = col.parent();
+            };
+// #@[p_js_general_07]			
+            row = col.parent();
+            elementos.slice(i).css('width',col.width().toString())
+            elementos.slice(i).css('height',row.height().toString())
+// #@[p_js_general_08]
+		};
+    });
+</script>
+<!-- <script>
+    $(document).ready(function(){
+        elementos = $("[id^='imagen_principal']");
+        for (let i = 0; i < elementos.length; i++) {
+            col = elementos.slice(i).parent();
+            row = elementos.slice(i).parent().parent();
+            elementos.slice(i).css('width',col.width().toString())
+            elementos.slice(i).css('height',row.height().toString())
+        };
+    });
+</script> -->

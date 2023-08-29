@@ -1,0 +1,119 @@
+{% extends 'core/base.html' %}
+
+{% block cuerpo %}
+
+  {% load static %}
+
+{% if error == '' %}
+	<style>
+		.grupo{font-size: 8pt;font-weight: 400; font-family: Roboto;}
+	</style>
+
+  <div class="container-fluid arbol-proyectos">
+    <div class="row mb-2 pt-2">
+      <div class="col-12 titulo-arbol d-flex" >
+      	{% if proyecto.avatar %}
+      		<img src="{{proyecto.avatar.url}}" alt="">
+      	{% endif %}
+        <!-- <h3 class="nombre-proyecto ml-2 align-self-end">{{proyecto.nombre}}</h3> -->
+        <h3 class="nombre-proyecto ml-2 align-self-end">{{proyecto.nombre}}<a class="nombre-proyecto ml-2 align-self-end" href="{% url 'proyectos:arbol' %}?proyecto_id={{ proyecto.id }}"><span style="color:green; font-size: 8pt;">(volver)</span></a></h3>
+		
+      </div>
+    </div>
+
+		<div class="row pl-2 pr-2" >
+			<div class="col-12 col-md-2 border rounded pl-4 pt-4">
+					<a href="{% url 'principal:crear_seccion' %}?proyecto_id={{proyecto.id}}" class="mr-1 grupo" data-toggle="tooltip" data-placement="top" title="Crear Seccion">Crear Seccion</a>
+			</div>
+			<div class="col-12 col-md-3 pl-5 pt-4 border rounded">
+				{% for objeto in lista %}
+					<div class="row lista mb-2">
+						<div class="col d-flex align-items-center"  style="padding-left: {{objeto.2}}px ">
+							{% if objeto.1 == 's' %}
+								<!-- Crear filas -->
+								<a class="ml-1" href="{% url 'principal:crear_fila' %}?proyecto_id={{objeto.0.proyecto.id}}&seccion_id={{objeto.0.id}}" data-toggle="tooltip" data-placement="top" title="Nueva Fila"><img src="{% static 'core/img/nuevaaplicacion32.ico' %}" alt=""></a>
+								<!-- Borrar seccion -->
+								<a class="ml-1" href="{% url 'principal:borrar_seccion' objeto.0.id  %}?proyecto_id={{objeto.0.proyecto.id}}&nombre={{objeto.0.nombre}}" data-toggle="tooltip" data-placement="top" title="Borrar Seccion"><img src="{% static 'core/img/borrar.png' %}" alt=""></a>
+								<!-- Editar seccion -->
+								<a href="{% url 'principal:editar_seccion' objeto.0.id %}?proyecto_id={{objeto.0.proyecto.id}}&seccion_id={{objeto.0.id}}" data-toggle="tooltip" data-placement="top" title="Editar Seccion"><span class="ml-1 grupo">{{objeto.0.nombre}}</span></a>
+							{% endif %}
+							{% if objeto.1 == 'f' %}
+								<!-- Crear columnas -->
+								<a class="ml-1" href="{% url 'principal:crear_columna' %}?proyecto_id={{objeto.0.seccion.proyecto.id}}&fila_id={{objeto.0.id}}" data-toggle="tooltip" data-placement="top" title="Nueva Columna"><img src="{% static 'core/img/nuevaaplicacion32.ico' %}" alt=""></a>
+								<!-- Borrar fila -->
+								<a class="ml-1" href="{% url 'principal:borrar_fila' objeto.0.id  %}?proyecto_id={{objeto.0.seccion.proyecto.id}}&nombre={{objeto.0.nombre}}" data-toggle="tooltip" data-placement="top" title="Borrar Fila"><img src="{% static 'core/img/borrar.png' %}" alt=""></a>
+								<!-- Editar fila -->
+								<a href="{% url 'principal:editar_fila' objeto.0.id %}?proyecto_id={{objeto.0.seccion.proyecto.id}}&seccion_id={{objeto.0.seccion.id}}&fila_id={{objeto.0.id}}" data-toggle="tooltip" data-placement="top" title="Editar Fila"><span class="grupo ml-1">{{objeto.0.nombre}}</span></a>
+							{% endif %}
+							{% if objeto.1 == 'c' %}
+								<!-- Borrar columna -->
+								<a class="ml-1" href="{% url 'principal:borrar_columna' objeto.0.id  %}?proyecto_id={{objeto.0.fila.seccion.proyecto.id}}&nombre={{objeto.0.nombre}}" data-toggle="tooltip" data-placement="top" title="Borrar Columna"><img src="{% static 'core/img/borrar.png' %}" alt=""></a>
+								<!-- Editar columna -->
+								<a href="{% url 'principal:editar_columna' objeto.0.id %}?proyecto_id={{objeto.0.fila.seccion.proyecto.id}}&fila_id={{objeto.0.fila.id}}" data-toggle="tooltip" data-placement="top" title="Editar Columna"><span class="grupo ml-1">{{objeto.0.nombre}}</span></a>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>	
+
+
+<!-- <style>
+	.fit-image{
+width: 100%;
+object-fit: cover;
+height: auto; /* only if you want fixed height */
+}
+</style> -->
+
+			<div class="col-md-7  border rounded pt-3 mb-4 pb-3">
+				{% for seccion in lista %}
+					{% if seccion.1 == 's' %}
+						<div class="container " style="width: 90%; height: {{seccion.0.altura}}; 
+						background: linear-gradient(to {{seccion.0.degradado}}, {{seccion.0.color1}}, {{seccion.0.color2}}); 
+						{% if seccion.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}
+						">{{seccion.0.texto}}
+							{% for fila in lista %}
+								{% if fila.1 == 'f' %}
+									{% if fila.0.seccion.id == seccion.0.id %}
+										<div class="row " style="height: {{fila.0.altura}};background: linear-gradient(to {{fila.0.degradado}}, {{fila.0.color1}}, {{fila.0.color2}});
+											{% if fila.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}">
+											{% for columna in lista %}
+											{% if columna.1 == 'c' %}
+											   		{% if columna.0.fila.id == fila.0.id %}
+											   			{% if columna.0.imagen %}
+											   				<div  class="imagen col-{{columna.0.secciones}}" 
+											   					 style="margin: {{columna.0.margeninterno}};
+																 	display: flex; justify-content: {{columna.0.justificacionhorizontaltexto}};
+																	align-items: {{columna.0.justificacionverticaltexto}};background: linear-gradient(to {{columna.0.degradado}}, {{columna.0.color1}}, {{columna.0.color2}});
+											   					 	{% if columna.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}">
+											   					 		<img id="imagen_principal_{{columna.3}}" class="img-fluid" src="{{columna.0.imagen.url}}" style="max-width: {{columna.7}}; max-height: {{columna.8}}"  alt="">
+											   				</div>
+											   			{% else %}
+											   				<div class="col-{{columna.0.secciones}} " 
+															   style="margin: {{columna.9}};
+																   background: linear-gradient(to {{columna.0.degradado}}, {{columna.0.color1}}, {{columna.0.color2}});
+											   					 	display: flex; justify-content: {{columna.0.justificacionhorizontaltexto}};
+											   					 	align-items: {{columna.0.justificacionverticaltexto}}; width: 300px;
+											   					 	{% if columna.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}">
+											   					 		<span style="font-size: {{columna.5}}pt;font-family: {{columna.4}}; font-weight: {{columna.6}};color:{{columna.0.colortexto}}">{{columna.0.textocolumna}}</span>
+											   				</div>
+											   			{% endif %}
+											   		{% endif %}
+											   {% endif %}
+											{% endfor %}
+										</div>
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+  </div>
+	
+
+{% else %}
+    {% include 'core/includes/pagina_error.html'%}
+{% endif %}	
+{% endblock %}  

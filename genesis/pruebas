@@ -1,0 +1,637 @@
+1. No se genera el reporte si no existe por lo menos una propiedad que deba aparecer en el
+2. Si no se especifica el titulo del proyecto, se asume el nombre del proyecto.
+
+
+Reporte
+
+Falta considerar la impresion de propiedades imagen
+Colocar un combo para los colores reportlab
+Verificar el reporte cuando una propiedad imagen no tiene nada
+
+Propiedades
+
+Probar link de busqueda con RadioButton, imagen y checkbox
+
+Valores por defecto del proyecto para el disenio grafico
+
+Primer color de la pagina principal: Transparent
+Segundo color de la pagina principal: Transparent
+El degrade de la pagina principal: hacia arriba
+Separacion entre secciones: 2
+Color del texto de la seccion central: black
+Font del texto de la seccion central: Roboto, 12,500
+Dimension horizontal de la imagen del titulo: 70px
+Dimension vertical de la imagen del titulo: 30px
+Posicion horizontal del titulo: center
+Posicion vertical del titulo: center
+Font del titulo: Raleway,20,500
+Color del titulo: black
+Dimension horizontal del logo: 50px
+Dimension vertical del logo: 50px
+Posicion horizontal del logo: center
+Posicion vertical del logo: center
+Font del menu del proyecto: Open+Sans,12,400
+Color de la opcion del menu del proyecto: black
+Posicion del menu del proyecto: center
+Color de fondo del menu: transparent
+
+Altura de la fila del logo: 80px
+Color de la fila: transparent
+Altura de la columna izquierda: 80px
+Color de la columna izquierda: transparent
+Numero de secciones izquierda: 1
+Altura de la columna logo: 80px
+Color de la columna del logo: transparent
+Numero de secciones del logo: 1
+Altura de la columna del titulo: 80px
+Color de la columna del titulo: transparent
+Numero de secciones del titulo: 8
+Altura de la columna adicional:80px
+Color de la columna adicional: transparent
+Numero de secciones de la columna adicional: 1
+Altura de la columna derecha: 80px
+Color de la columna derecha: transparent
+Numero de secciones de la columna derecha: 1
+La primera fila tiene borde
+Color del borde: #e0e0e0e
+Ancho del border: 1pt
+
+Altura de la fila de busqueda y menu: 60px
+Color de la fila de busqueda y menu: transparent
+Altura de la columna izquierda: 60px
+Color de la columna izquierda: transparent
+Numero de secciones de la columna izquierda: 1
+Altura de la columna de busqueda : 60px
+Color de la columna de busqueda: transparent
+Numero de secciones de la columna de busqueda: 3
+Altura de la columna de menu : 60px
+Color de la columna de menu: transparent
+Numero de secciones de la columna de menu: 7
+Altura de la columna derecha : 60px
+Color de la columna derecha: transparent
+Numero de secciones de la columna derecha: 1
+La segunda fila tiene borde
+Color del borde: #e0e0e0e
+Ancho del border: 1pt
+
+Altura de la fila: -100px
+Color de la fila: transparent
+Altura de la columna izquierda: -100
+Color de la columna izquierda: transparent
+Numero de secciones de la columna izquierda: 1
+Altura de la columna centra: -100
+Color de la columna central: transparent
+Numero de secciones de la columna central: 10
+Altura de la columna derecha: -100
+Color de la columna derecha: transparent
+Numero de secciones de la columna derecha: 1
+La tercera fila tiene borde
+Color del borde: #e0e0e0e
+Ancho del border: 1pt
+
+Alto de la fila del pie: 70px
+Color de la fila del pie: transparent
+Alto de la columna del pie: 70px
+Color de la columna del pie: transparent
+
+Texto para volver en el menu: Volver
+Font de la opcion volver: Open+Sans,12,400
+Color texto volver: black
+
+Valores por defecto para aplicaciones
+
+Font de la opcion del menu: Open+Sans,12,400
+
+
+Valores por defecto de los modelos
+
+Font del titulo de la lista de modelo: Roboto,14,700
+Color del titulo de la lista del Modelo: black
+Color de fondo del titulo de la lista del Modelo: transparent
+Alto del titulo de la lista del Modelo: 40
+El titulo esta en mayusculas: False
+Justificacion horizontal del titulo: izquierda
+Justificacion vertical del titulo: center
+Font comentario de la lista: Open+Sans,10,normal
+Color comentario de la lista: black
+Color fondo comentario de la lista: transparent
+Las columnas estan en mayusculas: False
+Altura de columna: 30px
+Color columnas de la lista: black
+Color fondo columnas de la lista: transparent
+Font de columnas de la lista: Roboto,10,700
+Las columnas tienen borde:: True
+Font del texto de la lista: Arial,10,normal
+Color del texto de la lista: black
+Color fondo del texto de la lista: transparent
+Texto de editar borrar: Editar, Borrar
+Font de texto de editar borrar: Arial,10,normal
+Color de texto de editar borrar: blue
+Texto del link de Nuevo Modelo: Nuevo registro
+Font del link de Nuevo Modelo: Arial,10,700
+Color del link de Nuevo Modelo: white
+Color del boton del link de Nuevo Modelo: primary
+Nuevo Modelo en botón:: True
+El Modelo tiene buscador de lista:False
+El modelo esta en el menu:True
+
+Inserta modelos
+
+Titulo del formulario de Nuevo Modelo: Nuevo Modelo
+Font del titulo del formulario de Nuevo Modelo: Roboto,14,700
+Color del titulo de formulario de Nuevo Modelo: black
+Color de fondo de titulo de Nuevo Modelo: transparent
+Color de fondo de fila titulo de Nuevo Modelo: tranparent
+Altura de fila de titulo de Nuevo Modelo: 40px
+Justificacion vertical del titulo: centro
+Justificacion horizontal del titulo: izquierda
+Font Comentario formulario Nuevo Modelo: Open+Sans,10,normal
+Color Comentario formulario Nuevo Modelo: black
+Color fondo Comentario formulario Nuevo Modelo: transparent
+Numero de secciones de la columna izquierda formulario nuevo modelo: 1
+Numero de secciones de la columna central formulario nuevo modelo: 10
+Numero de secciones de la columna derecha formulario nuevo modelo: 1
+
+Editar modelos
+
+Titulo del formulario de editar Modelo: Modelo a editar
+Font del titulo del formulario de editar Modelo: Roboto,14,700
+Color del titulo de formulario de editar Modelo: black
+Color de fondo de titulo de editar Modelo: transparent
+Color de fondo de fila titulo de editar Modelo: tranparent
+Altura de fila de titulo de editar Modelo: 40px
+Justificacion vertical del titulo: centro
+Justificacion horizontal del titulo: izquierda
+Font Comentario formulario editar Modelo: Open+Sans,10,normal
+Color Comentario formulario editar Modelo: black
+Color fondo Comentario formulario editar Modelo: transparent
+Numero de secciones de la columna izquierda formulario editar modelo: 1
+Numero de secciones de la columna central formulario editar modelo: 10
+Numero de secciones de la columna derecha formulario editar modelo: 1
+Numero de secciones de la columna hijo del editar modelo: 5
+Los hijos son contiguos:False
+
+Borrar modelo
+
+Titulo del formulario de Borrar Modelo: Borrar el modelo
+Font del titulo del formulario de Borrar Modelo: Roboto,12,700
+Color del titulo de formulario de Borrar Modelo: black
+Color de fondo de titulo de Borrar Modelo: transparent
+Color de fondo de fila titulo de Borrar Modelo: transparent
+Altura de fila de titulo de Borrar Modelo: 40px
+Justificacion vertical del titulo: centro
+Justificacion horizontal del titulo: izquierda
+Font Comentario formulario Borrar Modelo: Open+Sans,10,normal
+Color Comentario formulario Borrar Modelo: black
+Color fondo Comentario formulario Borrar Modelo: transparent
+Texto de borrado: Borrar el modelo
+Font Texto de borradoL Arial,10, normal
+Color Texto de borrado: black
+Color fondo Texto de borrado: transparent
+Texto del boton de borrado: Borrar
+Numero de secciones de la columna izquierda formulario borrar modelo: 1
+Numero de secciones de la columna central formulario borrar modelo: 10
+Numero de secciones de la columna derecha formulario borrar modelo: 1
+
+Etiquetas
+
+Font de etiquets: Arial,10,bold
+Color etiquetas: black
+Numero de secciones para etiquetas: 5
+Numero de secciones para controles: 7
+
+Seguridad
+
+Todos los check boxes en False
+
+Propiedades
+
+La propiedad se despliega en la lista: True
+La propiedad es un link de busqueda: True
+La propiedad se despliega en mobiles: False
+Numero de secciones en la lista: 1
+Justificacion de su columna: izquierda
+La etiqueta esta arriba: False
+La propiedad no aparece en el formulario: false
+La propiedad participa en la busqueda de lista: False
+La propiedad se totaliza: False
+La propiedad aparece en el reporte: True
+Ancho en el reporte (cm): 100
+La propiedad es mandatoria: False
+
+Reportes
+
+Margenes: 20,20,20,20
+Font Titulo: Helvetica
+Size Font Titulo: 10
+Font Columnas: Helvetica
+Size Font Columnas: 10
+Font texto: Helvetica
+Size Font texto: 10
+Font encabezado: Helvetica
+Size Font encabezado: 16
+
+Componentes que tiene los proyectos graficos
+
+Nombre del proyecto
+Nombre de las aplicaciones
+Nombre de los modelos
+Nombre de las propiedades
+Longitud de las propiedades string
+Texto de las propiedades RadioButton
+Nombre de la clase en una propiedad foranea
+Tipo de propiedad
+
+Todos los demas campos debemos conservarlos del proyecto que es generado desde el grafico. Esto para no volver a tener que redisenia cuando volvamos a regenerar el proyecto desde el grafico.
+
+Entonces este seria el camino:
+
+a) Disenia el proyecto en el grafico
+b) Guardar el proyecto grafico en la base de datos
+c) Crear el proyecto desde los datos del grafico y grabar el id del proyecto creado
+d) Volver desde el proyecto al grafico.
+e) Hacer cambios en el grafico.
+f) Regrabar el proyecto grafico en la base grafica
+g) Al procesar el grafico debemos tarer con el id del proyecto y cambiar solamente lo que es nuevo en el grafioc conservando todo lo previo.
+
+
+Cuando se pasa del proyecto hacia el texto debe respetarse el texto que define el proyecto. Para eso se deben buscar todos los tags del texto y llenarlos con lo que entregue el proyecto.
+
+El orden en el que se buscaran los tags es:
+
+        lista.append(['','CONSTRUCCION RAPIDA','t'])
+        lista.append(['Proyecto', 'Esquema de un proyecto','e'])
+        lista.append(['Aplicacion','Esquema de una aplicacion','e'])
+        lista.append(['Modelo','Esquema de un modelo','e'])
+        lista.append(['Propiedad','Esquema de una propiedad','e'])
+        lista.append(['Regla','Esquema de una regla','e'])
+        lista.append(['','FIN DE ATRIBUTO','t'])
+        lista.append(['fin','Terminacion de atributo','e'])
+        lista.append(['','PROYECTOS','t'])
+        lista.append(['npr','Nombre del Proyecto','e'])
+        lista.append(['dpr','Descripcion del Proyecto','e'])
+        lista.append(['cpp','Color de la pagina principal','e'])
+        lista.append(['tit','Titulo del Proyecto','e'])
+        lista.append(['pcs','El Proyecto tiene seguridad','e'])
+        lista.append(['pce','Codigo del Proyecto con etiquetas de personalizacion','e'])
+        lista.append(['pcb','Proyecto con opcion de busqueda','e'])
+        lista.append(['ses','Separacion entre secciones','e'])
+        lista.append(['avw','Ancho del Logo del Proyecto','e'])
+        lista.append(['avh','Alto del Logo del Proyecto','e'])
+        lista.append(['itw','Ancho de la imagen del Titulo','e'])
+        lista.append(['ith','Alto de la imagen del Titulo','e'])
+        lista.append(['fti','Font del Titulo','e'])
+        lista.append(['cti','Color del texto del Titulo','e'])
+        lista.append(['act','Alto de la columna del Titulo','e'])
+        lista.append(['nct','Numero de columnas de la columna del Titulo','e'])
+        lista.append(['cct','Color de la columna del Titulo','e'])
+        lista.append(['jht','Justificacion horizontal del Titulo','e'])
+        lista.append(['jvt','Justificacion vertical del Titulo','e'])
+        lista.append(['afs','Altura de la fila superior','e'])
+        lista.append(['cfs','Color de la fila superior','e'])
+        lista.append(['nci','Numero de columnas de la columna superior izquierda','e'])
+        lista.append(['aci','Altura de la columna superior izquierda','e'])
+        lista.append(['cci','Color de la columna superior izquierda','e'])
+        lista.append(['ncd','Numero de columnas de la columna superior derecha','e'])
+        lista.append(['acd','Altura de la columna superior derecha','e'])
+        lista.append(['ccd','Color de la columna superior derecha','e'])
+        lista.append(['acl','Altura de la columna del Logo','e'])
+        lista.append(['ccl','Color de la columna del Logo','e'])
+        lista.append(['ncl','Numero de las columnas de la columna del Logo','e'])
+        lista.append(['jhl','Justificacion horizontal del Logo','e'])
+        lista.append(['jvl','Justificacion vertical del Logo','e'])
+        lista.append(['acg','Altura de la columna de Login','e'])
+        lista.append(['ncg','Numero de columnas de la columna de Login','e'])
+        lista.append(['ccg','Color de la columna de Login','e'])
+        lista.append(['bss','Borde de las secciones de la fila superior','e'])
+        lista.append(['cbss','Color borde de las secciones de la fila superior','e'])
+        lista.append(['abss','Ancho borde de las secciones de la fila superior','e'])
+        lista.append(['afb','Alto de la fila de bus-menu','e'])
+        lista.append(['cfb','Color de la fila de bus-menu','e'])
+        lista.append(['ncbi','Numero de columnas de la columna bus-menu izquierda ','e'])
+        lista.append(['acbi','Altura de la columna bus-menu izquierda','e'])
+        lista.append(['ccbi','Color de la columna bus-menu izquierda','e'])
+        lista.append(['ncbd','Numero de columnas de la columna bus-menu derecha','e'])
+        lista.append(['acbd','Altura de la columna bus-menu derecha','e'])
+        lista.append(['ccbd','Color de la columna bus-menu derecha','e'])
+        lista.append(['acb','Altura de la columna de busqueda','e'])
+        lista.append(['ncb','Numero de columnas de la columna de busqueda','e'])
+        lista.append(['ccb','Color de la columna de busqueda','e'])
+        lista.append(['acm','Altura de la columna del menu','e'])
+        lista.append(['ncm','Numero de columnas de la columna del menu','e'])
+        lista.append(['ccm','Color de la columna del menu','e'])
+        lista.append(['cme','Color de las opciones del menu','e'])
+        lista.append(['fme','Font de la opcion del menu','e'])
+        lista.append(['bme','Borde de las secciones de la fila de busqueda y menu','e'])
+        lista.append(['abme','Ancho del borde de las secciones de la fila de busqueda y menu','e'])
+        lista.append(['cbme','Color del borde de las secciones de la fila de busqueda y menu','e'])
+        lista.append(['afm','Altura de la fila del medio','e'])
+        lista.append(['cfm','Color de la fila del medio','e'])
+        lista.append(['jum','Justificacion del menu','e'])
+        lista.append(['acmi','Altura de la columna izquierda del medio','e'])
+        lista.append(['ncmi','Numero de columnas de la la columna izquierda del medio','e'])
+        lista.append(['ccmi','Color de la columna izquierda del medio','e'])
+        lista.append(['acmc','Altura de la columna central del medio','e'])
+        lista.append(['ncmc','Numero de columnas de la columna central del medio','e'])
+        lista.append(['ccmc','Color de la columna central del medio','e'])
+        lista.append(['acmd','Altura de la columna derecha del medio','e'])
+        lista.append(['ncmd','Numero de columnas de la columna derecha del medio','e'])
+        lista.append(['ccmd','Color de la columna derecha del medio','e'])
+        lista.append(['txm','Texto de la columna central del medio','e'])
+        lista.append(['ctxm','Color del texto de la columna central del medio','e'])
+        lista.append(['ftxm','Font del texto de la columna central del medio','e'])
+        lista.append(['afp','Alto de la fila del pie','e'])
+        lista.append(['cfp','Color de la fila del pie','e'])
+        lista.append(['acp','Altura de la columna del pie','e'])
+        lista.append(['ccp','Color de la columna del pie','e'])
+        lista.append(['txv','Texto de la opcion volver','e'])
+        lista.append(['ftxv','Font del texto de la opcion volver','e'])
+        lista.append(['ctxv','Color del texto de la opcion volver','e'])
+        lista.append(['mctg','Los menus son contiguos','e'])
+        lista.append(['bce','Borde en la seccion central','e'])
+        lista.append(['cbce','Color del borde de la seccion central','e'])
+        lista.append(['abce','Ancho del borde de la seccion central','e'])
+        lista.append(['','APLICACIONES','t'])
+        lista.append(['nap','Nombre de la Aplicacion','e'])
+        lista.append(['dap','Descripcion de la Aplicacion','e'])
+        lista.append(['txma','Texto de la opcion en el menu','e'])
+        lista.append(['as','Para acceder a la Aplicacion se debe ser miembro del staff','e'])
+        lista.append(['al','Para acceder a la Aplicacion se debe etar autenticado','e'])
+        lista.append(['tta','ToolTip en la opcion del menu','e'])
+        lista.append(['oga','Orden de generacion de la aplicacion','e'])
+        lista.append(['hlg','Para acceder a la aplicacion se debe estar auntenticado','e'])
+        lista.append(['hst','Para acceder a la aplicacion se debe ser miembro del staff','e'])
+        lista.append(['','MODELOS','t'])
+        lista.append(['nmo','Nombre del Modelo','e'])
+        lista.append(['dmo','Descripcion del Modelo','e'])
+        lista.append(['pmo','Padre del Modelo','e'])
+        lista.append(['smo','Identificacion self del Modelo','e'])
+        lista.append(['bmo','Identificacion de borrado del Modelo','e'])
+        lista.append(['amo','Aplicacion del Modelo','e'])
+        lista.append(['tom','Texto para la opcion del menu','e'])
+        lista.append(['ttm','ToolTip de la opcion del menu','e'])
+        lista.append(['tli','Titulo de la lista del Modelo','e'])
+        lista.append(['ftli','Font del titulo de la lista del Modelo','e'])
+        lista.append(['cftl','Color de fondo del titulo de la lista','e'])
+        lista.append(['ctli','Color del titulo de la lista','e'])
+        lista.append(['atli','Altura del titulo de la lista','e'])
+        lista.append(['mtli','El titulo de la lista esta en mayusculas','e'])
+        lista.append(['jvtl','Justificacion vertical del titulo de la lista','e'])
+        lista.append(['jhtl','Justificacion horizontal del titulo de la lista','e'])
+        lista.append(['fcli','Fonto del comentario de la lista','e'])
+        lista.append(['cmli','Texto del comentario de la lista','e'])
+        lista.append(['cfcml','Color de fondo del comentario de la lista','e'])
+        lista.append(['ccmli','Color del texto del comentario de la lista','e'])
+        lista.append(['mco','Las columnas estan en mayusculas','e'])
+        lista.append(['aco','Altura de las columnas','e'])
+        lista.append(['cfcl','Color del fondo de las columnas de la lista','e'])
+        lista.append(['ccli','Color del texto de las columnas de la lista','e'])
+        lista.append(['fcli','Font del texto de las columnas de la lista','e'])
+        lista.append(['clcb','La columna de la lista tiene borde','e'])
+        lista.append(['ftxl','Font del texto de la lista','e'])
+        lista.append(['cftxc','Color de fondo del texto de la lista','e'])
+        lista.append(['ctxl','Color del texto de la lista','e'])
+        lista.append(['feb','Font texto editar borrar','e'])
+        lista.append(['ceb','Color del texto editar borrar','e'])
+        lista.append(['teb','Texto de Editar y Borrar','e'])
+        lista.append(['flnm','Font del link de nuevo modelo','e'])
+        lista.append(['clnm','Color del link de nuevo modelo','e'])
+        lista.append(['tlnm','Texto del link de nuevo modelo','e'])
+        lista.append(['lnm','La opcion de nuevo modelo es un link','e'])
+        lista.append(['tin','Titulo de formulario nuevo Modelo','e'])
+        lista.append(['ftin','Font del titulo del formulario nuevo Modelo','e'])
+        lista.append(['ctin','Color del titulo del formulario nuevo Modelo','e'])
+        lista.append(['cfti','Color de fondo del titulo del formulario nuevo Modelo','e'])
+        lista.append(['cffti','Color de fondo de la fila del titulo del formulario nuevo Modelo','e'])
+        lista.append(['afti','Altura de la fila del titulo del formulario nuevo Modelo','e'])
+        lista.append(['jvti','Justificacion vertical del titulo del formulario nuevo Modelo','e'])
+        lista.append(['jhti','Justificacion horizontal del titulo del formulario nuevo Modelo','e'])
+        lista.append(['cfci','Color de fondo del comentario del formulario nuevo Modelo','e'])
+        lista.append(['ccin','Color del comentario del formulario nuevo Modelo','e'])
+        lista.append(['fcin','Font del comentario del formulario nuevo Modelo','e'])
+        lista.append(['cin','Texto del comentario del formulario nuevo Modelo','e'])
+        lista.append(['ncii','Numero columnas del margen izquierdo formulario nuevo Modelo','e'])
+        lista.append(['ncmi','Numero de columnas para formulario nuevo Modelo','e'])
+        lista.append(['ncdi','Numero columnas del margen derecho formulario nuevo Modelo','e'])
+        lista.append(['tup','Titulo de formulario editar Modelo','e'])
+        lista.append(['ftup','Font del titulo del formulario editar Modelo','e'])
+        lista.append(['ctup','Color del titulo del formulario editar Modelo','e'])
+        lista.append(['cftu','Color de fondo del titulo del formulario editar Modelo','e'])
+        lista.append(['cfftu','Color de fondo de la fila del titulo del formulario editar Modelo','e'])
+        lista.append(['aftu','Altura de la fila del titulo del formulario editar Modelo','e'])
+        lista.append(['jvtu','Justificacion vertical del titulo del formulario editar Modelo','e'])
+        lista.append(['jhtu','Justificacion horizontal del titulo del formulario editar Modelo','e'])
+        lista.append(['cup','Texto del comentario del formulario nuevo Modelo','e'])
+        lista.append(['cfcu','Color de fondo del comentario del formulario nuevo Modelo','e'])
+        lista.append(['fcup','Font del comentario del formulario editar Modelo','e'])
+        lista.append(['ccup','Color del comentario del formulario editar Modelo','e'])
+        lista.append(['nciu','Numero columnas del margen izquierdo formulario editar Modelo','e'])
+        lista.append(['ncdu','Numero columnas del margen derecho formulario editar Modelo','e'])
+        lista.append(['ncmu','Numero de columnas para formulario editar Modelo','e'])
+        lista.append(['flm','Font de las etiquetas','e'])
+        lista.append(['clm','Color de las etiquetas','e'])
+        lista.append(['cau','Lo constroles se crean de forma automatica','e'])
+        lista.append(['tbo','Titulo de formulario borrar Modelo','e'])
+        lista.append(['ftbo','Font del titulo del formulario borrar Modelo','e'])
+        lista.append(['cftb','Color de fondo del titulo del formulario borrar Modelo','e'])
+        lista.append(['cfftb','Color de fondo de la fila del titulo del formulario borrar Modelo','e'])
+        lista.append(['aftb','Altura de la fila del titulo del formulario borrar Modelo','e'])
+        lista.append(['jvtb','Justificacion vertical del titulo del formulario borrar Modelo','e'])
+        lista.append(['jhtb','Justificacion horizontal del titulo del formulario borrar Modelo','e'])
+        lista.append(['cfcb','Color de fondo del comentario del formulario borrar Modelo','e'])
+        lista.append(['ccbo','Color del comentario del formulario borrar Modelo','e'])
+        lista.append(['fcbo','Font del comentario del formulario borrar Modelo','e'])
+        lista.append(['cbo','Texto del comentario del formulario borrar Modelo','e'])
+        lista.append(['cftxb','Color del fondo del texto borrar del formulario borrar Modelo','e'])
+        lista.append(['ctxb','Color del texto borrar del formulario borrar Modelo','e'])
+        lista.append(['ftxb','Font del texto borrar del formulario borrar Modelo','e'])
+        lista.append(['txbo','Texto de borrar del formulario borrar Modelo','e'])
+        lista.append(['txbb','Texto del boton borrar del formulario borrar Modelo','e'])
+        lista.append(['ncib','Numero columnas del margen izquierdo formulario borrar Modelo','e'])
+        lista.append(['ncdb','Numero columnas del margen derecho formulario borrar Modelo','e'])
+        lista.append(['ncmb','Numero de columnas para formulario borrar Modelo','e'])
+        lista.append(['hco','Los hijos del Modelo son contiguos','e'])
+        lista.append(['nchu','Numero columnas del margen derecho editar Hijos','e'])
+        lista.append(['ls','Para la lista se debe pertenecer al staff','e'])
+        lista.append(['ll','Para la lista se debe estar autenticado','e'])
+        lista.append(['cs','Para un nuevo Modelo se debe pertenecer al staff','e'])
+        lista.append(['cl','Para un nuevo Modelo se debe estar autenticado','e'])
+        lista.append(['es','Para editar un Modelo debe pertenecer al staff','e'])
+        lista.append(['el','Para editar un modelo se debe estra autenticado','e'])
+        lista.append(['bc','Para borrar un Modelo de debe pertenecer al staff','e'])
+        lista.append(['bl','Para borrar un Modelo se debe estar autenticado','e'])
+        lista.append(['nclb','Numero de columnas para las etiquetas','e'])
+        lista.append(['ncct','Numero de columnas para los controles','e'])
+        lista.append(['msb','El Modelo no esta en la base de datos','e'])
+        lista.append(['mem','El Modelo no aparece en el menu','e'])
+        lista.append(['bli','El Modelo tiene un buscador en la lista','e'])
+        lista.append(['cbnm','Color del boton del numevo modelo','e'])
+        lista.append(['ctbo','Color de titulo del formulario de borrado del modelo','e'])
+        lista.append(['','PROPIEDADES','t'])
+        lista.append(['npro','Nombre de la Propiedad','e'])
+        lista.append(['dpro','Descripcion de la Propiedad','e'])
+        lista.append(['tpro','Tipo de la Propiedad','e'])
+        lista.append(['','s - String','p'])
+        lista.append(['','x - Text Field','p'])
+        lista.append(['','h - RichText','p'])
+        lista.append(['','m - Entero small','p'])
+        lista.append(['','i - Entero','p'])
+        lista.append(['','l - Entero long','p'])
+        lista.append(['','d - Decimal','p'])
+        lista.append(['','f - Foranea','p'])
+        lista.append(['','n - Fecha','p'])
+        lista.append(['','t - Hora y Fecha','p'])
+        lista.append(['','e - Hora','p'])
+        lista.append(['','b - Boolean','p'])
+        lista.append(['','r - Radio Button','p'])
+        lista.append(['','p - Imagen','p'])
+        lista.append(['','u - Usuario','p'])
+        lista.append(['prf','Modelo para Propiedad foranea','e'])
+        lista.append(['txb','Texto de los Radio Buttons','e'])
+        lista.append(['vdf','Valor inicial por defecto','e'])
+        lista.append(['lst','Longitud de una Propiedad tipo string','e'])
+        lista.append(['tph','Texto del PlaceHolder','e'])
+        lista.append(['epro','Etiqueta de la Propiedad en el formulario','e'])
+        lista.append(['enl','La Propedad se despliega en la lista del Modelo','e'])
+        lista.append(['emb','La Propiedad puede ser vista en Mobile','e'])
+        lista.append(['ncl','Numero de columnas de la Propiedad en la lista del Modelo','e'])
+        lista.append(['txc','Texto de la columna en la lista del Modelo','e'])
+        lista.append(['jtxc','Justificacion horizontal del texto en la columna de la lista','e'])
+        lista.append(['ffch','Formato de la Propiedad tipo DateTime','e'])
+        lista.append(['ear','La etiqueta se coloca arriba del control en el formulario','e'])
+        lista.append(['mdt','La Propiedad es mandatoria','e'])
+        lista.append(['nef','La Propiedad no aparece en el formulario','e'])
+        lista.append(['pbl','La Propiedad participa en la busqueda de la lista','e'])
+        lista.append(['tlz','La Propiedad se totaliza','e'])
+        lista.append(['enr','La Propiedad aparece en el reporte','e'])
+        lista.append(['anre','Ancho en el reporte','e'])
+        lista.append(['','REGLAS','t'])
+        lista.append(['msj','Mensaje de error cuando se incumple la Regla','e'])
+        lista.append(['crg','Codigo de la Regla','e'])
+
+
+Dividir las propiedades de los proyectos en sectores
+
+Los sectores seran:
+
+Proyecto principal
+
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=30)
+
+Proyecto - generales
+
+	    avatar = models.ImageField(upload_to='proyectos',blank=True,null=True)
+	    imagenpaginaprincipal = models.ImageField(upload_to='proyectos',blank=True,null=True)
+	    colorpaginaprincipal = models.CharField(max_length=100,default='transparent')
+	    segundocolorpaginaprincipal = models.CharField(max_length=100,default='transparent')
+	    degradehaciaarriba = models.BooleanField(default=True)
+	    descripcion = models.TextField(default='El proyecto ')
+	    conseguridad = models.BooleanField(default=False)
+	    conetiquetaspersonalizacion = models.BooleanField(default=False)
+    estadogeneracion = models.SmallIntegerField(default=0)
+	    menuscontiguos = models.BooleanField(default=False)
+    separacionsecciones = models.SmallIntegerField(default=2)
+	    conbusqueda = models.BooleanField(default=False)
+	    avatarwidth = models.IntegerField(default=50)
+	    avatarheight = models.IntegerField(default=50)
+	    imagenmedio = models.ImageField(upload_to='proyectos',blank=True,null=True)
+	    textomedio = models.TextField(blank=True,default='')
+	    colortextomedio = models.CharField(max_length=100,default='black')
+	    fonttextomedio = models.CharField(max_length=100,default='Roboto,12,500')
+	    imagenvolver = models.ImageField(upload_to='proyectos',blank=True,null=True)
+	    textovolver = models.CharField(max_length=30,blank=True,default='Volver')
+	    fonttextovolver = models.CharField(max_length=100,default='Open+Sans,12,400')
+	    colortextovolver = models.CharField(max_length=20,default='black')
+
+			
+Primera linea logo-titulo-adicional
+
+    imagentitulo = models.ImageField(upload_to='proyectos',blank=True,null=True)
+    titulo = models.CharField(max_length=30,default='',blank=True)
+    imagentitulowidth = models.IntegerField(default=70)
+    imagentituloheight = models.IntegerField(default=30)
+    fonttitulo = models.CharField(max_length=100,default='Raleway,20,500')
+    colortitulo = models.CharField(max_length=100,default='black')
+    altocolumnatitulo = models.IntegerField(default=80)
+    numerocolumnatitulo = models.IntegerField(default=8)
+    colorcolumnatitulo = models.CharField(max_length=100,default='transparent')
+    justificacionhorizontaltitulo = models.CharField(max_length=1, default='c')
+    justificacionverticaltitulo = models.CharField(max_length=1, default='c')
+    altofilaenizcede = models.IntegerField(default=80)
+    colorfilaenizcede = models.CharField(max_length=100,default='transparent')
+    numerocolumnaenizquierda = models.IntegerField(default=1)
+    altocolumnaenizquierda = models.IntegerField(default=80)
+    colorcolumnaenizquierda = models.CharField(max_length=100,default='transparent')
+    numerocolumnaenderecha = models.IntegerField(default=1)
+    altocolumnaenderecha = models.IntegerField(default=80)
+    colorcolumnaenderecha = models.CharField(max_length=100,default='transparent')
+    enanchoborde = models.SmallIntegerField(default=1)
+    enborde = models.BooleanField(default=True)
+    encolorborde = models.CharField(max_length=100,default='#e0e0e0')
+    altocolumnalogo = models.IntegerField(default=80)
+    colorcolumnalogo = models.CharField(max_length=100,default='transparent')
+    numerocolumnalogo = models.IntegerField(default=1)
+    justificacionhorizontallogo = models.CharField(max_length=1, default='c')
+    justificacionverticallogo = models.CharField(max_length=1, default='c')
+    altocolumnalogin = models.IntegerField(default=80)
+    numerocolumnalogin = models.IntegerField(default=1)
+    colorcolumnalogin = models.CharField(max_length=100,default='transparent')
+    
+Segunda linea busqueda-menu
+
+    altofilabume = models.IntegerField(default=60)
+    colorfilabume = models.CharField(max_length=100,default='transparent')
+    numerocolumnabumeizquierda = models.IntegerField(default=1)
+    altocolumnabumeizquierda = models.IntegerField(default=60)
+    colorcolumnabumeizquierda = models.CharField(max_length=100,default='transparent')
+    numerocolumnabumederecha = models.IntegerField(default=1)
+    altocolumnabumederecha = models.IntegerField(default=60)
+    colorcolumnabumederecha = models.CharField(max_length=100,default='transparent')
+    bumeanchoborde = models.SmallIntegerField(default=1)
+    bumeborde = models.BooleanField(default=False)
+    bumecolorborde = models.CharField(max_length=100,default='#e0e0e0')
+    altocolumnabusqueda = models.IntegerField(default=60)
+    numerocolumnabusqueda = models.IntegerField(default=3)
+    colorcolumnabusqueda = models.CharField(max_length=100,default='transparent')
+    altocolumnamenu = models.IntegerField(default=60)
+    numerocolumnamenu = models.IntegerField(default=7)
+    colorcolumnamenu = models.CharField(max_length=100,default='transparent')
+    colorfondomenu = models.CharField(max_length=100,default='transparent')
+    colormenu = models.CharField(max_length=100,default='black')
+    fontmenu = models.CharField(max_length=100,default='Open+Sans,12,400')
+    justificacionmenu = models.CharField(max_length=1, default='c')
+
+Tercera fila
+
+    altofilamedio = models.IntegerField(default=-100)
+    colorfilamedio = models.CharField(max_length=100,default='transparent')
+    altocolumnamedioizquierda = models.IntegerField(default=-100)
+    numerocolumnamedioizquierda = models.IntegerField(default=1)
+    colorcolumnamedioizquierda = models.CharField(max_length=100,default='transparent')
+    altocolumnamediocentro = models.IntegerField(default=-100)
+    numerocolumnamediocentro = models.IntegerField(default=10)
+    colorcolumnamediocentro = models.CharField(max_length=100,default='transparent')
+    altocolumnamedioderecha = models.IntegerField(default=-100)
+    numerocolumnamedioderecha = models.IntegerField(default=1)
+    colorcolumnamedioderecha = models.CharField(max_length=100,default='transparent')
+    cenanchoborde = models.SmallIntegerField(default=1)
+    cenborde = models.BooleanField(default=False)
+    cencolorborde = models.CharField(max_length=100,default='#e0e0e0')
+   
+Fila de pie
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,206 @@
+{% extends 'core/base@modelo.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+{% block cuerpo %}
+
+{% load static %}
+
+<style>
+    
+#borra_@modelo{
+    margin-top: @margintoppx;
+/*#@[p_modelo_css_borra_01]*/
+}
+
+#fila_titulo_borra{
+    background-color: @colorfondofilatituloborra;
+    height: @altofilatituloborra;
+/*#@[p_modelo_css_borra_02]*/
+}
+#titulo_borra{
+    font-family: @tituloborrafontfamily;
+    font-size: @tituloborrafontsizept;
+    font-weight: @tituloborrafontweight;
+    color:@colortituloborra;
+    background-color: @colorfondotituloborra;
+/*#@[p_modelo_css_borra_03]*/
+}
+#comentario_borra{
+    font-family: @comentarioborrafontfamily;
+    font-size: @comentarioborrafontsizept;
+    font-weight: @comentarioborrafontweight;
+    color:@colorcomentarioborra;
+/*#@[p_modelo_css_borra_04]*/
+}
+#columna_comentario_borra{
+    background-color:@colorfondocomentarioborra;
+/*#@[p_modelo_css_borra_05]*/
+}
+#texto_borra{
+    font-family: @textoborrafontfamily;
+    font-size: @textoborrafontsizept;
+    font-weight: @textoborrafontweight;
+    color:@colortextoborra;
+    background-color:@colorfondotextoborra;
+    padding: 5px;
+/*#@[p_modelo_css_borra_06]*/
+}
+#fila_datos_borra{
+
+/*#@[p_modelo_css_borra_07]*/
+}
+#font_texto_borra_@modelo{
+    font-family: @label@modelofontfamily;
+    font-size: @label@modelofontsizept;
+    font-weight: @label@modelofontweight;
+    color:@colorlabel@modelo;
+/*#@[p_modelo_css_borra_08]*/
+}
+#fila_boton_borra{
+
+/*#@[p_modelo_css_borra_09]*/
+}
+#boton_borra{
+
+/*#@[p_modelo_css_borra_10]*/
+}
+
+/*#@[p_modelo_css_borra_11]*/
+ 
+
+</style>
+
+<div id="borra_@modelo" class="container borra_@modelo @bordeexterior rounded">
+
+<!-- #@[p_modelo_borrar_01] -->
+
+    <div class="row d-flex align-items-center">
+<!-- #@[p_modelo_titulo_borrar_01] -->
+            <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaborra"></div>
+<!-- #@[p_modelo_titulo_borrar_02] -->
+            <div id="fila_titulo_borra" class="col-12 fila_titulo_borra d-flex col-md-@numerocolumnasmodeloborra @justificacionhorizontaltituloborra @justificacionverticaltituloborra titulo_borra">
+<!-- #@[p_modelo_titulo_borrar_03] -->
+                <span id="titulo_borra" class="titulo_borra @uppercasetitulo">
+                    @tituloborra
+                </span>
+<!-- #@[p_modelo_titulo_borrar_04] -->
+            </div>
+<!-- #@[p_modelo_titulo_borrar_05] -->
+            <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaborra"></div>
+        </div>
+    
+    <!-- Comentario del borrado -->
+<!-- #@[p_modelo_comentario_borrar_01] -->
+    <div class="row fila_comentario_borra d-flex align-items-center mb-3 @bordecomentario">
+<!-- #@[p_modelo_comentario_borrar_02] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaborra"></div>
+<!-- #@[p_modelo_comentario_borrar_03] -->
+      <div id="columna_comentario_borra" class="col-12 col-md-@numerocolumnasmodeloborra columna-comentario-borra">
+<!-- #@[p_modelo_comentario_borrar_04] -->
+        <span id="comentario_borra" class="comentario_borra">
+<!-- #@[p_modelo_comentario_borrar_05] -->
+          @comentarioborra
+<!-- #@[p_modelo_comentario_borrar_06] -->
+        </span>
+<!-- #@[p_modelo_comentario_borrar_07] -->
+      </div>
+<!-- #@[p_modelo_comentario_borrar_08] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaborra"></div>
+<!-- #@[p_modelo_comentario_borrar_09] -->
+    </div>
+<!-- #@[p_modelo_comentario_borrar_10] -->
+
+    <!-- Texto del borrado -->
+<!-- #@[p_modelo_texto_borrar_01] -->
+    <div class="row fila_texto_borra d-flex align-items-center">
+<!-- #@[p_modelo_texto_borrar_02] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaborra"></div>
+<!-- #@[p_modelo_texto_borrar_03] -->
+      <div class="col-12 col-md-@numerocolumnasmodeloborra">
+<!-- #@[p_modelo_texto_borrar_04] -->
+        <span id="texto_borra" class="texto_borra">
+<!-- #@[p_modelo_texto_borrar_05] -->
+          @textoborra&nbsp&nbsp<b style="color:black">{{nombreborrar}}</b>&nbsp?
+<!-- #@[p_modelo_texto_borrar_06] -->
+        </span>
+<!-- #@[p_modelo_texto_borrar_07] -->
+      </div>
+<!-- #@[p_modelo_texto_borrar_08] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaborra"></div>
+<!-- #@[p_modelo_texto_borrar_09] -->
+    </div>
+<!-- #@[p_modelo_texto_borrar_10] -->
+    
+    <!-- Cuerpo de datos -->
+<!-- #@[p_modelo_datos_borrar_01] -->
+    <div id="fila_datos_borra" class="row fila_datos_borra d-flex align-items-center">
+<!-- #@[p_modelo_datos_borrar_02] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaborra"></div>
+<!-- #@[p_modelo_datos_borrar_03] -->
+      <div class="col-12 col-md-@numerocolumnasmodeloborra">
+<!-- #@[p_modelo_datos_borrar_04] -->
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+<!-- #@[p_modelo_datos_borrar_05] -->
+          <div class="row">
+<!-- #@[p_modelo_datos_borrar_06] -->
+            <div class="col">
+<!-- #@[p_modelo_datos_borrar_07] -->
+              {% if form.non_field_errors %}
+<!-- #@[p_modelo_datos_borrar_08] -->
+                <ol>
+<!-- #@[p_modelo_datos_borrar_09] -->
+                  {% for error in form.non_field_errors %}
+<!-- #@[p_modelo_datos_borrar_10] -->
+                    <li class="color_error"><strong>{{ error|escape }}</strong></li>
+<!-- #@[p_modelo_datos_borrar_11] -->
+                  {% endfor %}
+<!-- #@[p_modelo_datos_borrar_12] -->
+                </ol>
+<!-- #@[p_modelo_datos_borrar_13] -->
+              {% endif %}
+<!-- #@[p_modelo_datos_borrar_14] -->
+            </div>
+<!-- #@[p_modelo_datos_borrar_15] -->
+          </div>
+<!-- #@[p_modelo_datos_borrar_16] -->
+          <div class="row mt-4 mb-4">
+<!-- #@[p_modelo_datos_borrar_17] -->
+            <div class="col">
+<!-- #@[p_modelo_datos_borrar_18] -->
+              <input class="btn btn-primary" style="display:inline-block;padding:7px 10px;line-height:140%;" type="submit" value="@textobotonborrado" />
+<!-- #@[p_modelo_datos_borrar_19] -->
+            </div>
+<!-- #@[p_modelo_datos_borrar_20] -->
+            <div class="col-2 ml-5 ">
+<!-- #@[p_modelo_datos_borrar_21] -->
+              @cancelaborrado
+<!-- #@[p_modelo_datos_borrar_22] -->
+            </div>            
+<!-- #@[p_modelo_datos_borrar_23] -->
+          </div>
+<!-- #@[p_modelo_datos_borrar_24] -->
+        </form>               
+<!-- #@[p_modelo_datos_borrar_25] -->
+      </div>
+<!-- #@[p_modelo_datos_borrar_26] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaborra"></div>
+<!-- #@[p_modelo_datos_borrar_27] -->
+    </div>
+    <!-- Pie de insercion -->
+<!-- #@[p_modelo_pie_borrar_01] -->
+    <div class="row pie_lista">
+<!-- #@[p_modelo_pie_borrar_02] -->
+      
+    </div>
+<!-- #@[p_modelo_borrar_02] -->
+  </div>
+<!-- #@[p_modelo_borrar_03] -->
+
+{% endblock %}
+
+<!-- #@[p_modelo_borrar_04] -->
+ 

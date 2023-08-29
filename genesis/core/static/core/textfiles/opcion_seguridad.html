@@ -1,0 +1,15 @@
+        {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a id="opcionmenu"  class="nav-link active opcionmenu" href="{% url 'registration:registro' %}">Registro</a>
+          </li>
+          <li class="nav-item">
+            <a id="opcionmenu"  class="nav-link active opcionmenu" href="{% url 'login' %}">Login</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a id="opcionmenu"  class="nav-link active opcionmenu" href="{% url 'registration:profile' %}">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <a id="opcionmenu"  class="nav-link active opcionmenu" href="{% url 'logout' %}">Logout</a>
+          </li>
+        {% endif %}         

@@ -1,0 +1,374 @@
+{% extends 'core/base@proyecto.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+
+{% block cuerpo %}
+
+{% load static %}
+
+
+<style>
+    
+#update_modelo_rol{
+    margin-top: @margintoppx;
+}
+#fila_titulo_update{
+    background-color: transparent;
+    height: 40px;
+}
+#titulo_update{
+    font-family: 'Roboto';
+    font-size: 14pt;
+    font-weight: 700;
+    color:black;
+    background-color: transparent;
+}
+#comentario_update{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+}
+#columna_comentario_update{
+    background-color:transparent;;
+}
+#fila_datos_update{
+
+}
+#font_label_modelo_rol{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: bold;
+    color:black;
+}
+#fila_columnas_propiedad_rol{
+	background-color: #f5d7ef;
+	font-weight: bold;
+}
+#fila_boton_update{
+
+}
+#boton_update{
+
+}
+
+
+/* #lista-propiedad_rol{
+	margin-top: @margintoppx;
+}
+
+#fila-titulo-lista-propiedad_rol{
+	background-color: transparent;
+	height: 40px;
+}
+
+#titulo-lista-propiedad_rol{
+	font-family: 'Roboto';
+	font-size: 14pt;
+	font-weight: 700;
+	color:black;
+}
+
+#fila-comentario-lista-propiedad_rol{
+	background-color: transparent;
+}
+
+#comentario-lista-propiedad_rol{
+	font-family: 'Open+Sans';
+	font-size: 10pt;
+	font-weight: normal;
+	color:black;
+}
+
+#fila-columnas-propiedad_rol{
+	font-family: 'Roboto';
+	font-size: 10pt;
+	font-weight: 700;
+	color:black;
+	background-color:transparent;
+	height: 30px;
+}
+
+#fila-datos-propiedad_rol{
+	font-family: 'Arial';
+	font-size: 10pt;
+	font-weight: normal;
+	color:black;
+	background-color:transparent;
+}
+
+#editar-borrar-lista-propiedad_rol{
+	font-family: 'Arial';
+	font-size: 10pt;
+	font-weight: normal;
+	color:blue;
+}
+
+#editar-borrar-lista-propiedad_rol{
+	font-family: 'Arial';
+	font-size: 10pt;
+	font-weight: normal;
+	color:blue;
+}
+
+#fila-nuevo-propiedad_rol a{
+	font-family: 'Roboto';
+	font-size: 14pt;
+	font-weight: 700;
+	color:white;
+}
+
+ */
+
+
+</style>
+
+
+  <div id="update_modelo_rol" class="container update_modelo_rol">
+
+    <div class="row">
+        
+        <div class="col-12">
+
+            
+<!-- ******************** -->
+<!-- TITULO DE LA EDICION -->
+<!-- ******************** -->
+
+            <div id="fila_titulo_update" class="row fila_titulo_update d-flex align-items-center">
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+                <div id="titulo_update" class="col-12 d-flex col-md-10 justify-content-start align-items-center titulo_update">
+
+									<div class="col text-center">
+					<div class="" style="float: left;">modelo_rol:&nbsp&nbsp</div>&nbsp
+					<div class="" style="float: left; color:green;"><b>{{nombre}}&nbsp&nbsp</b></div>
+					<div class="" style="float: left">
+					{% if esquema == "sin_treeview" %}
+						<a href="{% url 'seguridad:editar_rol' rol_id %}"><span class="volver">Volver</span></a>
+					{% else %}
+						<a href="{% url 'seguridad:editar_rol' rol.id %}?esquema={{esquema}}"><span class="volver">Volver</span></a>
+					{% endif %}
+					</div>
+				</div>
+
+
+                </div>
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+            </div>
+
+<!-- ****************************** -->
+<!-- FINAL DEL TITULO DE LA EDICION -->
+<!-- ****************************** -->
+
+
+            {% if form.errors %}
+                <ul class="user-msg error">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>
+                                {% if field != '__all__' %}
+                                    <strong>Error en el control: {{ field.label }}:</strong>
+                                {% endif %}
+                                {{ error }}
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+    </div>
+
+<!-- ************************ -->
+<!-- COMENTARIO DE LA EDICION -->
+<!-- ************************ -->
+    
+    <div class="row fila_comentario_update d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div id="columna-comentario-update" class="col-12 col-md-10 columna-comentario-update">
+        <span id="comentario_update" class="comentario_update">
+
+			
+
+        </span>
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+
+    <div class="row">
+
+<!-- ******************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************** -->
+
+                
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************* -->
+
+<!-- ********************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS DEL MODELO -->
+<!-- ********************************************** -->
+        
+        <div class="col-12 col-md-12">
+            <!-- Inicio de los controles para el objeto raiz -->
+            <div id="fila_datos_update" class="row fila_datos_update d-flex align-items-center">
+            <div class="col-12 d-none d-md-block col-md-1"></div>
+            <div class="col-12 col-md-10 border rounded">
+                <form action="" method="post" enctype="multipart/form-data" id="modelo_rolForm" >
+                    {% csrf_token %}
+
+                    {% if not form.errors %}
+                        {% if 'correcto' in request.GET %}
+                            <p style="color:red;">(Registro modificado correctamente)</p>
+                        {% endif %}
+                    {% endif %}
+                    <div class="row">
+                        <div class="col">
+                            {% if form.non_field_errors %}
+                                <ol>
+                                    {% for error in form.non_field_errors %}
+                                        <li class="color_error"><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+
+<!-- ************************* -->
+<!-- CONTROLES PARA LA EDICION -->
+<!-- ************************* -->
+
+							{% include 'core/includes/formulario_modelo_rol.html'%}
+
+                        </div>
+                    </div>
+                    <div id="fila_boton_update" class="row fila_boton_update mt-3 mb-3">
+                        <div class="col">
+                            <input id="boton_update" type="submit" class="btn btn-primary btn-block mt-3 boton_update" value="Actualizar" />
+                        </div>
+                    </div>
+                </form>               
+              </div>
+              <div class="col-12 d-none d-md-block col-md-1"></div>
+            </div>
+
+<!-- ****************************************** -->
+<!-- FINAL DE LOS CONTROLES PARA EL OBJETO RAIZ -->
+<!-- ****************************************** -->
+
+
+<!-- ******************************************* -->
+<!-- INICIO DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+            
+            <div class="row mt-3">
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+                    <div class="col-12  col-md-10 ">
+
+<!-- ***** -->
+<!-- HIJOS -->
+<!-- ***** -->
+
+						<div class="border rounded mb-3" style="padding: 5px;">
+							<div id="lista-propiedad_rol" class="container-fluid lista-propiedad_rol mb-3">
+								<div id="fila-titulo-lista-propiedad_rol" class="row mt-2 mb-2 fila-titulo-lista-propiedad_rol ">
+									<div class="col align-items-center justify-content-start ">
+										<span id="titulo-lista-propiedad_rol" class="titulo-lista-propiedad_rol">
+											Lista de registros</span>
+										</span>
+									</div>
+								</div>
+								<div id=fila-comentario-lista-propiedad_rol class="row mt-2 mb-2 fila-comentario-lista-propiedad_rol ">
+									<div class="col @justificacionverticalcomentariolista @justificacionhorizontalcomentariolista @uppercasecomentario">
+										<span id="comentario-lista-propiedad_rol" class="comentario-lista-propiedad_rol">
+											
+										</span>
+									</div>
+								</div>
+								<div id="fila_columnas_propiedad_rol" class="row fila-columnas-propiedad_rol " >
+									{% if numeropropiedad_rol > 0 %}
+									<div class="d-none d-md-block col-md-4 align-self-center  columna-propiedad-nombre">
+										Propiedad
+									</div>
+									<div class="d-none d-md-block col-md-2 align-self-center  columna-propiedad-puedever">
+										Ver
+									</div>
+									<div class="d-none d-md-block col-md-2 align-self-center  columna-propiedad-puedeasignarvalor">
+										Asignar
+									</div>
+									<div class="d-none d-md-block col-md-2 align-self-center  columna-propiedad-puedeeditar">
+										Editar
+									</div>
+
+									{% endif %}
+								</div>
+								{% for obj in listapropiedad_rol %}
+									<div id="fila-datos-propiedad_rol" class="row  fila-datos-propiedad_rol" >
+										<div class="d-none d-md-block col-md-4 dato-nombre">
+											{{obj.nombre}}
+										</div>
+										<div class="d-none d-md-block col-md-2 dato-puedever">
+											{{obj.puedever}}
+										</div>
+										<div class="d-none d-md-block col-md-2 dato-puedeasignarvalor">
+											{{obj.puedeasignarvalor}}
+										</div>
+										<div class="d-none d-md-block col-md-2 dato-puedeeditar">
+											{{obj.puedeeditar}}
+										</div>
+
+										<div class="col-12 col-md-1 edita-propiedad_rol">
+											<a id="editar-borrar-lista-propiedad_rol"  class="editar-borrar-lista-propiedad_rol" href="{% url 'seguridad:editar_propiedad_rol' obj.id %}?modelo_rol_id={{ modelo_rol_id }}&rol_id={{rol_id}}">Editar</a>
+
+										</div>
+										<div class="col-12 col-md-1 ml-2 borra-propiedad_rol">
+											<a id="editar-borrar-lista-propiedad_rol" class="editar-borrar-lista-propiedad_rol" href="{% url 'seguridad:borrar_propiedad_rol' obj.id %}?modelo_rol_id={{ modelo_rol_id }}&rol_id={{rol_id}}">Borrar</a>
+
+										</div>
+										<div class="col-1">
+										</div>
+									</div>
+								{% endfor %}
+								<div id="fila-nuevo-propiedad_rol" class="row mt-3 mb-3 fila-nuevo-propiedad_rol">
+									<div class="col">
+										<a class="btn btn-block btn-primary mt-2" href="{% url 'seguridad:crear_propiedad_rol'%}?modelo_rol_id={{ modelo_rol.id }}&rol_id={{ rol_id }}">Nueva Propiedad</a>
+
+									</div>
+								</div>
+							</div>
+						</div>
+     
+
+                    </div>
+                    <div class="col-12 d-none d-md-block col-md-1"></div>
+                </div>
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+
+        </div>
+    </div>
+
+
+<!-- ***************** -->
+<!-- PIE DE LA EDICION -->
+<!-- ***************** -->
+    
+    <div class="row pie-lista">
+    </div>
+  </div>
+
+
+
+{% endblock %}
+
+ 
+

@@ -1,0 +1,79 @@
+
+            <!-- fin superior -->
+
+            <div class="row">
+              <div class="col-{{modelo.numerocolumnasizquierdaborra}}"></div>
+              <div class="col-{{modelo.numerocolumnasmodeloborra}}">
+                <!-- lista de modelos -->
+                <!-- titulo del formulario -->
+                <div class="row" style="
+                    height: {{modelo.altofilatituloborra}}px;
+                    display: flex;
+                    {% if modelo.justificacionhorizontaltituloborra == 'c' %}
+                      justify-content: center;
+                    {% endif %}
+                    {% if modelo.justificacionhorizontaltituloborra == 'i' %}
+                      justify-content: start;
+                    {% endif %}
+                    {% if modelo.justificacionhorizontaltituloborra == 'd' %}
+                      justify-content: end;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltituloborra == 'c' %}
+                      align-items: center;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltituloborra == 's' %}
+                      align-items: start;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltituloborra == 'i' %}
+                      align-items: end;
+                    {% endif %}
+                    background-color: {{modelo.colorfondotituloborra}};
+                    ">
+                  <span style="
+                        font-name: {{font_titulo_borra.0}}; font-size: {{font_titulo_borra.1}}pt; font-weight: {{font_titulo_borra.2}};
+                        color: {{modelo.colortituloborra}};
+                        background-color: {{modelo.colorfondotituloborra}};
+                  ">
+                    {{modelo.tituloborra}}                    
+                  </span>  
+                </div>
+
+                <!-- comentario de la lista -->
+                <div class="row" style="
+                background-color: {{modelo.colorfondocomentarioborra}};
+                ">
+                  <span style="
+                        font-name: {{font_comentario_borra.0}}; font-size: {{font_comentario_borra.1}}pt; font-weight: {{font_comentario_borra.2}};
+                        color: {{modelo.colorcomentarioborra}};
+
+                  ">
+                    {{modelo.comentarioborra}}
+                  </span>
+                </div>
+
+                <div class="row">
+                  <span class="texto-borra" style="
+                        font-name: {{font_texto_borra.0}}; font-size: {{font_texto_borra.1}}pt; font-weight: {{font_texto_borra.2}};
+                        color: {{modelo.colortextoborra}};
+                        background-color: {{modelo.colorfondotextoborra}};
+                  ">
+                    {{modelo.textoborra}}:&nbsp&nbsp<b style="color:black">modelo</b>&nbsp?
+                  </span>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <input class="btn btn-primary" style="display:inline-block;padding:7px 10px;line-height:140%;" type="submit" value="{{modelo.textobotonborra}}" />
+                  </div>
+                  <div class="col-2 ml-5 ">
+                    <a class="btn btn-danger" href="">Cancelar</a>
+                  </div>            
+                </div>  
+
+              </div>
+              <div class="col-{{modelo.numerocolumnasderechaborra}}"></div>
+              
+            </div>
+
+
+            <!-- inicio inferior -->
+

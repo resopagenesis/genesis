@@ -1,0 +1,159 @@
+{% extends 'core/base@proyecto.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+
+{% block cuerpo %}
+
+{% load static %}
+
+
+<style>
+    
+#borra-usuariorol{
+    margin-top: @margintoppx;
+}
+
+#fila-titulo-borra{
+    background-color: transparent;
+    height: 40px;
+}
+#titulo-borra{
+    font-family: 'Roboto';
+    font-size: 14pt;
+    font-weight: 700;
+    color:black;
+    background-color: transparent;
+}
+#comentario-borra{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+}
+#columna-comentario-borra{
+    background-color:transparent;
+}
+#texto-borra{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+    background-color:transparent;
+    padding: 5px;
+}
+#fila-datos-borra{
+
+}
+#font-texto-borra-usuariorol{
+    font-family: @labelusuariorolfontfamily;
+    font-size: @labelusuariorolfontsizept;
+    font-weight: @labelusuariorolfontweight;
+    color:@colorlabelusuariorol;
+}
+#fila-boton-borra{
+
+}
+#boton-borra{
+
+}
+
+ 
+
+</style>
+
+  <div id="borra-usuariorol" class="container borra-usuariorol">
+    <!-- Titulo de la insercion -->
+    <div id="fila-titulo-borra" class="row fila-titulo-borra d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div id="titulo-borra" class="col-12 d-flex col-md-10 justify-content-start align-items-center titulo-borra">
+        Borrar el modelo
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+
+    {% if form.errors %}
+      <ul class="user-msg error">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li>
+              {% if field != '__all__' %}
+                <strong>Error en el control: {{ field.label }}:</strong>
+              {% endif %}
+              {{ error }}
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+<!--     {% if form.errors %}
+      <ol>
+        {% for error in form.errors %}
+          <li class="color_error"><strong>Error en el campo : {{ error|escape }}</strong></li>
+        {% endfor %}
+      </ol>
+    {% endif %} -->
+    
+    <!-- Comentario del borrado -->
+    <div class="row fila-comentario-borra d-flex align-items-center mb-3">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div id="columna-comentario-borra" class="col-12 col-md-10 columna-comentario-borra">
+        <span id="comentario-borra" class="comentario-borra">
+          
+        </span>
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+    <!-- Texto del borrado -->
+    <div class="row fila-texto-borra d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div class="col-12 col-md-10">
+        <span id="texto-borra" class="texto-borra">
+          Borrar el modelo:&nbsp&nbsp<b style="color:black">{{nombreborrar}}</b>&nbsp?
+        </span>
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+    <!-- Cuerpo de datos -->
+    <div id="fila-datos-borra" class="row fila-datos-borra d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div class="col-12 col-md-10">
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col">
+              {% if form.non_field_errors %}
+                <ol>
+                  {% for error in form.non_field_errors %}
+                    <li class="color_error"><strong>{{ error|escape }}</strong></li>
+                  {% endfor %}
+                </ol>
+              {% endif %}
+            </div>
+          </div>
+          <div class="row mt-4 mb-4">
+            <div class="col">
+              <input class="btn btn-primary" style="display:inline-block;padding:7px 10px;line-height:140%;" type="submit" value="Borrar" />
+            </div>
+            <div class="col-2 ml-5 ">
+              <a class="btn btn-danger" href="{% url 'seguridad:listar_usuariorol' %}">Cancelar</a>
+            </div>            
+          </div>
+        </form>               
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+    <!-- Pie de insercion -->
+    <div class="row pie-lista">
+      
+    </div>
+  </div>
+
+{% endblock %}
+
+ 
+
+

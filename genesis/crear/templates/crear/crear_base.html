@@ -1,0 +1,117 @@
+{% extends 'core/base.html' %}
+
+{% block cuerpo %}
+
+  {% load static %}
+
+{% if error == '' %}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script> -->
+
+ <!--  <script>
+  $( function() {
+    $("#draggable" ).draggable();
+  $("#droppable").droppable({
+      drop: function( event, ui ) {
+        alert('dropped');
+      }
+    });    
+  } );
+
+  </script> -->
+
+  <div class="container-fluid arbol-proyectos">
+    <div class="row mb-2 pt-2">
+      <div class="col-12 titulo-arbol d-flex" >
+      	{% if proyecto.avatar %}
+      		<img src="{{proyecto.avatar.url}}" alt="">
+      	{% endif %}
+        <h3 class="nombre-proyecto ml-2 align-self-end">{{proyecto.nombre}}</h3>
+      </div>
+    </div>
+
+  	<div class="row pl-1 pr-1 mt-5" >
+			<div  class="col-1 ui-widget-content border fuentes" >
+				<div class="row mt-3">
+	  			<div id="draggable_modelo" class="margen col-12" style="z-index: 2; display: flex; align-items: center;"><img width="20px" height="20px" class="mr-1" src="{% static 'core/img/modelo.png' %}" alt="">Contenedor</div>
+				</div>
+				<div class="row mt-3">
+	  			<div id="draggable_modelo" class="fila col-12" style="z-index: 2; display: flex; align-items: center;"><img width="20px" height="20px" class="mr-1" src="{% static 'core/img/modelo.png' %}" alt="">Fila</div>
+				</div>
+				<div class="row mt-3">
+	  			<div id="draggable_modelo" class="columna col-12" style="z-index: 2; display: flex; align-items: center;"><img width="20px" height="20px" class="mr-1" src="{% static 'core/img/modelo.png' %}" alt="">Columna</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-12">
+						<a id="enviar" href="">
+							<img src="{% static 'core/img/enviar.png' %}" width="40px" height="40px;" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+			<div id="droppable" class="col-9 canvas ui-widget-content border" style="height: 1000px;"></div>
+			<div class="col-2">
+				<div class="row">
+					<div id="basurero"  class="col-12">
+						<img src="{% static 'core/img/basurero.png' %}" width="40px" height="40px;" alt="">
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div id="nop"  class="col-12">
+						<img src="{% static 'core/img/noP.png' %}" width="40px" height="40px;" alt="">
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div id="proyecto"  class="col-12">
+						<img src="{% static 'core/img/foco.jpeg' %}" width="40px" height="40px;" alt="">
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div id="aplicacion"  class="col-12">
+						<img src="{% static 'core/img/letraA.jpeg' %}" width="40px" height="40px;" alt="">
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div id="modelo"  class="col-12">
+						<img src="{% static 'core/img/modelo.jpeg' %}" width="40px" height="40px;" alt="">
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="mt-3 d-flex flex-row mb-5 pb-3">
+		<!-- <div class="col-12 col-md-6"> -->
+			<a class="btn btn-primary" href="{% url 'crear:home' %}?proyecto_id={{proyecto.id}}&estado=0" data-toggle="tooltip" data-placement="top" title="Construir el Proyecto"><img src="{% static 'core/img/fabrica.png' %}" alt=""><span class="ml-2">Construir</span></a>
+		<!-- </div> -->
+		<!-- <div class="col-12 col-md-6"> -->
+			<a class="btn btn-primary ml-2" href="{% url 'personalizacion:home' %}?proyecto_id={{proyecto.id}}&estado=0&ingreso=1" data-toggle="tooltip" data-placement="top" title="Personalizar el Proyecto"><img src="{% static 'core/img/pincel.png' %}" alt=""><span class="ml-2">Personalizar</span></a>
+
+			<a class="btn btn-primary ml-2" href="{% url 'proyectos:arbol' %}?proyecto_id={{proyecto.id}}&haciatexto=1" data-toggle="tooltip" data-placement="top" title="Personalizar el Proyecto"><img src="{% static 'core/img/pincel.png' %}" alt=""><span class="ml-2">Hacia Texto</span></a>
+
+			<a class="btn btn-primary ml-2" href="{% url 'proyectos:descarga' %}?proyecto_id={{proyecto.id}}" data-toggle="tooltip" data-placement="top" title="Descargar el Proyecto"><img  src="{% static 'core/img/download.png' %}" alt=""><span class="ml-2">Download</span></a>
+			{% if tiene_errores == True %}
+				<a class="btn btn-primary ml-2" href="{% url 'crear:lista' %}?proyecto_id={{proyecto.id}}" data-toggle="tooltip" data-placement="top" title="Listar Errores"><imgsrc="{% static 'core/img/errores.png' %}" alt=""><span class="ml-2">Listar errores</span></a>
+			{% endif %}
+		<!-- </div> -->
+	</div>
+
+  </div>
+	
+	<script>
+		$(function(){
+			$('[data-toggle="tooltip"]').tooltip();
+		})
+	</script>
+
+{% include 'core/includes/js_json.html'%}
+
+{% else %}
+    {% include 'core/includes/pagina_error.html'%}
+{% endif %}	
+{% endblock %}  

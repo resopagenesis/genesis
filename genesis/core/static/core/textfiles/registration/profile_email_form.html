@@ -1,0 +1,44 @@
+{% extends 'core/base@proyecto.html' %}
+{% block menu %}
+<!-- #@[p_email_form_01] -->
+  {% include 'core/includes/menu_core.html'%}
+<!-- #@[p_email_form_02] -->
+{% endblock %}
+<!-- #@[p_email_form_03] -->
+{% block cuerpo %}
+{% load static %}
+<!-- #@[p_email_form_04] -->
+<style>.errorlist{color:red;} label{display:none}</style>
+<!-- #@[p_email_form_05] -->
+<main role="main">
+<!-- #@[p_email_form_06] -->
+  <div class="container">
+    <div class="row mt-3">
+<!-- #@[p_email_form_07] -->
+      <div class="col-md-9 mx-auto mb-5">
+<!-- #@[p_email_form_08] -->
+        <form action="" method="post">{% csrf_token %}
+<!-- #@[p_email_form_09] -->
+          <h3 class="mb-4">Email</h3>
+<!-- #@[p_email_form_10] -->
+          {{form.as_p}}
+<!-- #@[p_email_form_11] -->
+          <p>
+<!-- #@[p_email_form_12] -->
+            <input type="submit" class="btn btn-primary btn-block" value="Actualizar">
+<!-- #@[p_email_form_13] -->
+          </p>
+<!-- #@[p_email_form_14] -->
+        </form>
+<!-- #@[p_email_form_15] -->
+      </div>
+<!-- #@[p_email_form_16] -->
+    </div>
+<!-- #@[p_email_form_17] -->
+  </div>
+<!-- #@[p_email_form_18] -->
+</main>
+<!-- #@[p_email_form_19] -->
+{% endblock %}
+<!-- #@[p_email_form_20] -->
+ 

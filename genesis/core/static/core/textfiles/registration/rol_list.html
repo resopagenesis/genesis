@@ -1,0 +1,208 @@
+{% extends 'core/base@proyecto.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+{% block cuerpo %}
+
+{% load static %}
+
+
+<style>
+
+#lista-rol{
+    margin-top: @margintoppx;
+    padding: 20px 20px 20px 20px;
+}
+#fila-titulo-lista{
+    background-color: transparent;
+    height: 40px;
+}
+
+#titulo-lista{
+    font-family: 'Roboto';
+    font-size: 14pt;
+    font-weight: 700;
+    color:black;
+}
+
+#fila-comentario-lista{
+    background-color: transparent;
+}
+
+#comentario-lista{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+}
+
+#fila-columnas{
+    font-family: 'Roboto';
+    font-size: 10pt;
+    font-weight: 700;
+    color:black;
+    background-color:transparent;
+    height: 30px;
+}
+
+#fila-datos{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+    background-color:transparent;
+}
+
+#edita-rol a{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: normal;
+    color:blue;
+}
+
+#borra-rol a{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: normal;
+    color:blue;
+}
+@media screen and (max-width:790px) {
+
+    #fila-columnas{
+        height: auto;
+    }
+}    
+
+#fila-nuevo-rol a{
+    font-family: 'Roboto';
+    font-size: 14pt;
+    font-weight: 700;
+    color:white;
+}
+#fila_columnas{
+    background-color: #f5d7ef;
+	font-weight: bold;
+}
+
+</style>
+
+    <div id="lista-rol" class="container lista-rol border">
+
+<!-- ****************** -->
+<!-- TITULO DE LA LISTA -->
+<!-- ****************** -->
+
+        <div id="fila-titulo-lista" class="row fila-titulo-lista d-flex">
+            <div class="col d-flex justify-content-start align-items-center">
+                <span id="titulo_lista" class="titulo-lista ">
+									Lista de registros
+                </span>
+            </div>
+        </div>
+
+<!-- ************************************************************ -->
+<!-- SI EL HTML TIENE OPCION DE BUSQUEDA DE REGISTROS EN LA LISTA -->
+<!-- ************************************************************ -->
+
+
+
+
+<!-- ********************** -->
+<!-- COMENTARIO DE LA LISTA -->
+<!-- ********************** -->
+
+        <div id="fila-comentario-lista" class="row fila-comentario-lista mb-3">
+            <div class="col">
+                <span id="comentario-lista" class="comentario-lista">
+
+										
+
+                </span>
+            </div>
+        </div>
+
+<!-- ******************** -->
+<!-- COLUMNAS DE LA LISTA -->
+<!-- ******************** -->
+
+        <div id="fila_columnas" class="row fila-columnas border   mb-1 mt-2">
+
+					<div class="d-none d-md-block col-md-3 align-self-center  columna-propiedad-nombre">
+						Rol
+					</div>
+					<div class="d-none d-md-block col-md-7 align-self-center  columna-propiedad-descripcion">
+						Descripcion
+					</div>
+
+
+        
+        </div>
+
+<!-- **************** -->
+<!-- LISTADO DE DATOS -->
+<!-- **************** -->
+
+        {% for obj in lista %}
+          <div id="fila-datos" class="row fila-datos">
+
+						<div class="d-none d-md-block col-md-3 dato-nombre">
+							{{obj.nombre}}
+						</div>
+						<div class="d-none d-md-block col-md-7 dato-descripcion">
+							{{obj.descripcion}}
+						</div>
+
+
+
+						<div id="edita-rol" class="col-12 col-md-1 edita-rol">
+							<a href="{% url 'seguridad:editar_rol' obj.id %}">Editar</a>
+						</div>
+
+
+            <div id="borra-rol" class="col-12 col-md-1 borra-rol">
+                <a href="{% url 'seguridad:borrar_rol' obj.id %}" >Borrar</a>
+            </div> 
+          </div>
+        {% endfor %}   
+
+<!-- *************** -->
+<!-- PIE DEL LISTADO -->
+<!-- *************** -->
+
+        <div class="row pie-lista fila-datos border-top border-2  pt-1 fw-bold">
+
+<!-- ************************************************ -->
+<!-- SI EXISTEN PROPIEDADES QUE DEBAN SER TOTALIZADAS -->
+<!-- ************************************************ -->
+
+        
+
+        </div>
+
+<!-- **************** -->
+<!-- LINK DEL REPORTE -->
+<!-- **************** -->
+
+        <div class="row fila-datos mt-3 mb-3 border-top">
+            <div class="d-none d-lg-block col-lg-2">
+                <a class="nuevo_rol" href="{% url 'seguridad:reporte_rol' %}">Reporte</a>
+            </div>      
+        </div>      
+
+<!-- *********************** -->
+<!-- BOTON DE NUEVO REGISTRO -->
+<!-- *********************** -->
+
+        {% if unico != '1' %}
+          <div id="fila-nuevo-rol" class="row fila-nuevo-rol mt-3 mb-3">
+            <div class="col">
+              <a class="nuevo_rol btn btn-block btn-primary" href="{% url 'seguridad:crear_rol' %}">Nuevo Rol</a>
+            </div>
+          </div>
+        {% endif %}
+    </div>
+{% endblock %}
+ 
+

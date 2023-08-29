@@ -1,0 +1,211 @@
+        <div class="container" style="background-color: white;">
+
+          <!-- logo titulo -->
+          <div class="row " style="
+              height: {{proyecto.altofilaenizcede}}px;
+            background-color: {{proyecto.colorfilaenizcede}};
+            {% if proyecto.enborde %}border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}}; {% endif %}
+            ">
+            <div class="col-{{proyecto.numerocolumnaenizquierda}}" style="
+            height: {{proyecto.altocolumnaenizquierda}}px;
+            background-color: {{proyecto.colorcolumnaenizquierda}};
+            {% if proyecto.enborde %}border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}}; {% endif %}
+            ">
+              
+            </div>
+            <div class="col-{{proyecto.numerocolumnalogo}}" style="
+            height: {{proyecto.altocolumnalogo}}px;
+            background-color: {{proyecto.colorcolumnalogo}};
+            {% if proyecto.enborde %}border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}}; {% endif %}
+            display: flex;
+            {% if proyecto.justificacionhorizontallogo == 'c' %}
+              justify-content: center;
+            {% endif %}
+            {% if proyecto.justificacionhorizontallogo == 's' %}
+              justify-content: start;
+            {% endif %}
+            {% if proyecto.justificacionhorizontallogo == 'e' %}
+              justify-content: end;
+            {% endif %}
+            {% if proyecto.justificacionverticallogo == 'c' %}
+              align-items: center;
+            {% endif %}
+            {% if proyecto.justificacionverticallogo == 's' %}
+              align-items: start;
+            {% endif %}
+            {% if proyecto.justificacionverticallogo == 'e' %}
+              align-items: end;
+            {% endif %}
+            ">
+              {% if proyecto.avatar %}
+                <img src="{{proyecto.avatar.url}}" alt="" style="
+                    height: {{proyecto.avatarheight}}px;
+                    width: {{proyecto.avatarwidth}}px;
+                ">
+              {% endif %}
+            </div>
+            <div class="col-{{proyecto.numerocolumnatitulo}}" style="
+            height: {{proyecto.altocolumnatitulo}}px;
+            background-color: {{proyecto.colorcolumnatitulo}};
+            {% if proyecto.enborde %}border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}}; {% endif %}
+            display: flex;
+            {% if proyecto.justificacionhorizontaltitulo == 'c' %}
+              justify-content: center;
+            {% endif %}
+            {% if proyecto.justificacionhorizontaltitulo == 's' %}
+              justify-content: start;
+            {% endif %}
+            {% if proyecto.justificacionhorizontaltitulo == 'e' %}
+              justify-content: end;
+            {% endif %}
+            {% if proyecto.justificacionverticaltitulo == 'c' %}
+              align-items: center;
+            {% endif %}
+            {% if proyecto.justificacionverticaltitulo == 's' %}
+              align-items: start;
+            {% endif %}
+            {% if proyecto.justificacionverticaltitulo == 'e' %}
+              align-items: end;
+            {% endif %}
+            
+            ">
+              {% if proyecto.imagentitulo %}
+                <img src="{{proyecto.avatar.url}}" alt="" style="
+                    height: {{proyecto.imagentituloheight}}px;
+                    width: {{proyecto.imagentitulowidth}}px;
+                ">
+              {% else %}
+                <span style="
+                  font-name: {{font_titulo.0}}; font-size: {{font_titulo.1}}pt; font-weight: {{font_titulo.2}};
+                ">{{proyecto.titulo}}</span>
+                
+              {% endif %}
+              
+            </div>
+            <div class="col-{{proyecto.numerocolumnalogin}}" style="
+            height: {{proyecto.altocolumnalogin}}px;
+            background-color: {{proyecto.colorcolumnalogin}};
+            {% if proyecto.enborde %}border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}}; {% endif %}
+            ">
+              
+            </div>
+            <div class="col-{{proyecto.numerocolumnaenderecha}}" style="
+            height: {{proyecto.altocolumnaenderecha}}px;
+            background-color: {{proyecto.colorcolumnaenderecha}};
+            {% if proyecto.enborde %}border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}}; {% endif %}
+            ">
+              
+            </div>
+          </div>
+
+          <!-- Busqueda y menu -->
+          <div class="row mt-{{proyecto.separacionsecciones}}" style="
+              height: {{proyecto.altofilabume}}px;
+            background-color: {{proyecto.colorfilabume}};
+            {% if proyecto.bumeborde %}border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}}; {% endif %}
+            ">
+            <div class="col-{{proyecto.numerocolumnaenizquierda}}" style="
+            height: {{proyecto.altocolumnabumeizquierda}}px;
+            background-color: {{proyecto.colorcolumnabumeizquierda}};
+            {% if proyecto.bumeborde %}border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}}; {% endif %}
+            ">
+              
+            </div>
+            <div class="col-{{proyecto.numerocolumnabusqueda}}" style="
+            height: {{proyecto.altocolumnabusqueda}}px;
+            background-color: {{proyecto.colorcolumnalogo}};
+            {% if proyecto.bumeborde %}border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}}; {% endif %}
+            ">
+            </div>
+            <div class="col-{{proyecto.numerocolumnamenu}}" style="
+            height: {{proyecto.altocolumnamenu}}px;
+            background-color: {{proyecto.colorfondomenu}};
+            {% if proyecto.bumeborde %}border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}}; {% endif %}
+            display: flex; align-items: center;
+            {% if proyecto.justificacionmenu == 'c' %}
+              justify-content: center;
+            {% endif %}
+            {% if proyecto.justificacionmenu == 's' %}
+              justify-content: start;
+            {% endif %}
+            {% if proyecto.justificacionmenu == 'e' %}
+              justify-content: end;
+            {% endif %}
+
+            ">
+            
+            <nav class="navbar navbar-expand-lg " >
+              <div class="container-fluid">
+                <a class="navbar-brand" href="#"></a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                      <li class="nav-item">
+                              <a class="nav-link active opcionmenu" aria-current="page" href="" style="
+                              color: {{proyecto.colormenu}};
+                              font-name: {{font_menu.0}}; font-size: {{font_menu.1}}pt; font-weight: {{font_menu.2}};
+                              ">Visitante</a>
+                          </li>
+                      <li class="nav-item">
+                        <a class="nav-link active opcionmenu" href="" style="
+                              color: {{proyecto.colormenu}};
+                              font-name: {{font_menu.0}}; font-size: {{font_menu.1}}pt; font-weight: {{font_menu.2}};
+                              ">Registro</a>
+                      </li>
+                      <li class="nav-item">
+                        <a  class="nav-link active opcionmenu" href="" style="
+                              color: {{proyecto.colormenu}};
+                              font-name: {{font_menu.0}}; font-size: {{font_menu.1}}pt; font-weight: {{font_menu.2}};
+                        ">Login</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active opcionmenu" href="" style="
+                              color: {{proyecto.colormenu}};
+                              font-name: {{font_menu.0}}; font-size: {{font_menu.1}}pt; font-weight: {{font_menu.2}};
+                        ">Perfil</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link active opcionmenu" href="" style="
+                              color: {{proyecto.colormenu}};
+                              font-name: {{font_menu.0}}; font-size: {{font_menu.1}}pt; font-weight: {{font_menu.2}};
+                        ">Logout</a>
+                      </li>
+                 
+                  </ul>
+                 
+                </div>
+              </div>
+            </nav>
+              
+            </div>
+            <div class="col-{{proyecto.numerocolumnabumederecha}}" style="
+            height: {{proyecto.altocolumnabumederecha}}px;
+            background-color: {{proyecto.colorcolumnabumederecha}};
+            {% if proyecto.bumeborde %}border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}}; {% endif %}
+            ">
+              
+            </div>
+          </div>
+
+          <!-- Fila central -->
+          <div class="row mt-{{proyecto.separacionsecciones}}" style="
+              height: {{proyecto.altofilamedio}}px;
+            background-color: {{proyecto.colorfilamedio}};
+            {% if proyecto.enborde %}border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}}; {% endif %}
+            ">
+            <div class="col-{{proyecto.numerocolumnamedioizquierda}}" style="
+            height: {{proyecto.altocolumnamedioizquierda}}px;
+            background-color: {{proyecto.colorcolumnamedioizquierda}};
+            {% if proyecto.cenborde %}border: {{proyecto.cenanchoborde}}pt solid {{proyecto.cencolorborde}}; {% endif %}
+            ">
+              
+            </div>
+
+            <div class="col-{{proyecto.numerocolumnamediocentro}}" style="
+            height: {{proyecto.altocolumnamediocentro}}px;
+            background-color: {{proyecto.colorcolumnamediocentro}};
+            {% if proyecto.cenborde %}border: {{proyecto.cenanchoborde}}pt solid {{proyecto.cencolorborde}}; {% endif %}
+            ">
+
+            <!-- fin de medio superior -->
+

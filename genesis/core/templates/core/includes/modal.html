@@ -1,0 +1,478 @@
+	<div id="11" name="11" class="modal">
+		<div id="modal-content" class="container modal-content">
+			<div class="row modal-header" style="">
+				<h1 class="col-11" style="">Separacion fila 1 columna 1</h1>
+				<div class="col-1">
+					<span id="11" class="close" style="">&times;</span>
+				</div>
+			</div>
+			<form action="." method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div name="ele" id="l_altofilaenizcede" class="col controles-label">
+					Alto de fila
+				</div>
+				<div  name="ele" id="c_altofilaenizcede" class="col controles_control">
+					{{form.altofilaenizcede}}
+				</div>
+				<div  name="ele" id="l_altocolumnaenizquierda" class="col controles-label">
+					Alto de columna
+				</div>
+				<div id="c_altocolumnaenizquierda" class="col controles_control">
+					{{form.altocolumnaenizquierda}}
+				</div>
+				<div class="row modal-footer mt-3" style="">
+					<input class="btn-primary" type="submit" value="Grabar">
+				</div>
+
+				<div  name="ele" id="l_avatarwidth" class="col controles-label">
+					Color pagina principal
+				</div>
+				<div id="c_avatarwidth" class="col controles_control">
+				  {{form.avatarwidth}}
+				</div>
+
+				<div  name="ele" id="l_colorpaginaprincipal" class="col controles-label">
+					Color pagina principal
+				</div>
+				<div class="col controles_control">
+				  {{form.avatarheight}}
+				</div>
+
+				<input type="text" hidden="true" value="{{proyecto.id}}" name="proyecto_id">								
+				<input type="text" hidden="true" value="0" id="columna" name="columna">								
+			</form>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<div  name="ele" id="l_colorpaginaprincipal" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorpaginaprincipal" class="col controles_control">
+  {{form.colorpaginaprincipal}}
+</div>
+
+<div  name="ele" id="l_justificacionhorizontaltitulo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_justificacionhorizontaltitulo" class="col controles_control">
+  {{form.justificacionhorizontaltitulo}}
+</div>
+
+<div  name="ele" id="l_justificacionverticaltitulo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_justificacionverticaltitulo" class="col controles_control">
+  {{form.justificacionverticaltitulo}}
+</div>
+
+<div  name="ele" id="l_justificacionmenu" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_justificacionmenu" class="col controles_control">
+  {{form.justificacionmenu}}
+</div>
+
+
+<div  name="ele" id="l_justificacionhorizontallogo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_justificacionhorizontallogo" class="col controles_control">
+  {{form.justificacionhorizontallogo}}
+</div>
+
+<div  name="ele" id="l_justificacionverticallogo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_justificacionverticallogo" class="col controles_control">
+  {{form.justificacionverticallogo}}
+</div>
+
+<div  name="ele" id="l_altofilaenizcede" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altofilaenizcede" class="col controles_control">
+  {{form.altofilaenizcede}}
+</div>
+
+<div  name="ele" id="l_colorfilaenizcede" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorfilaenizcede" class="col controles_control">
+  {{form.colorfilaenizcede}}
+</div>
+
+<div  name="ele" id="l_altocolumnaenizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnaenizquierda" class="col controles_control">
+  {{form.altocolumnaenizquierda}}
+</div>
+
+<div  name="ele" id="l_colorcolumnaenizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnaenizquierda" class="col controles_control">
+  {{form.colorcolumnaenizquierda}}
+</div>
+
+<div  name="ele" id="l_numerocolumnaenizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnaenizquierda" class="col controles_control">
+  {{form.numerocolumnaenizquierda}}
+</div>
+
+<div  name="ele" id="l_altocolumnalogo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnalogo" class="col controles_control">
+  {{form.altocolumnalogo}}
+</div>
+
+<div  name="ele" id="l_colorcolumnalogo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnalogo" class="col controles_control">
+  {{form.colorcolumnalogo}}
+</div>
+
+<div  name="ele" id="l_numerocolumnalogo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnalogo" class="col controles_control">
+  {{form.numerocolumnalogo}}
+</div>
+
+<div  name="ele" id="l_altocolumnatitulo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnatitulo" class="col controles_control">
+  {{form.altocolumnatitulo}}
+</div>
+
+<div  name="ele" id="l_colorcolumnatitulo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnatitulo" class="col controles_control">
+  {{form.colorcolumnatitulo}}
+</div>
+
+<div  name="ele" id="l_numerocolumnatitulo" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnatitulo" class="col controles_control">
+  {{form.numerocolumnatitulo}}
+</div>
+
+<div  name="ele" id="l_altocolumnalogin" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnalogin" class="col controles_control">
+  {{form.altocolumnalogin}}
+</div>
+
+<div  name="ele" id="l_colorcolumnalogin" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnalogin" class="col controles_control">
+  {{form.colorcolumnalogin}}
+</div>
+
+<div  name="ele" id="l_numerocolumnalogin" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnalogin" class="col controles_control">
+  {{form.numerocolumnalogin}}
+</div>
+
+<div  name="ele" id="l_altocolumnaenderecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnaenderecha" class="col controles_control">
+  {{form.altocolumnaenderecha}}
+</div>
+
+<div  name="ele" id="l_colorcolumnaenderecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnaenderecha" class="col controles_control">
+  {{form.colorcolumnaenderecha}}
+</div>
+
+<div  name="ele" id="l_numerocolumnaenderecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnaenderecha" class="col controles_control">
+  {{form.numerocolumnaenderecha}}
+</div>
+
+<div  name="ele" id="l_enborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_enborde" class="col controles_control">
+  {{form.enborde}}
+</div>
+
+<div  name="ele" id="l_encolorborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_encolorborde" class="col controles_control">
+  {{form.encolorborde}}
+</div>
+
+<div  name="ele" id="l_enanchoborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_enanchoborde" class="col controles_control">
+  {{form.enanchoborde}}
+</div>
+
+<div  name="ele" id="l_altofilabume" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altofilabume" class="col controles_control">
+  {{form.altofilabume}}
+</div>
+
+<div  name="ele" id="l_colorfilabume" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorfilabume" class="col controles_control">
+  {{form.colorfilabume}}
+</div>
+
+<div  name="ele" id="l_altocolumnabumeizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnabumeizquierda" class="col controles_control">
+  {{form.altocolumnabumeizquierda}}
+</div>
+
+<div  name="ele" id="l_colorcolumnabumeizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnabumeizquierda" class="col controles_control">
+  {{form.colorcolumnabumeizquierda}}
+</div>
+
+<div  name="ele" id="l_numerocolumnabumeizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnabumeizquierda" class="col controles_control">
+  {{form.numerocolumnabumeizquierda}}
+</div>
+
+<div  name="ele" id="l_altocolumnabusqueda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnabusqueda" class="col controles_control">
+  {{form.altocolumnabusqueda}}
+</div>
+
+<div  name="ele" id="l_colorcolumnabusqueda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnabusqueda" class="col controles_control">
+  {{form.colorcolumnabusqueda}}
+</div>
+
+<div  name="ele" id="l_numerocolumnabusqueda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnabusqueda" class="col controles_control">
+  {{form.numerocolumnabusqueda}}
+</div>
+
+<div  name="ele" id="l_altocolumnamenu" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnamenu" class="col controles_control">
+  {{form.altocolumnamenu}}
+</div>
+
+<div  name="ele" id="l_colorcolumnamenu" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnamenu" class="col controles_control">
+  {{form.colorcolumnamenu}}
+</div>
+
+<div  name="ele" id="l_numerocolumnamenu" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnamenu" class="col controles_control">
+  {{form.numerocolumnamenu}}
+</div>
+
+<div  name="ele" id="l_altocolumnabumederecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnabumederecha" class="col controles_control">
+  {{form.altocolumnabumederecha}}
+</div>
+
+<div  name="ele" id="l_colorcolumnabumederecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnabumederecha" class="col controles_control">
+  {{form.colorcolumnabumederecha}}
+</div>
+
+<div  name="ele" id="l_numerocolumnabumederecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnabumederecha" class="col controles_control">
+  {{form.numerocolumnabumederecha}}
+</div>
+
+<div  name="ele" id="l_bumeborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_bumeborde" class="col controles_control">
+  {{form.bumeborde}}
+</div>
+
+<div  name="ele" id="l_bumecolorborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_bumecolorborde" class="col controles_control">
+  {{form.bumecolorborde}}
+</div>
+
+<div  name="ele" id="l_bumeanchoborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_bumeanchoborde" class="col controles_control">
+  {{form.bumeanchoborde}}
+</div>
+
+<div  name="ele" id="l_altofilamedio" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altofilamedio" class="col controles_control">
+  {{form.altofilamedio}}
+</div>
+
+<div  name="ele" id="l_colorfilamedio" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorfilamedio" class="col controles_control">
+  {{form.colorfilamedio}}
+</div>
+
+<div  name="ele" id="l_altocolumnamedioizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnamedioizquierda" class="col controles_control">
+  {{form.altocolumnamedioizquierda}}
+</div>
+
+<div  name="ele" id="l_colorcolumnamedioizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnamedioizquierda" class="col controles_control">
+  {{form.colorcolumnamedioizquierda}}
+</div>
+
+<div  name="ele" id="l_numerocolumnamedioizquierda" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnamedioizquierda" class="col controles_control">
+  {{form.numerocolumnamedioizquierda}}
+</div>
+
+<div  name="ele" id="l_altocolumnamediocentro" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnamediocentro" class="col controles_control">
+  {{form.altocolumnamediocentro}}
+</div>
+
+<div  name="ele" id="l_colorcolumnamediocentro" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnamediocentro" class="col controles_control">
+  {{form.colorcolumnamediocentro}}
+</div>
+
+<div  name="ele" id="l_numerocolumnamediocentro" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnamediocentro" class="col controles_control">
+  {{form.numerocolumnamediocentro}}
+</div>
+
+<div  name="ele" id="l_altocolumnamedioderecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnamedioderecha" class="col controles_control">
+  {{form.altocolumnamedioderecha}}
+</div>
+
+<div  name="ele" id="l_colorcolumnamedioderecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnamedioderecha" class="col controles_control">
+  {{form.colorcolumnamedioderecha}}
+</div>
+
+<div  name="ele" id="l_numerocolumnamedioderecha" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_numerocolumnamedioderecha" class="col controles_control">
+  {{form.numerocolumnamedioderecha}}
+</div>
+
+<div  name="ele" id="l_cenborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_cenborde" class="col controles_control">
+  {{form.cenborde}}
+</div>
+
+<div  name="ele" id="l_cencolorborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_cencolorborde" class="col controles_control">
+  {{form.cencolorborde}}
+</div>
+
+<div  name="ele" id="l_cenanchoborde" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_cenanchoborde" class="col controles_control">
+  {{form.cenanchoborde}}
+</div>
+
+<div  name="ele" id="l_altofilapie" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altofilapie" class="col controles_control">
+  {{form.altofilapie}}
+</div>
+
+<div  name="ele" id="l_colorfilapie" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorfilapie" class="col controles_control">
+  {{form.colorfilapie}}
+</div>
+
+<div  name="ele" id="l_altocolumnapie" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_altocolumnapie" class="col controles_control">
+  {{form.altocolumnapie}}
+</div>
+
+<div  name="ele" id="l_colorcolumnapie" class="col controles-label">
+	Color pagina principal
+</div>
+<div id="c_colorcolumnapie" class="col controles_control">
+  {{form.colorcolumnapie}}
+</div>

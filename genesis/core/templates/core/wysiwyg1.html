@@ -1,0 +1,14 @@
+<script>
+$(function () {
+  $('textarea[name="DSC"]').ckeditor();
+  $('#btn').on('click', function(e) {
+    console.log('ckeditor content: ' + $('textarea[name="DSC"]').val());
+  })
+});
+</script>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.9/adapters/jquery.js"></script>
+
+<textarea name="DSC" class="materialize-textarea"></textarea>
+<button id="btn">Get text</button>

@@ -1,0 +1,65 @@
+{% extends 'core/base@proyecto.html' %}
+{% block menu %}
+<!-- #@[p_login_01] -->
+  {% include 'core/includes/menu_core.html'%}
+<!-- #@[p_login_02] -->
+{% endblock %}
+{% block cuerpo %}
+<!-- #@[p_login_03] -->
+{% load static %}
+<style>.errorlist{color:red;}</style>
+<main role="main">
+<!-- #@[p_login_04] -->
+  <div class="container">
+    <div class="row mt-3">
+<!-- #@[p_login_05] -->
+      <div class="col-md-9 mx-auto mb-5">
+<!-- #@[p_login_06] -->
+        {% if 'register' in request.GET %}
+<!-- #@[p_login_07] -->
+          <p style="color:green;">Usuario registrado correctamente, ya puedes identificarte</p>
+<!-- #@[p_login_08] -->
+        {% endif %}
+<!-- #@[p_login_09] -->
+        <form action="" method="post">{% csrf_token %}
+<!-- #@[p_login_10] -->
+          <h3 class="mb-4">Iniciar sesión</h3>
+<!-- #@[p_login_11] -->
+          {% if form.non_field_errors %}
+<!-- #@[p_login_12] -->
+            <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+<!-- #@[p_login_13] -->
+          {% endif %}
+<!-- #@[p_login_14] -->
+          <p>
+<!-- #@[p_login_15] -->
+            <input type="text" name="username" autofocus maxlength="254" required
+              id="id_username" class="form-control" placeholder="Nombre de usuario"/>
+<!-- #@[p_login_16] -->
+          </p>
+<!-- #@[p_login_17] -->
+          <p>
+<!-- #@[p_login_18] -->
+            <input type="password" name="password" required
+              id="id_password" class="form-control" placeholder="Contraseña"/>
+<!-- #@[p_login_19] -->
+          </p>
+<!-- #@[p_login_20] -->
+          <p><input type="submit" class="btn btn-primary btn-block" value="Acceder"></p>
+<!-- #@[p_login_21] -->
+        </form>
+<!-- #@[p_login_22] -->
+        Ha olvidado su enlace?. Puede restaurarlo <a href="{% url 'password_reset' %}">aqui</a>
+<!-- #@[p_login_23] -->
+      </div>
+<!-- #@[p_login_24] -->
+    </div>
+<!-- #@[p_login_25] -->
+  </div>
+<!-- #@[p_login_26] -->
+</main>
+<!-- #@[p_login_27] -->
+{% endblock %}
+<!-- #@[p_login_28] -->
+
+ 

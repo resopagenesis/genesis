@@ -1,0 +1,202 @@
+{% extends 'core/base_ajustable.html' %}
+{% load static %}
+
+{% block cuerpo %}
+	<style type="text/css">
+		body{background-color: white}
+	</style>
+	<div class="container-fluid">
+		<div class="row pb-{{proyecto.separacionsecciones}} mt-3" style="height: {{proyecto.altofilaenizcede}}px;">
+			<div name="pfpc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnaenizquierda}} border" style="background-color: {{proyecto.colorcolumnaenizquierda}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="pfsc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnalogo}} border" style="background-color: {{proyecto.colorcolumnalogo}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="pftc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnatitulo}} border" style="background-color: {{proyecto.colorcolumnatitulo}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="pfcc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnalogin}} border" style="background-color: {{proyecto.colorcolumnalogin}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="pfqc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnaenderecha}} border" style="background-color: {{proyecto.colorcolumnaenderecha}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+		</div>
+
+		<!-- segunda fila -->
+		<div class="row pb-{{proyecto.separacionsecciones}}" style="height: {{proyecto.altofilabume}}px;">
+			<div name="sfpc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnabumeizquierda}} border" style="background-color: {{proyecto.colorcolumnabumeizquierda}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="sfsc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnabusqueda}} border" style="background-color: {{proyecto.colorcolumnabusqueda}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="sftc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnamenu}} border" style="background-color: {{proyecto.colorcolumnamenu}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="sfcc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnabumederecha}} border" style="background-color: {{proyecto.colorcolumnabumederecha}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+		</div>
+		<!-- tercera fila -->
+		<div class="row pb-{{proyecto.separacionsecciones}}" style="height: 200px;">
+			<div name="tfpc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnamedioizquierda}} border" style="background-color: {{proyecto.colorcolumnamedioizquierda}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="tfsc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnamediocentro}} border" style="background-color: {{proyecto.colorcolumnamediocentro}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+			<div name="tftc" id="{{proyecto.id}}" class="col-{{proyecto.numerocolumnamedioderecha}} border" style="background-color: {{proyecto.colorcolumnamedioderecha}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+		</div>
+		<!-- cuarta fila -->
+		<div class="row pb-{{proyecto.separacionsecciones}}" style="height: {{proyecto.altofilapie}}px;">
+			<div name="cfpc" id="{{proyecto.id}}" class="col-12 border" style="background-color: {{proyecto.colorcolumnapie}}">
+				{% include 'core/includes/panel_ajustable.html' %}
+			</div>
+		</div>
+	    <div class="row mb-5 mt-2 text-center">
+	      <div class="col">
+	        Volver a &nbsp;&nbsp;
+	        <a href="{% url 'proyectos:arbol' %}?proyecto_id={{proyecto.id}}" data-toggle="tooltip" data-placement="top" title="Volver al arbol"><span style="color:green">{{proyecto.nombre}}</span></a>
+	      </div>
+	    </div>
+	</div>
+{% endblock %}
+
+    usuario = models.ForeignKey(User,on_delete=models.CASCADE)
+    nombre = models.CharField(max_length=30)
+    avatar = models.ImageField(upload_to='proyectos',blank=True,null=True)
+    imagenpaginaprincipal = models.ImageField(upload_to='proyectos',blank=True,null=True)
+    colorpaginaprincipal = models.CharField(max_length=100,default='transparent')
+    imagentitulo = models.ImageField(upload_to='proyectos',blank=True,null=True)
+    titulo = models.CharField(max_length=30,default='',blank=True)
+    descripcion = models.TextField()
+    # descripcion = models.TextField(blank=True,default='')
+    conseguridad = models.BooleanField(default=False)
+    conetiquetaspersonalizacion = models.BooleanField(default=False)
+    estadogeneracion = models.SmallIntegerField(default=0)
+    menuscontiguos = models.BooleanField(default=False)
+    separacionsecciones = models.SmallIntegerField(default=2)
+    
+    # Busqueda
+    conbusqueda = models.BooleanField(default=False)
+
+    # Tamanio del logo del proyecto
+    avatarwidth = models.IntegerField(default=30)
+    avatarheight = models.IntegerField(default=30)
+
+    # Tamanio de la imagen del titulo del proyecto
+    imagentitulowidth = models.IntegerField(default=70)
+    imagentituloheight = models.IntegerField(default=30)
+    fonttitulo = models.CharField(max_length=100,default='Raleway,20,500')
+    colortitulo = models.CharField(max_length=100,default='white')
+    altocolumnatitulo = models.IntegerField(default=40)
+    numerocolumnatitulo = models.IntegerField(default=8)
+    colorcolumnatitulo = models.CharField(max_length=100,default='transparent')
+    justificacionhorizontaltitulo = models.CharField(max_length=1, default='c')
+    justificacionverticaltitulo = models.CharField(max_length=1, default='c')
+
+    # altofilaencabezado = models.IntegerField(default=20)
+    # altocolumnaencabezado = models.IntegerField(default=20)
+    
+    # COLUMNA SEPARACION IZQUIERDA PRIMERA FILA
+
+    altofilaenizcede = models.IntegerField(default=40)
+    colorfilaenizcede = models.CharField(max_length=100,default='#4e4c45')
+    numerocolumnaenizquierda = models.IntegerField(default=1)
+    altocolumnaenizquierda = models.IntegerField(default=40)
+    colorcolumnaenizquierda = models.CharField(max_length=100,default='transparent')
+    # altocolumnaencentro = models.IntegerField(default=20)
+
+    # COLUMNA SEPARACION DERECHA PRIMERA FILA
+    # numerocolumnaencentro = models.IntegerField(default=4)
+    numerocolumnaenderecha = models.IntegerField(default=1)
+    altocolumnaenderecha = models.IntegerField(default=40)
+    colorcolumnaenderecha = models.CharField(max_length=100,default='transparent')
+
+    enanchoborde = models.SmallIntegerField(default=1)
+    enborde = models.BooleanField(default=False)
+    encolorborde = models.CharField(max_length=100,default='black')
+
+    # altofilalotilo = models.IntegerField(default=20)
+
+    # LOGO
+    altocolumnalogo = models.IntegerField(default=40)
+    colorcolumnalogo = models.CharField(max_length=100,default='transparent')
+    numerocolumnalogo = models.IntegerField(default=1)
+    justificacionhorizontallogo = models.CharField(max_length=1, default='c')
+    justificacionverticallogo = models.CharField(max_length=1, default='c')
+
+    # COLUMNA LOGIN PRIMERA FILA
+    altocolumnalogin = models.IntegerField(default=20)
+    numerocolumnalogin = models.IntegerField(default=1)
+    colorcolumnalogin = models.CharField(max_length=100,default='transparent')
+
+    altofilabume = models.IntegerField(default=30)
+    colorfilabume = models.CharField(max_length=100,default='#f1f3f4')
+    
+    # COLUMAN SEPARACION IZQUIERDA SEGUNDA FILA
+    numerocolumnabumeizquierda = models.IntegerField(default=1)
+    altocolumnabumeizquierda = models.IntegerField(default=30)
+    colorcolumnabumeizquierda = models.CharField(max_length=100,default='transparent')
+    # altocolumnaencentro = models.IntegerField(default=20)
+
+    # COLUMNA SEPARACION DERECHA SEGUNA FILA
+    # numerocolumnaencentro = models.IntegerField(default=4)
+    numerocolumnabumederecha = models.IntegerField(default=1)
+    altocolumnabumederecha = models.IntegerField(default=30)
+    colorcolumnabumederecha = models.CharField(max_length=100,default='transparent')
+
+
+    bumeanchoborde = models.SmallIntegerField(default=1)
+    bumeborde = models.BooleanField(default=False)
+    bumecolorborde = models.CharField(max_length=100,default='black')
+
+    # COLUMNA BUSQUEDA
+    altocolumnabusqueda = models.IntegerField(default=30)
+    numerocolumnabusqueda = models.IntegerField(default=3)
+    colorcolumnabusqueda = models.CharField(max_length=100,default='transparent')
+
+    # COLUMNA MENU
+    altocolumnamenu = models.IntegerField(default=30)
+    numerocolumnamenu = models.IntegerField(default=7)
+    colorcolumnamenu = models.CharField(max_length=100,default='transparent')
+    colormenu = models.CharField(max_length=100,default='#6d6d6d')
+    fontmenu = models.CharField(max_length=100,default='Open+Sans,10,400')
+    justificacionmenu = models.CharField(max_length=1, default='c')
+
+    # COLMNAS TERCERA FILA
+    altofilamedio = models.IntegerField(default=-100)
+    colorfilamedio = models.CharField(max_length=100,default='transparent')
+    altocolumnamedioizquierda = models.IntegerField(default=-100)
+    numerocolumnamedioizquierda = models.IntegerField(default=1)
+    colorcolumnamedioizquierda = models.CharField(max_length=100,default='transparent')
+    altocolumnamediocentro = models.IntegerField(default=-100)
+    numerocolumnamediocentro = models.IntegerField(default=10)
+    colorcolumnamediocentro = models.CharField(max_length=100,default='transparent')
+    altocolumnamedioderecha = models.IntegerField(default=-100)
+    numerocolumnamedioderecha = models.IntegerField(default=1)
+    colorcolumnamedioderecha = models.CharField(max_length=100,default='transparent')
+    
+    cenanchoborde = models.SmallIntegerField(default=1)
+    cenborde = models.BooleanField(default=False)
+    cencolorborde = models.CharField(max_length=100,default='black')
+
+    imagenmedio = models.ImageField(upload_to='proyectos',blank=True,null=True)
+    textomedio = models.TextField(blank=True,default='')
+    colortextomedio = models.CharField(max_length=100,default='black')
+    fonttextomedio = models.CharField(max_length=100,default='Raleway,12,500')
+
+    altofilapie = models.IntegerField(default=70)
+    colorfilapie = models.CharField(max_length=100,default='transparent')
+    altocolumnapie = models.IntegerField(default=70)
+    colorcolumnapie = models.CharField(max_length=100,default='#fdfdfd')
+
+    # Imagen de volver
+    imagenvolver = models.ImageField(upload_to='proyectos',blank=True,null=True)
+    textovolver = models.CharField(max_length=30,blank=True,default='Volver')
+    fonttextovolver = models.CharField(max_length=100,default='Arial,10,normal')
+    colortextovolver = models.CharField(max_length=20,default='green')

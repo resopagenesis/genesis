@@ -1,0 +1,334 @@
+        texto_procesar = ProyectoTexto.objects.get(id=self.request.GET['id'])
+
+        context['vigente'] = VerificaVigenciaUsuario(self.request.user)
+        context['error'] = ''
+        context['error_texto'] = ''
+        context['criterio'] = self.request.GET['criterio']
+
+        caracteres_especiales = []
+        caracteres_especiales.append(['&#39;',"'"])
+        caracteres_especiales.append(['&quot;','"'])
+        caracteres_especiales.append(['&lt;','<'])
+        caracteres_especiales.append(['&gt;','>'])
+
+        Texto = rutinas.SinTags(texto_procesar.texto)
+
+        # Cambiar caracteres espaciales
+
+        for car in caracteres_especiales:
+            Texto = Texto.replace(car[0],car[1])
+            
+        # Comienza en proceso
+        # Proyecto que se crea
+        tag = ''
+        a=0
+        a=a*2
+        print(a)
+        lista_app = []
+        lista_mod = []
+        lista_prop = []
+        lista_reg = []
+        lista_seccion=[]
+        lista_fila=[]
+        lista_columna=[]
+        lista_sec=[]
+        lista_fil=[]
+        lista_col=[]
+        lista_secp=[]
+        lista_filp=[]
+        lista_colp=[]
+        lista_perso = []
+
+        try:
+            try:
+                proyecto_anterior = Proyecto.objects.get(id=texto_procesar.proyecto)
+                # Recuperar las aplicaciones
+                for aplicacion in Aplicacion.objects.filter(proyecto = proyecto_anterior):
+                    lista_app.append(aplicacion)
+                    for modelo in Modelo.objects.filter(aplicacion = aplicacion,proyecto=proyecto_anterior):
+                        lista_mod.append(modelo)
+                        # Recupera secciones,filas,columnas
+                        for secc in Sec.objects.filter(modelo=modelo):
+                            lista_sec.append(secc)
+                            for fila in Fil.objects.filter(seccion=secc):
+                                lista_fil.append(fila)           
+                                for col in Col.objects.filter(fila=fila):
+                                    lista_col.append(col)
+                                # Recupera propiedades
+                                for propiedad in Propiedad.objects.filter(modelo =  modelo):
+                                    lista_prop.append(propiedad)
+                                    for regla in Regla.objects.filter(propiedad=propiedad):
+                                        lista_reg.append(regla)
+                # Recupera la personalizacion
+                for perso in Personaliza.objects.filter(proyecto=proyecto_anterior):
+                    lista_perso.append(perso)
+                # Recupera secciones, filas y columnas
+                for secc in Seccion.objects.filter(proyecto=proyecto_anterior):
+                    lista_seccion.append(secc)
+                    for fila in Fila.objects.filter(seccion=secc):
+                        lista_fila.append(fila)           
+                        for col in Columna.objects.filter(fila=fila):
+                            lista_columna.append(col)
+                # Recupera secciones, filas y columnas principal
+                for secc in Secp.objects.filter(proyecto=proyecto_anterior):
+                    lista_secp.append(secc)
+                    for fila in Filp.objects.filter(seccion=secc):
+                        lista_filp.append(fila)           
+                        for col in Colp.objects.filter(fila=fila):
+                            lista_colp.append(col)
+
+                # Proyecto.objects.get(id=texto_procesar.proyecto).delete()
+            except:
+                proyecto_anterior = None            
+
+            # Procesa texto
+            proyecto = Proyecto()
+            aplicacion = None
+            modelo = None
+            propiedad = None
+            regla = None
+            nap = 1
+            nmo = 1
+            npr = 1
+            nrg = 1
+            proyecto.usuario = self.request.user
+            context['mensaje'] = Texto
+            strTag = ''
+            valores = {}
+            flgInicia = False
+            for ch in Texto:
+                if flgInicia:
+                    strTag += ch
+                if ch == '[':
+                    flgInicia = True
+                if ch == ']':
+                    flgInicia = False
+                    tag = ''
+                    valor = ''
+                    flgFinTab = False
+                    for cht in strTag:
+                        if not flgFinTab:
+                            tag += cht
+                        else:
+                            valor += cht
+                        if cht == ' ':
+                            flgFinTab = True
+                    if tag == 'pcs' or tag == 'pcr' or tag == 'pce' or \
+                                tag == 'pcb' or tag == 'clcb' or \
+                                tag == 'ls' or tag == 'll' or tag == 'cs' or \
+                                tag == 'cl' or tag == 'es' or tag == 'el' or \
+                                tag == 'bc' or tag == 'bl' or tag == 'rgu' or \
+                                tag == 'tvw' or tag == 'opel' or tag == 'bli' or \
+                                tag == 'enl' or tag == 'emb' or tag == 'ear' or \
+                                tag == 'mdt' or tag == 'nef' or tag == 'pbl' or tag == 'tlz' or \
+                                tag == 'enr' or tag == 'lpe':
+                        valores[tag] = True
+                    else:
+                        valores[tag] = valor
+
+            for key, value in valores.items():
+                numre=1
+                if key == 'npr':
+                    proyecto = Proyecto()
+                    proyecto.nombre =  value
+                    proyecto.usuario = self.request.user
+                    proyecto.save()
+                if key == 'dpr':proyecto.descripcion =  value
+                if key == 'tit':proyecto.titulo =  value
+                if key == 'pcs':proyecto.conseguridad = value
+                if key == 'pcr':proyecto.conroles =  value
+                if key == 'pce':proyecto.conetiquetaspersonalizacion =  value
+                if key == 'pcb':proyecto.conbusqueda =  value
+                if key == 'ses':proyecto.separacionsecciones = value
+                if key == 'avw':proyecto.avatarwidth =  value
+                if key == 'avh':proyecto.avatarheight =  value
+                if key == 'itw':proyecto.imagentitulowidth =  value
+                if key == 'ith':proyecto.imagentituloheight =  value
+                if key == 'fti':proyecto.fonttitulo =  value
+                if key == 'cti':proyecto.colortitulo =  value
+                if key == 'jht':proyecto.justificacionhorizontaltitulo =  value
+                if key == 'jvt':proyecto.justificacionverticaltitulo =  value
+                if key == 'jhl':proyecto.justificacionhorizontallogo =  value
+                if key == 'jvl':proyecto.justificacionverticallogo =  value
+                if key == 'cme':proyecto.colormenu =  value
+                if key == 'fme':proyecto.fontmenu =  value
+                if key == 'jum':proyecto.justificacionmenu = value
+                proyecto.save()
+                if key == 'nap':
+                    aplicacion = Aplicacion()
+                    aplicacion.proyecto = proyecto
+                    if key == 'nap':aplicacion.nombre = value
+                    nap += 1
+                    aplicacion.save()
+                if key == 'dap':aplicacion.descripcion = value
+                if key == 'txma':aplicacion.textoenmenu = value
+                if key == 'tta':aplicacion.tooltip = value
+                if key == 'oga':aplicacion.ordengeneracion = value
+                aplicacion.save()
+                numre=2
+                if key == 'nmo':
+                    modelo = Modelo()
+                    modelo.proyecto = proyecto
+                    modelo.aplicacion = aplicacion
+                    if key == 'nmo':modelo.nombre = valores['nmo']
+                    nmo += 1
+                    modelo.save()
+                if key == 'nmo':modelo.descripcion = value
+                if key == 'smo':modelo.nombreself = value
+                if key == 'bmo':modelo.nombreborrar = value
+                if key == 'pmo':modelo.padre = value
+                if key == 'tom':modelo.textoopcionmenu = value
+                if key == 'ttm':modelo.tooltip = value
+                if key == 'tli':modelo.titulolista = value
+                if key == 'ftli':modelo.fonttitulolista = value
+                if key == 'cftl':modelo.colorfondotitulolista = value
+                if key == 'ctli':modelo.colortitulolista = value
+                if key == 'atli':modelo.altotitulolista = value
+                if key == 'mtli':modelo.mayusculastitulolista = value
+                if key == 'jvtl':modelo.justificacionverticaltitulolista = value
+                if key == 'jhtl':modelo.justificacionhorizontaltitulolista = value
+                if key == 'gcli':modelo.fontcomentariolista = value
+                if key == 'cmli':modelo.comentariolista = value
+                if key == 'cfcml':modelo.colorfondocomentariolista = value
+                if key == 'ccmli':modelo.colorcomentariolista = value
+                if key == 'mco':modelo.mayusculascolumnas = value
+                if key == 'aco':modelo.altocolumnas = value
+                if key == 'cfcl':modelo.colorfondocolumnaslista = value
+                if key == 'ccli':modelo.colorcolumnaslista = value
+                if key == 'fcli':modelo.fontcolumnaslista = value
+                if key == 'clcb':modelo.columnaslistaconborde = value
+                if key == 'ftxl':modelo.fonttextolista = value
+                if key == 'cftxc':modelo.colorfondotextolista = value
+                if key == 'ctxl':modelo.colortextolista= value
+                if key == 'feb':modelo.fonteditarborrar = value
+                if key == 'ceb':modelo.coloreditarborrar = value
+                if key == 'teb':modelo.textoeditarborrar = value
+                if key == 'clnm':modelo.colorlinknuevomodelo = value
+                if key == 'tlnm':modelo.textolinknuevomodelo = value
+                if key == 'tin':modelo.tituloinserta = value
+                if key == 'ftin':modelo.fonttitulolista = value
+                if key == 'ctin':modelo.colortituloinserta = value
+                if key == 'cfti':modelo.colorfondotituloinserta = value
+                if key == 'cffti':modelo.colorfondofilatituloinserta = value
+                if key == 'afti':modelo.altofilatituloinserta = value
+                if key == 'jvti':modelo.justificacionverticaltituloinserta = value
+                if key == 'jhti':modelo.justificacionhorizontaltituloinserta = value
+                if key == 'cfci':modelo.colorfondocomentarioinserta = value
+                if key == 'ccin':modelo.colorcomentarioinserta = value
+                if key == 'fcin':modelo.fontcomentarioinserta = value
+                if key == 'cin':modelo.comentarioinserta = value
+                if key == 'ncii':modelo.numerocolumnasizquierdainserta = value
+                if key == 'ncmi':modelo.numerocolumnasmodeloinserta = value
+                if key == 'ncdi':modelo.numerocolumnasderechainserta = value
+                if key == 'tup':modelo.tituloupdate = value
+                if key == 'ftup':modelo.fonttituloupdate = value
+                if key == 'ctup':modelo.colortituloupdate = value
+                if key == 'cftu':modelo.colorfondotituloupdate = value
+                if key == 'cfftu':modelo.colorfondofilatituloupdate = value
+                if key == 'aftu':modelo.altofilatituloupdate = value
+                if key == 'jvtu':modelo.justificacionverticaltituloupdate = value
+                if key == 'jhtu':modelo.justificacionhorizontaltituloupdate = value
+                if key == 'cup':modelo.comentarioupdate = value
+                if key == 'cfcu':modelo.colorfondocomentarioupdate = value
+                if key == 'fcup':modelo.fontcomentarioupdate = value
+                if key == 'ccup':modelo.colorcomentarioupdate = value
+                if key == 'nciu':modelo.numerocolumnasizquierdaupdate = value
+                if key == 'ncdu':modelo.numerocolumnasderechaupdate = value
+                if key == 'ncmu':modelo.numerocolumnasmodeloupdate = value
+                if key == 'flm':modelo.fontlabelmodelo = value
+                if key == 'clm':modelo.colorlabelmodelo = value
+                if key == 'cau':modelo.controlesautomaticos = value
+                if key == 'tbo':modelo.tituloborra = value
+                if key == 'ftbo':modelo.fonttituloborra = value
+                if key == 'ctb':modelo.colortituloborra = value
+                if key == 'cftb':modelo.colorfondotituloborra = value
+                if key == 'cfftb':modelo.colorfondofilatituloborra = value
+                if key == 'aftb':modelo.altofilatituloborra = value
+                if key == 'jvtb':modelo.justificacionverticaltituloborra = value
+                if key == 'jhtb':modelo.justificacionhorizontaltituloborra = value
+                if key == 'cfcb':modelo.colorfondocomentarioborra = value
+                if key == 'ccbo':modelo.colorcomentarioborra = value
+                if key == 'fcbo':modelo.fontcomentarioborra = value
+                if key == 'cbo':modelo.comentarioborra = value
+                if key == 'cftxb':modelo.colorfondotextoborra = value
+                if key == 'ctxb':modelo.colortextoborra = value
+                if key == 'ftxb':modelo.fonttextoborra = value
+                if key == 'txbo':modelo.textoborra = value
+                if key == 'txbb':modelo.textobotonborra = value
+
+                if key == 'ncib':modelo.numerocolumnasizquierdaborra = value
+                if key == 'ncdb':modelo.numerocolumnasderechaborra = value
+                if key == 'ncmb':modelo.numerocolumnasmodeloborra = value
+                if key == 'hco':modelo.hijoscontiguos = value
+                if key == 'nchu':modelo.numerocolumnashijosupdate = value
+                if key == 'ls':modelo.listastaff = value
+                if key == 'll':modelo.listalogin = value
+                if key == 'cs':modelo.crearstaff = value
+                if key == 'cl':modelo.crearlogin = value
+                if key == 'es':modelo.editarstaff = value
+                if key == 'el':modelo.editarlogin = value
+                if key == 'bc':modelo.borrarstaff = value
+                if key == 'bl':modelo.borrarlogin = value
+                if key == 'nclb':modelo.numerocolumnaslabels = value
+                if key == 'ncct':modelo.numerocolumnascontroles = value
+                if key == 'rgu':modelo.registrounico = value
+                if key == 'tvw':modelo.treeview = value
+                if key == 'cftw':modelo.colorfondotreeview = value
+                if key == 'cltw':modelo.colortreeview = value
+                if key == 'opel':modelo.editarenlista = value
+                if key == 'bli':modelo.buscadorlista = value
+                if key == 'cbnm':modelo.colorbotonlinknuevomodelo = value
+                if key == 'ctbo':modelo.colortituloborra = value
+                modelo.save()
+                numre=3
+                if key == 'npro':
+                    propiedad = Propiedad()
+                    propiedad.modelo = modelo
+                    propiedad.nombre = value
+                    npr += 1
+                    propiedad.save()
+                if tag == 'dpro':propiedad.descripcion = value
+                if tag == 'txb':propiedad.textobotones = value
+                if tag == 'lst':propiedad.largostring = value
+                if tag == 'tpro':propiedad.tipo = value
+                if tag == 'prf':propiedad.foranea = value
+                if tag == 'vdf':propiedad.valorinicial = value
+                if tag == 'tph':propiedad.textoplaceholder = value
+                if tag == 'epro':propiedad.etiqueta = value
+                if tag == 'enl':propiedad.enlista = value
+                if tag == 'emb':propiedad.enmobile = value
+                if tag == 'ncl':propiedad.numerocolumnas = value
+                if tag == 'txc':propiedad.textocolumna = value
+                if tag == 'jtxc':propiedad.justificaciontextocolumna = value
+                if tag == 'ffch':propiedad.formatofecha = value
+                if tag == 'ear':propiedad.etiquetaarriba = value
+                if tag == 'mdt':propiedad.mandatoria = value
+                if tag == 'nef':propiedad.noestaenformulario = value
+                if tag == 'pbl':propiedad.participabusquedalista = value
+                if tag == 'tlz':propiedad.totaliza = value
+                if tag == 'enr':propiedad.enreporte = value
+                if tag == 'lpe':propiedad.linkparaedicion = value
+                if tag == 'anre':propiedad.anchoenreporte = value
+                propiedad.save()
+                numre=4
+                # Reglas
+                if tag == 'msj':
+                    regla = Regla()
+                    regla.propiedad = propiedad
+                    regla.mensaje = value
+                    nrg += 1
+                    regla.save()
+                if tag == 'crg':
+                    value = value.replace('~','[')
+                    value = value.replace('@',']')
+                    regla.codigo = value
+                regla.save()
+
+            texto_procesar.proyecto = proyecto.id
+            texto_procesar.save()
+
+            if proyecto_anterior != None:                                    
+                # Reconstruir los datos del proyecto anterior en el proyecto nuevo
+                Reconstruye(proyecto,proyecto_anterior,lista_app,lista_mod,lista_prop)
+        except Exception as e:
+            context['error_texto'] = 'Existe error en la construccion del Texto: ' + ' ' + str(e) +str(numre)

@@ -1,0 +1,130 @@
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Datos de seccion de la Pagina principal</span>
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Nombre</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.nombre}}
+                    </div>
+                  </div>
+                  <div class="row mb-4" >
+                    <div class="col-10 controles-label ">Con borde:</div>
+                    <div class="col controles_control">
+                      {{form.borde}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Primer color</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.color1}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Segundo color</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.color2}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Degradado</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.degradado}}
+                    </div>
+                  </div>
+                  <div class="row" >
+                    {% include 'core/includes/esquema.html' with titulo='Imagen de la columna' target='imagen' imagen='core/img/esquema_imagen.png' %}
+                  </div>
+                  {% if columna.imagen %}
+                    <img src="{{columna.imagen.url}}" width="50px" height="50px" alt="">
+                  {% endif %}
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.imagen}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Dimensiones de la imagen (w,h)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.dimensionesimagen}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Margen interno (t,r,b,l)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.margeninterno}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Texto</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.textocolumna}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Font del texto</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.fonttexto}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Color del texto</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colortexto}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Numero de secciones Bootstrap</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.secciones}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal del texto</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.justificacionhorizontaltexto}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical del texto</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.justificacionverticaltexto}}
+                    </div>
+                  </div>
+                  <div class="row mb-4" >
+                    <div class="col-10 controles-label ">Funcion en la pagina:</div>
+                    <div class="col controles_control">
+                      {{form.funcion}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>

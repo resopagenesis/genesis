@@ -1,0 +1,98 @@
+            <!-- fin superior -->
+
+                <div class="row">
+                  <div class="col-{{modelo.numerocolumnasizquierdainserta}}"></div>
+                  <div class="col-{{modelo.numerocolumnasmodeloinserta}}">
+                    <!-- lista de modelos -->
+                    <!-- titulo del formulario -->
+                    <div class="row" style="
+                        height: {{modelo.altofilatituloinserta}}px;
+                        display: flex;
+                        {% if modelo.justificacionhorizontaltituloinserta == 'c' %}
+                          justify-content: center;
+                        {% endif %}
+                        {% if modelo.justificacionhorizontaltituloinserta == 'i' %}
+                          justify-content: start;
+                        {% endif %}
+                        {% if modelo.justificacionhorizontaltituloinserta == 'd' %}
+                          justify-content: end;
+                        {% endif %}
+                        {% if modelo.justificacionverticaltituloinserta == 'c' %}
+                          align-items: center;
+                        {% endif %}
+                        {% if modelo.justificacionverticaltituloinserta == 's' %}
+                          align-items: start;
+                        {% endif %}
+                        {% if modelo.justificacionverticaltituloinserta == 'i' %}
+                          align-items: end;
+                        {% endif %}
+                        background-color: {{modelo.colorfondotituloinserta}};
+                        ">
+                      <span style="
+                            font-name: {{font_titulo_inserta.0}}; font-size: {{font_titulo_inserta.1}}pt; font-weight: {{font_titulo_inserta.2}};
+                            color: {{modelo.colortituloinserta}};
+                            background-color: {{modelo.colorfondotituloinserta}};
+                      ">
+                        {{modelo.tituloinserta}}                    
+                      </span>  
+                    </div>
+
+                    <!-- comentario de la lista -->
+                    <div class="row" style="
+                    background-color: {{modelo.colorfondocomentarioinserta}};
+                    ">
+                      <span style="
+                            font-name: {{font_comentario_inserta.0}}; font-size: {{font_comentario_inserta.1}}pt; font-weight: {{font_comentario_inserta.2}};
+                            color: {{modelo.colorcomentarioinserta}};
+
+                      ">
+                        {{modelo.comentarioinserta}}
+                      </span>
+                    </div>
+
+                    <!-- Campos del formulario -->
+                    <div class="row mt-4">
+                      <div class="col-{{modelo.numerocolumnaslabels}}" style="
+                            font-name: {{font_label.0}}; font-size: {{font_label.1}}pt; font-weight: {{font_label.2}};
+                            color: {{modelo.colorlabelmodelo}};
+                      ">Codigo
+                      </div>                    
+                      <div class="col-{{modelo.numerocolumnascontroles}}">
+                        <input class="form-control" type="text" placeholder="">
+                      </div>
+                    </div>
+                    <div class="row mt-2">
+                      <div class="col-{{modelo.numerocolumnaslabels}}" style="
+                            font-name: {{font_label.0}}; font-size: {{font_label.1}}pt; font-weight: {{font_label.2}};
+                            color: {{modelo.colorlabelmodelo}};
+                      ">Descripcion
+                      </div>                    
+                      <div class="col-{{modelo.numerocolumnascontroles}}">
+                        <input class="form-control" type="text" placeholder="" style="height: 100px;">
+                      </div>
+                    </div>
+
+                    <div class="row mt-2">
+                      <div class="col-{{modelo.numerocolumnaslabels}}" style="
+                            font-name: {{font_label.0}}; font-size: {{font_label.1}}pt; font-weight: {{font_label.2}};
+                            color: {{modelo.colorlabelmodelo}};
+                      ">Importe
+                      </div>                    
+                      <div class="col-{{modelo.numerocolumnascontroles}}">
+                        <input class="form-control" type="text" placeholder="">
+                      </div>
+                    </div>
+
+                    <div class="row mt-3 mb-3">
+                      <div class="col">
+                          <input type="submit" class="btn btn-primary btn-block mt-3 boton-inserta" value="Grabar" />
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-{{modelo.numerocolumnasderechainserta}}"></div>
+                  
+                </div>
+
+
+            <!-- inicio inferior -->

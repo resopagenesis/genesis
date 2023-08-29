@@ -1,0 +1,145 @@
+
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table,TableStyle, Image, Spacer
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter, landscape, A4
+
+# Importamos la clase Flowable
+from reportlab.platypus import Flowable
+
+# Definimos nuestra clase linea que hereda de Flowable
+class linea(Flowable):
+
+    # Inicializamos la clase Flowable con los datos que llegan desde el que llama la clase  
+    # definimos h que el la altura de la linea como 0 ya que la linea no tiene volumen  
+    def __init__(self,w,h=0):
+        Flowable.__init__(self)
+        self.width = w
+        self.height = h
+
+    # dibujamos la linea en el canvas
+    # No se especifica ni x ni y porque platypus se encarga de ponerla donde la necesitemos
+    def draw(self):
+        self.canv.line(0, self.height, self.width, self.height)
+
+
+def ReportecursoPlatypusView(request):
+
+	reportsize = A4
+	nombre = 'curso'
+	orientacion = portrait
+	margenes = [20,20,40,20]
+	font_titulo = 'Courier'
+	font_titulo_size = 12
+	font_columnas = 'Courier-Bold'
+	font_columnas_size = 6
+	font = 'Courier'
+	font_size = 6
+	font_encabezado = 'Helvetica'
+	font_encabezado_size = 12
+
+	doc = SimpleDocTemplate(nombre + '.pdf', pagesize=orientacion(reportsize),leftMargin=margenes[0],
+		rigthMargin=margenes[1],
+		topMargin=margenes[2],
+		bottomMargin=margenes[3])
+
+	doc.font = font_encabezado
+	doc.fontSize = font_encabezado_size
+
+	historia = []
+
+	maxpuntos = 595 - doc.leftMargin - doc.rightMargin
+	# 792,612,841,595
+
+	# estilos
+
+	tbl_estilo_titulo = TableStyle([('FONT', (0, 0), (-1, -1), font_titulo),
+							('FONTSIZE', (0, 0), (-1, -1), font_titulo_size),
+							('VALIGN',(0,0),(1,-1),'MIDDLE')])
+
+	tbl_estilo_columnas = TableStyle([('VALIGN',(0,0),(1,-1),'MIDDLE'),
+						('LINEBELOW',(0,0),(-1,0),0.25, colors.gray),
+						('LINEABOVE',(0,0),(-1,0),0.25, colors.gray),
+						])
+
+	tbl_estilo_texto = TableStyle([('VALIGN',(0,0),(1,-1),'MIDDLE')])
+
+	ps_columnas = ParagraphStyle(name = 'Normal', fontSize = font_columnas_size, fontName=font_columnas)
+	ps_texto = ParagraphStyle(name = 'Normal', fontSize = font_size, fontName=font)
+
+	# titulo
+	data = [['Lista de cursos']]
+	tbl = Table(data)
+	tbl.setStyle(tbl_estilo_titulo)
+	historia.append(tbl)
+	historia.append(Spacer(1,15))
+
+	# columnas
+	# ps = ParagraphStyle(name = 'Normal', fontSize = font_columnas_size, fontName=font_columnas)
+	par_titulo = Paragraph('Titulo', ps_columnas)
+	par_autor = Paragraph('Autor',ps_columnas)
+	par_descripcion = Paragraph('Descripcion',ps_columnas)
+	data = [[par_titulo,par_autor,par_descripcion,'']]
+	tbl = Table(data, colWidths=[70,80,250,maxpuntos-400])
+	tbl.setStyle(tbl_estilo_columnas)
+	historia.append(tbl)
+	
+	for reg_curso in curso.objects.all():
+		# ps = ParagraphStyle(name = 'Normal', fontSize = font_size, fontName=font)
+		par_titulo = Paragraph(reg_curso.titulo, ps_texto)
+		par_autor = Paragraph(reg_curso.autor,ps_texto)
+		par_descripcion = Paragraph(reg_curso.descripcion,ps_texto)
+		data = [[par_titulo,par_autor,par_descripcion,'']]
+		tbl = Table(data, colWidths=[70,80,250,maxpuntos-400])
+		tbl.setStyle(tbl_estilo_texto)
+		historia.append(tbl)
+
+		lista_alcance = alcance.objects.filter(curso=reg_curso)
+
+		if lista_alcance.count() > 0:
+			# titulo
+			data = [['Listado de Alcances de: ' + reg_curso.titulo]]
+			tbl = Table(data)
+			tbl.setStyle(tbl_estilo_titulo)
+			historia.append(tbl)
+			historia.append(Spacer(1,15))
+
+			# columnas
+			# ps = ParagraphStyle(name = 'Normal', fontSize = font_columnas_size, fontName=font_columnas)
+			par_descripcion = Paragraph('Descripcion',ps_columnas)
+			data = [['',par_descripcion,'']]
+			tbl = Table(data, colWidths=[20,380,maxpuntos-400])
+			tbl.setStyle(tbl_estilo_columnas)
+			historia.append(tbl)
+
+			# alcance
+			for reg_alcance in lista_alcance:
+				# ps = ParagraphStyle(name = 'Normal', fontSize = font_size, fontName=font)
+				par_descripcion = Paragraph(reg_alcance.descripccion,ps_texto)
+				data = [['',par_descripcion,'']]
+				tbl = Table(data, colWidths=[20,380,maxpuntos-400], rowHeights=[10])
+				tbl.setStyle(tbl_estilo_texto)
+				historia.append(tbl)
+
+			historia.append(Spacer(1,10))
+
+	doc.build(historia, onFirstPage=encabezado, onLaterPages=encabezado)
+	return HttpResponseRedirect('/visitante/listar_curso')
+	
+	
+def encabezado(canvas,document):
+	cd = os.getcwd()
+	logo = cd + '/core/static/core/img/logo.png'
+	im_auto = Image(logo, 15,15)
+	data = [[im_auto,'Academy']]
+	tblstyle = TableStyle([('LINEBELOW', (0, 0), (-1, -1), 0.5, colors.black),
+							('FONT', (0, 0), (-1, -1), document.font),
+							('FONTSIZE', (0, 0), (-1, -1), document.fontSize),
+							('VALIGN',(1,0),(1,0),'MIDDLE'),
+							('ALIGN', (1, 0), (1, 0), 'CENTER')
+							])
+	t = Table(data,colWidths=[50,612-90])
+	t.setStyle(tblstyle)
+	t.wrapOn(canvas,20,810)
+	t.drawOn(canvas, 20,810) 	
+

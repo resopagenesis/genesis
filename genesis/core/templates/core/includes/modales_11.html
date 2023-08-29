@@ -1,0 +1,21 @@
+						<div class="row modal-header" style="">
+							<h1 class="col-11" style="">Separacion fila 1 columna 1</h1>
+							<div class="col-1">
+								<span id="11" class="close" style="">&times;</span>
+							</div>
+						</div>
+						<form action="." method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							<div class="row modal-body">
+								<div class="col-12 col-md-3"><label class="etiqueta">Alto de columna:</label>
+								</div>
+								<div class="col-12 col-md-9 control">{{form.altocolumnalogo}}</div>
+							</div>
+							<div class="row modal-footer mt-3" style="">
+								<input class="btn-primary" type="submit" value="Grabar">
+							</div>
+							<input type="text" hidden="true" value="{{proyecto.id}}" name="proyecto_id">								
+							<input type="text" hidden="true" value="0" id="columna" name="columna">								
+						</form>
+
+

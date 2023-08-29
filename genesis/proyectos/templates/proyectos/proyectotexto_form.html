@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block cuerpo %}
+{% load static %}
+
+<style>.errorlist{color:red;}</style>
+{% if error == '' %}
+  <div class="container-fluid registro">
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-lg-10 externa border ">
+        <div class="row fila-color-uno"></div>
+        <div class="row fila-color-dos"></div>
+        <div class="row fila-datos">
+          <div class="col-9 datos-registration border">
+            <h3>Registro del Texo <a href="{% url 'proyectos:lista_texto' %}?criterio={{criterio}}" data-toggle="tooltip" data-placement="top" title="Volver al arbol"><span style="color:green; font-size: 8pt;">(volver)</span></a></h3>
+            <form class="mt-3" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+              {% include 'core/includes/formulario_proyectotexto.html'%}
+
+            <!-- Generales -->
+
+              <!-- {{form.as_p}} -->
+              <input type="submit" class="btn btn-primary btn-block mt-5" value="Confirmar">
+            </form>
+          </div>
+          <div id="esquema" class="col-3">
+            <div class="row mb-4 mt-3" >
+              <div class="col-10 controles-label ">Las lineas son contiguas:</div>
+              <div id="lineacontigua" class="col controles_control">
+                {{form.lineacontigua}}
+              </div>
+            </div>
+            <div class="row">
+            {% include 'core/includes/esquema_texto.html'  %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+    {% include 'core/includes/pagina_error.html'%}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,1772 @@
+    sellers_with_orders_total = Seller.objects.annotate(orders_total = Sum('order_seller__total'))
+    for os in sellers_with_orders_total:
+        print(os.orders_total)
+
+
+import numpy as np
+
+arr = np.array([1,2,3,4,5,6])
+print(arr.shape)
+print(arr[1:5])
+
+arr = np.array([[[1, 2, 3, 4, 5], [6, 7, 8, 9, 10],[1, 2, 3, 4, 5], [6, 7, 8, 9, 10],[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]],[[11, 21, 31, 41, 51], [16, 17, 18, 19, 110],[10, 20, 30, 40, 50], [62, 72, 82, 92, 102],[31, 32, 33, 34, 35], [64, 74, 84, 94, 104]],[[117, 217, 317, 417, 517], [167, 177, 187, 197, 1107],[107, 207, 307, 407, 507], [627, 727, 827, 927, 1027],[317, 327, 337, 347, 357], [647, 747, 847, 947, 1047]]])
+
+print(arr.shape)
+print(arr[0:1,1:2,1:2])
+
+Comienza con el indice -1 y termina con la posicion desde la primera
+
+
+
+from django.db.models import FloatField,F
+from django.db.models import Count, Sum
+from ventas.models import venta,venta_detalle,cliente
+
+    # prueba anotate
+    # cliente_with_venta_total = venta_detalle.objects.annotate(Count('venta__cliente'))
+    # cliente_with_venta_total = venta.objects.annotate(venta_total = Sum('venta_detalle__precio'))
+    # cliente_with_venta_total = venta_detalle.objects.filter(venta_id=3)
+    precio_cliente = venta.objects.all().annotate(Count('venta_detalle'))
+    cantidad_cliente = venta.objects.annotate(num_books=Sum(F('venta_detalle__cantidad') * F('venta_detalle__precio'), output_field=FloatField())) 
+    for os in cantidad_cliente:
+        print(vars(os))
+
+
+
+    cantidad_cliente = venta.objects.annotate(num_books=Sum(F('venta_detalle__cantidad') * F('venta_detalle__precio'), output_field=FloatField())) 
+    for os in cantidad_cliente:
+        print(cliente.objects.get(id=vars(os)['cliente_id']).nombre,vars(os)['num_books'])
+  
+
+
+from django.utils import timezone
+from datetime import timedelta 
+subcategories = SubCategory.objects.annotate(last_week_usage=Count(
+	'answers', filter=Q(
+			answers__created_at__gte=timezone.now() - timedelta(weeks=1)
+		).order_by('-last_week_usage')
+))
+
+
+
+estudiar: ExpressionWraper
+
+estudiar: get_next_by
+	  get_previous_by
+
+
+
+
+------------------------------------
+
+annotate
+
+
+from django.db.models import FloatField,F
+from django.db.models import Count, Sum, Case, Value, When,ExpressionWrapper
+from ventas.models import venta,venta_detalle,cliente
+from contabilidad.models import comprobante, cuenta, asiento, costo
+from django.db.models.functions import TruncMonth,ExtractMonth, ExtractYear
+from django.db.models.functions import Cast, Substr
+
+def ReportecuentaView(request):
+
+    # prueba anotate
+    # cliente_with_venta_total = venta_detalle.objects.annotate(Count('venta__cliente'))
+    # cliente_with_venta_total = venta.objects.annotate(venta_total = Sum('venta_detalle__precio'))
+    # cliente_with_venta_total = venta_detalle.objects.filter(venta_id=3)
+    precio_cliente = venta.objects.all().annotate(Count('venta_detalle'))
+    cantidad_cliente = venta.objects.annotate(num_books=Sum(F('venta_detalle__cantidad') * F('venta_detalle__precio'), output_field=FloatField())) 
+    # for os in cantidad_cliente:
+    #     print(cliente.objects.get(id=vars(os)['cliente_id']).nombre,vars(os)['num_books'])
+    
+    # debe_cuenta = comprobante.objects.all().annotate(suma_debe = Sum('asiento__debe'))
+    # print(vars(debe_cuenta[0]))
+
+    # debe_cuenta = comprobante.objects.all().annotate(suma_debe = Sum('asiento__debe'))
+    # print(debe_cuenta[0].suma_debe)
+
+    # lista = asiento.objects.select_related('comprobante').annotate(cost=Sum('costo__importe'))
+    # print('lista ',vars(lista[0]))
+    # for os in lista:
+    #     print(vars(os))
+
+    # lista = venta_detalle.objects.select_related('venta')
+    # print('lista ',vars(lista[0]))
+    # for os in lista:
+    #     print(vars(os))
+
+    # Bueno a partir de aqui
+    # Obtener las sumas de debe y haber por comprobante
+    lista = comprobante.objects.annotate(suma_debe=Sum('asiento__debe'))
+    for os in lista:
+        print(os.numero, os.fecha, os.suma_debe)
+
+    # Obtener la suma de los debe y haber por comprobante y por cada anio y mes de fecha para el tercer mes (marzo) y el anio 2023
+    lista = comprobante.objects.annotate(year=ExtractYear('fecha'),month=ExtractMonth('fecha')).values('year','month').annotate(Sum('asiento__debe')).filter(month__gte=0)
+    # print(lista)
+    for os in lista:
+        pass
+        # print(os)
+
+    # Obtener desde los asientos la suma de los costos por tipo de motivo
+    lista = costo.objects.select_related('asiento').values('motivo').annotate(Sum('importe'))
+    # for os in lista:
+    #     print(os)
+
+    # Obetenr la lista de comprobantes por asiento
+    lista = asiento.objects.select_related('comprobante')
+    for os in lista:
+        print(os.comprobante.id)
+
+    # Obtenr la lista de costos por fecha de comprobante
+    lista = asiento.objects.select_related('comprobante').values('comprobante__fecha').annotate(Sum('costo__importe'))
+    # for os in lista:
+    #     print(os)
+
+    # Obtenr la lista de costos por anio y mes de la fecha del comprobante
+    lista = asiento.objects.select_related('comprobante').annotate(year=ExtractYear('comprobante__fecha'),month=ExtractMonth('comprobante__fecha')).values('year','month','costo__motivo').annotate(Sum('costo__importe'))
+    # for os in lista:
+    #     print(os['costo__motivo'])
+
+    # Obtener la suma de los debe y haber por cuenta y luego totalizar cada vez que la cuenta cambie el primer digito
+    # Obtener la suma debe y haber por cuenta
+
+    # qry = usrs.annotate(f_upper=Func(F('last_name'), function='UPPER')) 
+    # Person.objects.annotate(order_only_number= Cast(Substr("order_number", 4), IntegerField())).order_by("order_only_number")
+
+    asientos = asiento.objects.all().values('cuenta').annotate(grupo=Substr("cuenta__codigo", 1,1)).values('grupo').annotate(suma_debe=Sum('debe'),suma_haber=Sum('haber'))
+    # for os in asientos:
+    #     print(os)
+
+    # obtener los registros para un balance contable
+    asientos = asiento.objects.all().values('cuenta__codigo').annotate(grupo=Substr("cuenta__codigo", 1,1),sub_grupo=Substr("cuenta__codigo", 1,2),cuenta=Substr("cuenta__codigo", 1,4)). annotate(suma_debe=Sum('debe'),suma_haber=Sum('haber'))
+    for os in asientos:
+        print(os)
+
+
+
+
+
+
+
+    # prueba anotate
+    # cliente_with_venta_total = venta_detalle.objects.annotate(Count('venta__cliente'))
+    # cliente_with_venta_total = venta.objects.annotate(venta_total = Sum('venta_detalle__precio'))
+    # cliente_with_venta_total = venta_detalle.objects.filter(venta_id=3)
+    precio_cliente = venta.objects.all().annotate(Count('venta_detalle'))
+    cantidad_cliente = venta.objects.annotate(num_books=Sum(F('venta_detalle__cantidad') * F('venta_detalle__precio'), output_field=FloatField())) 
+    # for os in cantidad_cliente:
+    #     print(cliente.objects.get(id=vars(os)['cliente_id']).nombre,vars(os)['num_books'])
+    
+    # debe_cuenta = comprobante.objects.all().annotate(suma_debe = Sum('asiento__debe'))
+    # print(vars(debe_cuenta[0]))
+
+    # debe_cuenta = comprobante.objects.all().annotate(suma_debe = Sum('asiento__debe'))
+    # print(debe_cuenta[0].suma_debe)
+
+    # lista = asiento.objects.select_related('comprobante').annotate(cost=Sum('costo__importe'))
+    # print('lista ',vars(lista[0]))
+    # for os in lista:
+    #     print(vars(os))
+
+    # lista = venta_detalle.objects.select_related('venta')
+    # print('lista ',vars(lista[0]))
+    # for os in lista:
+    #     print(vars(os))
+
+    # Bueno a partir de aqui
+    # Obtener las sumas de debe y haber por comprobante
+    lista = comprobante.objects.annotate(suma_debe=Sum('asiento__debe'))
+    # for os in lista:
+    #     print(os.numero, os.fecha, os.suma_debe)
+
+    # Obtener la suma de los debe y haber por comprobante y por cada anio y mes de fecha para el tercer mes (marzo) y el anio 2023
+    lista = comprobante.objects.annotate(year=ExtractYear('fecha'),month=ExtractMonth('fecha')).values('year','month').annotate(Sum('asiento__debe')).filter(month__gte=0)
+    # print(lista)
+    for os in lista:
+        pass
+        # print(os)
+
+    # Obtener desde los asientos la suma de los costos por tipo de motivo
+    lista = costo.objects.select_related('asiento').values('motivo').annotate(Sum('importe'))
+    # for os in lista:
+    #     print(os)
+
+    # Obetenr la lista de comprobantes por asiento
+    lista = asiento.objects.select_related('comprobante')
+    # for os in lista:
+    #     print(os.comprobante.id)
+
+    # Obtenr la lista de costos por fecha de comprobante
+    lista = asiento.objects.select_related('comprobante').values('comprobante__fecha').annotate(Sum('costo__importe'))
+    # for os in lista:
+    #     print(os)
+
+    # Obtenr la lista de costos por anio y mes de la fecha del comprobante
+    lista = asiento.objects.select_related('comprobante').annotate(year=ExtractYear('comprobante__fecha'),month=ExtractMonth('comprobante__fecha')).values('year','month','costo__motivo').annotate(Sum('costo__importe'))
+    # for os in lista:
+    #     print(os['costo__motivo'])
+
+    # Obtener la suma de los debe y haber por cuenta y luego totalizar cada vez que la cuenta cambie el primer digito
+    # Obtener la suma debe y haber por cuenta
+
+    # qry = usrs.annotate(f_upper=Func(F('last_name'), function='UPPER')) 
+    # Person.objects.annotate(order_only_number= Cast(Substr("order_number", 4), IntegerField())).order_by("order_only_number")
+
+    asientos = asiento.objects.all().values('cuenta').annotate(grupo=Substr("cuenta__codigo", 1,1)).values('grupo').annotate(suma_debe=Sum('debe'),suma_haber=Sum('haber'))
+    # for os in asientos:
+    #     print(os)
+
+    # obtener los registros para un balance contable
+    asientos = asiento.objects.all().values('cuenta__codigo').annotate(grupo=Substr("cuenta__codigo", 1,1),sub_grupo=Substr("cuenta__codigo", 1,2),cuenta=Substr("cuenta__codigo", 1,4)). annotate(suma_debe=Sum('debe'),suma_haber=Sum('haber'))
+    # for os in asientos:
+    #     print(os)
+
+    # obtener el reporte de las ventas por fecha de la venta
+    cantidad_cliente = venta.objects.annotate(num_books=Sum(F('venta_detalle__cantidad') * F('venta_detalle__precio'), output_field=FloatField())) 
+    # for os in cantidad_cliente:
+    #     print('os',os.num_books,os.fecha)
+
+    # obtener la venta por articulo
+    venta_articulo = venta_detalle.objects.all().values('articulo').annotate(sub_total=Sum(F('cantidad') * F('precio'), output_field=FloatField()))
+    # for os in venta_articulo:
+    #     print(os['articulo'],os['sub_total'])                                                    
+    
+    # Obtener desde los asientos la suma de los costos por tipo de motivo
+    lista = costo.objects.values('motivo').annotate(Sum('importe'))
+    for os in lista:
+        print(os)
+
+
+
+
+
+
+
+*******************************
+
+    lista = comprobante.objects.all().annotate(mes=ExtractMonth("fecha"), anio=ExtractYear("fecha")).values("anio","mes").annotate(sum_debe=Sum("asiento__debe"),Sum_haber=Sum("asiento__haber"))
+    # for os in lista:
+    #     print(os)
+
+    lista = costo.objects.all().values("motivo").annotate(sum = Sum("importe"))
+    # for os in lista:
+    #     print(os)
+
+    lista = asiento.objects.all().select_related("comprobante").values("comprobante__fecha").annotate(sum = Sum("costo__importe"))
+    # for os in lista:
+    #     print(os)
+
+    lista = asiento.objects.all().select_related("comprobante").annotate(mes = ExtractMonth("comprobante__fecha"),anio = ExtractYear("comprobante__fecha")).values("anio","mes").annotate(sum = Sum("costo__importe"))
+    # for os in lista:
+    #     print(os)
+
+    lista = asiento.objects.all().values("cuenta").annotate(substring = Substr("cuenta__codigo",1,1)).values("substring").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    # for os in lista:
+    #     print(os)
+
+    # lista = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,1)).values("grupo").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    # lista1 = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,1)).values('grupo').annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    # lista2 = asiento.objects.all().annotate(grupo = Substr("cuenta__codigo",1,3)).values('grupo').annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    # lista3 = asiento.objects.all().annotate(grupo = Substr("cuenta__codigo",1,6)).values('grupo').annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    # # print('vars ',lista[0])
+    # listan = chain(lista1,lista2,lista3)
+    # listan = lista1.union(lista2).union(lista3)
+
+
+    lista1  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,1)).values("grupo").annotate(descripcion = F('cuenta__descripcion'),sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    lista2  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,3)).values("grupo").annotate(descripcion = F('cuenta__descripcion'),sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    lista3  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,6)).values("grupo").annotate(descripcion = F('cuenta__descripcion'),sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    listaN = lista1.union(lista2).union(lista3)
+    for os in listaN:
+        print(os)
+
+
+
+lista1  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,1)).values("grupo").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    lista2  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,3)).values("grupo").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    lista3  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,6)).values("grupo").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    listaN = lista1.union(lista2).union(lista3)
+    lista1  = asiento.objects.values_list('debe','haber')
+    lista2.query = pickle.loads(pickle.dumps(lista2.query))
+    print(lista2)
+    # print(lista2)
+    print(isinstance(listaN, QuerySet))
+
+
+    lista1  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,1)).values("grupo").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    lista2  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,3)).values("grupo").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    lista3  = asiento.objects.all().annotate(grupo= Substr("cuenta__codigo",1,6)).values("grupo").annotate(sum_debe=Sum("debe"),sum_haber=Sum("haber"))
+    listaN = lista1.union(lista2).union(lista3)
+    listaN.query = pickle.loads(pickle.dumps(listaN.query))
+
+    for os in listaN:
+        keys = list(os.keys())
+
+
+
+    lista = Propiedad.objects.select_related('modelo').filter(modelo__proyecto = proyecto).order_by('-foranea')
+    for os in lista:
+        # print(os.modelo)
+        if os.tipo == 'f':
+            if not os.foranea in lista_creados:
+            # if os.foranea != os.modelo.padre:
+                mc = Modelo.objects.get(nombre = os.foranea,proyecto=proyecto)
+                print('modelo a crear f',mc.nombre)
+                strpp,strmfp = CreacionModelo(mc,mc.aplicacion,proyecto)
+                strp += strpp
+                strmf += strmfp
+                lista_creados.append(os.foranea)
+        if os.modelo.padre != 'nada':
+            if not os.modelo.nombre in lista_creados:
+                # mc = Modelo.objects.get(nombre = os.modelo.padre,proyecto=proyecto)
+                print('modelo a crear h',os.modelo.nombre)
+                strpp,strmfp = CreacionModelo(os.modelo,os.modelo.aplicacion,proyecto)
+                strp += strpp
+                strmf += strmfp
+                lista_creados.append(os.modelo.nombre)
+        if os.modelo.padre == 'nada':
+            if not os.modelo.nombre in lista_creados:
+                print('modelo a crear p',os.modelo.nombre)
+                strpp,strmfp = CreacionModelo(os.modelo,os.modelo.aplicacion,proyecto)
+                strp += strpp
+                strmf += strmfp
+                lista_creados.append(os.modelo.nombre)
+
+
+['1,pais', '1,rol', '2,modelo_rol', '3,propiedad_rol', '1,usuariorol', '2,rolusuario', '1,enfermedad', '2,control', 
+'1,analisis', '1,nivel', '1,idioma', '1,especialidad', '1,profesional', '2,formacion', '3,academia', '4,experiencia', '2,idiomas', '1,tipoDocumento', '1,paciente', '2,historia', '2,enfermedades', '3,agenda', '4,laboratorio', '4,informe', '1,datosClinica']
+
+['1,pais', '1,rol', '2,modelo_rol', '3,propiedad_rol', '1,usuariorol', '2,rolusuario', '1,enfermedad', '2,control', 
+'1,analisis', '1,nivel', '1,idioma', '1,especialidad', '1,profesional', '2,formacion', '3,academia', '4,experiencia', '2,idiomas', '1,tipoDocumento', '1,paciente', '2,historia', '2,enfermedades', '3,agenda', '4,laboratorio', '4,informe', '1,datosClinica']
+
+['1,pais', '1,rol', '2,modelo_rol', '3,propiedad_rol', '1,usuariorol', '2,rolusuario', '1,enfermedad', '2,control', 
+'1,analisis', '1,nivel', '1,idioma', '1,especialidad', '1,profesional', '2,formacion', '3,academia', '4,experiencia', '2,idiomas', '1,tipoDocumento', '1,paciente', '2,historia', '2,enfermedades', '3,agenda', '4,laboratorio', '4,informe', '1,datosClinica']
+
+
+    lista = sector.objects.all().select_related('vivienda').values('vivienda__tipo').annotate(sum=Sum('trabajo__valor'))
+    for os in lista:
+        print (os)
+
+
+
+PLOTLY EXPRESS
+
+        df = pd.DataFrame(lista_asiento, columns=['Numero','Fecha','Cuenta','Debe','Haber','Costo-Banco','Importe'])
+        df_costo = df[(df['Costo-Banco'] != 'Nobanco') & (df['Costo-Banco'] != 'Nocosto')]
+        df_costo = df_costo[['Fecha','Costo-Banco','Importe']].sort_values(['Fecha','Costo-Banco'])
+        df_costo = df_costo.pivot_table(index=['Fecha','Costo-Banco'])
+        try:
+            fecha = self.request.GET.get('fecha')
+        except:
+            fecha = '01/01/2000'
+        # fecha='2023-03-09'
+        try:
+            fecha = datetime.strptime(fecha, '%m/%d/%Y').date()
+            lista=[]
+            for os in df_costo.index:
+                if os[0] == fecha:
+                    lista.append(os[0])
+            df_costo=df_costo.loc[lista,:].groupby(['Costo-Banco'])['Importe'].agg('sum')
+            fig = px.bar(
+                x=df_costo.index,
+                y=df_costo.values
+            )
+            chart = fig.to_html()
+            context['chart'] = chart
+
+
+DASH
+
+    strTexto_comprobante = []
+    strTexto_comprobante_asiento = []
+    strTexto_comprobante_asiento_costo=[]
+    strTexto_comprobante_asiento_banco = []
+    strTexto_comprobante_registro = []
+    strTexto_comprobante_registro_prevision = []
+    lista_comprobante_asiento = []
+    lista_comprobante_asiento_banco = []
+    lista_comprobante_asiento_costo = []
+    strTexto_costo = []
+    strTexto_banco = []
+    strTexto_registro = []
+    lista_comprobante_registro = []
+    lista_comprobante_registro_prevision = []
+    strTexto_prevision = []
+    for reg_comprobante in comprobante.objects.all():
+        strTexto_comprobante = [reg_comprobante.numero,reg_comprobante.fecha]
+        for reg_asiento in asiento.objects.filter(comprobante = reg_comprobante):
+            for reg in strTexto_comprobante:
+                strTexto_comprobante_asiento.append(reg)
+            strTexto_comprobante_asiento.append(reg_asiento.cuenta.codigo)
+            strTexto_comprobante_asiento.append(reg_asiento.debe)
+            strTexto_comprobante_asiento.append(reg_asiento.haber)
+            lista_comprobante_asiento.append(strTexto_comprobante_asiento)
+            for reg_costo in costo.objects.filter(asiento = reg_asiento):
+                for reg in strTexto_comprobante_asiento:
+                    strTexto_comprobante_asiento_costo.append(reg)
+                strTexto_comprobante_asiento_costo.append(reg_costo.motivo.nombre)
+                strTexto_comprobante_asiento_costo.append(reg_costo.importe)
+                lista_comprobante_asiento_costo.append(strTexto_comprobante_asiento_costo)
+                strTexto_comprobante_asiento_costo = []
+            for reg_banco in banco.objects.filter(asiento = reg_asiento):
+                for reg in strTexto_comprobante_asiento:
+                    strTexto_comprobante_asiento_banco.append(reg)
+                strTexto_comprobante_asiento_banco.append(reg_banco.nombre)
+                lista_comprobante_asiento_banco.append(strTexto_comprobante_asiento_banco)
+                strTexto_comprobante_asiento_banco = []
+            strTexto_comprobante_asiento = []
+        for reg_registro in registro.objects.filter(comprobante = reg_comprobante):
+            for reg in strTexto_comprobante:
+                strTexto_comprobante_registro.append(reg)
+            strTexto_comprobante_registro.append(reg_registro.codigo)
+            lista_comprobante_registro.append(strTexto_comprobante_registro)
+            for reg_prevision in prevision.objects.filter(registro = reg_registro):
+                for reg in strTexto_comprobante_registro:
+                    strTexto_comprobante_registro_prevision.append(reg)
+                strTexto_comprobante_registro_prevision.append(reg_prevision.monto)
+                lista_comprobante_registro_prevision.append(strTexto_comprobante_registro_prevision)
+                strTexto_comprobante_registro_prevision = []
+            strTexto_comprobante_registro = []
+
+FILL
+
+                # hacer los registros
+                # comprobante
+                numero_comprobantes = range(random.randint(10,30))
+                print(numero_comprobantes)
+                for num_comprobante in numero_comprobantes:
+                    nuevo_comprobante = comprobante()
+                    numero = random.randint(1000, 2000)
+                    nuevo_comprobante.numero = numero
+                    inicio = datetime(2017, 1, 31)
+                    final =  datetime(2023, 1, 31)
+                    random_date = inicio + (final - inicio) * random.random()
+                    nuevo_comprobante.fecha = random_date
+                    nuevo_comprobante.save()
+                    # asientos
+                    numero_asientos = range(random.randint(2,4))
+                    for num_asiento in numero_asientos:
+                        nuevo_asiento = asiento()
+                        nuevo_asiento.comprobante = nuevo_comprobante
+                        lista_cuenta = cuenta.objects.all()
+                        codigo_cuenta = lista_cuenta[random.randint(0,lista_cuenta.count()-1)]
+                        nuevo_asiento.cuenta = codigo_cuenta
+                        valor = random.uniform(10,120)
+                        # print(valor)
+                        nuevo_asiento.debe = valor
+                        valor = random.uniform(10,120)
+                        nuevo_asiento.haber = valor
+                        nuevo_asiento.save()
+                        numero_costos = range(random.randint(2,4))
+                        for num_costo in numero_costos:
+                            nuevo_costo = costo()
+                            nuevo_costo.asiento = nuevo_asiento
+                            lista_motivo = motivo.objects.all()
+                            codigo_motivo = lista_motivo[random.randint(0,lista_motivo.count()-1)]
+                            nuevo_costo.motivo = codigo_motivo
+                            valor = random.uniform(10,1200)
+                            nuevo_costo.valor = valor
+                            nuevo_costo.save()
+                            # print(nuevo_costo)
+
+    print(lista_comprobante)
+    strt = ''
+    txt = []
+    for os in lista_comprobante:
+        print(os)
+        for es in os:
+            if strt == '':
+                strt = str(es)
+            else:
+                strt += ',' + str(es)
+        txt.append(strt)
+        strt = ''
+        # print(os[0])
+        # strt += os
+    EscribirArchivo('lista_comprobante.txt',txt,True)
+
+dash cuenta
+        strt = ''
+        txt = []
+        txt.append('Codigo,Descripcion,Tipo')
+        for os in lista_cuenta:
+            for es in os:
+                if strt == '':
+                    strt = str(es)
+                else:
+                    strt += ',' + str(es)
+            txt.append(strt)
+            strt = ''
+        EscribirArchivo('lista_cuenta.csv',txt,True)
+
+dash comprobante
+
+        strt = ''
+        txt = []
+        txt.append('Numero,Fecha,Cuenta,Debe,Haber,Motivo,Importe')
+        for os in lista_comprobante_asiento_costo:
+            for es in os:
+                if strt == '':
+                    strt = str(es)
+                else:
+                    strt += ',' + str(es)
+            txt.append(strt)
+            strt = ''
+        EscribirArchivo('lista_comprobante_asiento_costo.csv',txt,True)
+
+
+def EscribirArchivo(nombreArchivo, texto,borraPrevio):
+
+    if borraPrevio:
+        try:
+            os.remove(nombreArchivo)
+        except:
+            pass
+
+    file = open(nombreArchivo, "w")
+
+    for line in texto:
+        file.write(line + "\n")
+    
+    file.close()            
+
+pag. 244
+pag. 97
+
+
+Ver si funciona
+
+    # print(lista)
+    # columnas
+    columnas = DashcomprobanteColumnas(posible)
+    # df = pd.DataFrame(lista)
+    df = pd.DataFrame(lista, columns =['Name', 'Age'])
+    # df = pd.DataFrame(lista)
+    # df.columns = ['Numero(s)','fecha(n)']
+    # df.columns = columnas
+    # print(df)
+    # df.to_csv('lista.csv')
+    # df = pd.read_csv('lista_comprobante.csv')
+    # print(df)
+
+
+Tipos de consulta
+
+
+Tipos de dash board
+
+Operaciones en el dash
+
+max()
+loc
+iloc
+set_index
+MultiIndex
+sort_values
+columns
+index
+groupby
+mean()
+
+TIPOS DE CONSULTA
+
+- Totalizar numero de registros de una lista de dash en varios periodos
+
+	Si el periodo es en años
+		Preparando los datos
+			Leer el archivo csv de datos. Ej.
+
+				Fecha      Numero Glosa
+				01-01-2017 1      El comprobante 1
+				01-01-2017 1      El comprobante 1
+				01-01-2018 2      El comprobante 3
+				01-01-2023 11     El comprobante 4
+				01-01-2020 12     El comprobante 5
+				01-01-2020 13     El comprobante 6
+				01-01-2020 14     El comprobante 7
+
+			Convertir la columna Fecha de to_datetime de pandas
+			Formar el archivo con solo la nueva columna Fecha 
+
+				  Fecha
+				0 01-01-2017
+				1 01-01-2017
+				2 01-01-2018
+				4 01-01-2023
+				5 01-01-2020
+				6 01-01-2020
+				3 01-01-2020
+
+			Crear en el archivo la columna string Year, 
+			Transformar esta columna en string
+			Borrar la columna Fecha
+
+				  Year
+				0 2017
+				1 2017
+				2 2018
+				4 2023
+				5 2020
+				6 2020
+				3 2020
+
+			En el layout
+
+			Formar dos controles dropdown con fechas para el intervalo
+
+			En la funcion callback
+
+			Crear la lista de fechas con los enteros de las fechas de los dropdown
+
+			Ver si la columna Year, de la lista, convertida a int esta en la lista de fechas
+
+			Encontrar el value_counts por la columna Year
+			Convertir la Serie en dataFrame, ordenar por el indice y resetear el indice
+
+	  		          Year  0
+				0 2017  2
+				2 2018	1
+				3 2020	3
+
+
+			Enviar a la fig. de dash, 
+
+			x = iloc[:,1]
+			y = columna Year
+
+
+- Totalizar rango de categorias en varios periodos
+	Convertir la columna de fecha en datetime de pandas
+	Si el periodo es en años
+		Crear la columna Year
+		Agrupar por Year
+		Extrarer el count
+
+
+- Valorizar rango de categorias en diferentes periodos
+
+
+
+
+Un solo modelo
+
+- Total de ocurrencias de (modelo) por periodos
+	periodos pueden ser:
+		fecha
+		mes
+		bimestre
+		trimestre
+		cuatrimestre
+		semestre
+		anual
+
+- Total de una cantidad por periodos
+- Total de una categoria por periodos
+
+
+"give me the data from gas_turbine_data for all the rows and where the columns are in the values from AT to CDP."
+
+1) Registros de modelos independientes
+
+1a) El registro tiene fechas
+
+	Graficar el numero de ocurrencias por intervalo de fechas
+	Graficar el numero de ocurrencias por semana
+	Graficar el numero de ocurrencias por mes
+	Graficar el numero de ocurrencias por bimestre
+	Graficar el numero de ocurrencias por trimestre
+	Graficar el numero de ocurrencias por cuatrimestre
+	Graficar el numero de ocurrencias por semestre
+	Graficar el numero de ocurrencias por anio
+	Comparar el numero de ocurrencias entre fechas
+	Comparar el numero de ocurrencias entre semanas
+	Comparar el numero de ocurrencias entre meses
+	Comparar el numero de ocurrencias entre bimestres
+	Comparar el numero de ocurrencias entre trimestres
+	Comparar el numero de ocurrencias entre cuatimestres
+	Comparar el numero de ocurrencias entre semestres
+	Comparar el numero de ocurrencias entre anios
+
+	Los campos para los graficos seran dos fechas de las que se extraeran los rangos
+	Estos campos seran por cada campo de fecha del registro
+
+1b) El registro tiene campos numericos
+
+	Encontrar el total numerico
+	Encontrar la relacion entre pares de campos numericos
+
+	Los campos seran un par de campos por cada valor numerico
+	
+1c) El registro tiene categorias
+
+	Graficar el numero de ocurrencias por categorias
+
+	El campo sera un par de campos con las categorias
+
+1d) El registro tiene fechas y campos numericos
+
+	Graficar cada campo numerico por intervalo de fechas
+	Graficar cada campo numerico por semana
+	Graficar cada campo numerico por mes
+	Graficar cada campo numerico por bimestre
+	Graficar cada campo numerico por trimestre
+	Graficar cada campo numerico por cuatrimestre
+	Graficar cada campo numerico por semestre
+	Graficar cada campo numerico por anios
+
+	Un par de campos por cada campo fecha
+	Un par de campos para cada campo numerico
+
+1e) El registro tiene fechas y categorias
+
+	Graficar la ocurrencia de cada categoria por intervalo de fechas
+	Graficar la ocurrencia de cada categoria por semana
+	Graficar la ocurrencia de cada categoria por mes
+	Graficar la ocurrencia de cada categoria por bimestre
+	Graficar la ocurrencia de cada categoria por trimestre
+	Graficar la ocurrencia de cada categoria por cuatrimestre
+	Graficar la ocurrencia de cada categoria por semestre
+	Graficar la ocurrencia de cada categoria por anios
+
+	Un par de campos para cada fecha
+	Un par de campos para cada categoria
+
+1f) El registro tiene fechas, campos numericos y categorias
+
+	Graficar para cada categoria el numerico por fechas
+
+	Un par de campos para cada fecha
+	Un par de campos para cada numero
+	Un par de campos para cada categoria
+
+1g) El registro tiene categorias y campos numericos
+
+	Graficar los campos numericos por categorias
+
+	Un par de campos por cada categoria
+	Un par de campos por cada numero
+
+LO QUE PUEDE TENER UN REGISTRO EN GENESIS
+
+        ('b','Boolean'),
+        ('d','Decimal'),
+        ('e','Hora'),
+        ('f','Foranea'),
+        ('h','RichText'),
+        ('i','Entero'),
+        ('l','Entero largo'),
+        ('m','Entero pequeno'),
+        ('n','Fecha'),
+        ('p','Imagen'),
+        ('r','Radio Button'),
+        ('s','String'),
+        ('t','Hora y Fecha'),
+        ('u','Usuario'),
+        ('x','Text Field'),
+
+Un solo campo numerico se suma, media, avg for periodos
+
+Ej. Encontrar la suma del importe de las compras entre los años 2011 y 2021
+Ej. Encontrar el promedio de compras por cuatrimestre del año 2023
+
+Mas de un campo numerico se comparan valores por pares
+
+Ej. Encontrar la relación entre el importe de las ventas vs el porcentaje en descuentos
+
+campos categorias se cuentan por fechas
+
+Ej. Encontrar el importe de las ventas por paises para el año 2020
+Ej. Encontrar el importe de las ventas para USA entre los años 2018 y 2023
+Ej. Encontrar el importe de las ventas por paises entre los años 2018 y 2023
+
+	
+
+TIPOS DE GRAFICOS
+
+Comparacion
+	Entre elementos
+		Una variable por elemento
+			Pocas categorias
+	Sobre el tiempo
+		Muchos periodos
+		Pocos periodos
+Relacion
+	Dos variables
+		Dispersion
+	Tres variables
+		Burbuja
+Composicion
+	Cambia con el tiempo
+		Pocos periodos
+			Apilado 100%
+			Apilado
+		Muchos periodos
+			Area 100%
+			Area
+	Estaticos
+		Pie
+		Cascada
+		Apilado 100%
+Distribucion
+	Histograma	
+	Una variable
+		Area 3D
+		Dispersion
+
+
+GRAFICOS
+
+De barras
+
+Se utiliza para graficar las variaciones de uno o mas parametros a traves del tiempo
+Las barras pueden estar apiladas o una al lado de la otra
+Las barras pueden estar orientadas en sentido vertical u horizontal
+
+Ej. Por ejemplo, imagina que quieres ver la evolución de ingresos que ha tenido tu empresa en la última década.
+
+De linea
+
+Para graficar tendencias o evoluciones a traves del tiempo a intervalos identicos
+
+Ej. Así, un pequeño gimnasio puede visualizar de un solo vistazo la evolución en el número de usuarios por meses y comprobar a simple vista cómo se comportan los clientes en función de la época del año. Incluso, puedes incorporar otras líneas para crear comparativas. Por ejemplo, además del total de usuarios, quizás, el dueño del gimnasio quiera conocer la tendencia por género.
+
+Circulares
+
+Grafican el reparto porcentual de un todo
+
+Ej. desde cómo se distribuye el gasto total para el área financiera hasta qué productos son los que más compran los clientes.
+
+Area
+
+Se suelen usar para trazar el cambio que se ha producido en varios conceptos con el tiempo y para llamar la atención sobre una tendencia en el valor total.
+
+Ej. es habitual en los informes de monitorización de redes sociales, por ejemplo, para evidenciar el peso de las distintas plataformas 
+
+Dispersion
+
+Esta modalidad te resultará muy práctica si tienes que comparar un conjunto de datos con dos características diferentes, que van en el eje X e Y. 
+
+Ej. relacionar el volumen de producción de una fábrica con el número de horas de mantenimiento, el precio de un producto con su margen bruto o, como en este ejemplo, el volumen de incidencias en la producción con el número de bajas de los empleados. 
+
+De burbuja
+
+además de la comparativa de esos dos factores diferentes, también puedes crear una tercera variable con cada valor.
+
+Ej. imagina que quieres ver el consumo eléctrico de tus diferentes centros de producción y tener en cuenta, también, el número de empleados y la superficie de la fábrica para detectar desajustes operativos. 
+
+
+PROCEDIMIENTO
+
+Si el registro tiene una fecha
+	crear dos controles para desde y hasta
+	un control box especificando anual, mes, semestre, quatrimestre, bimestre, diario
+Si el registro tiene una propiedad foranea crear un control texto para la lista de valores de la propiedad (*) significa todos
+Si el registro tiene una propiedad numerica entera crear dos controles up down para desde y hasta
+Si el registro tiene una propiedad numerica float crear dos controles texto para desde y hasta
+Si el registro tiene una propiedad boolean crear un radiobutton, ambos, false, true
+
+Crear un dropdown con el tipo de grafico que se despliega
+
+PARAMETROS DE LOS GRAFICOS
+
+Barras
+
+Data Frame
+x
+y
+title
+color
+hover_data
+labels
+height
+barmode
+text
+pattern_shape
+pattern_shape_sequence
+facet_row
+facet_col
+category_orders
+
+Line
+
+x
+y
+title
+mode
+line
+
+
+DEFINICIONES DE GRAFICOS
+
+Scatter
+
+Presentacion grafica de la relacion entre dos variables cuantificables
+Regresion lineal
+
+Barras
+
+Muestra el resumen de datos categoricos utilizando la longitud de las barras para desplegar la magnitud de la variable cunatificable.
+
+Un agrupado gráfico de columnas es un gráfico de columnas que muestra varias variables de interés en el mismo gráfico, con las diferentes variables generalmente denotadas por diferentes colores o tonos de un color. 
+
+Un gráfico de columnas apiladas es un gráfico de columnas que muestra comparaciones de parte a todo, ya sea a lo largo del tiempo o entre categorías.
+
+Funnel chart 
+
+Es un gráfico que muestra la progresión de una variable numérica para varias categorías de valores más grandes a más pequeños 
+
+Un control chart
+
+Es una pantalla gráfica que se utiliza para ayudar a determinar si un proceso de producción está controlado o fuera de control.
+
+el gráfico de espagueti 
+
+Es un gráfico que representa flujos posibles a través de un sistema usando una línea para cada camino posible
+
+
+Tipos de datos
+
+Datos cuantitativos y categóricos
+
+Datos cuantitativos
+
+Los datos cuantitativos son datos para los cuales se utilizan valores numéricos para indicar la magnitud, como cuántos o cuánto. Operaciones aritméticas, como suma, resta,la multiplicación y la división se pueden realizar en datos cuantitativos. Por ejemplo,podemos sumar los valores de Volumen en la Tabla 1.3 para calcular un volumen total de todos acciones negociadas por empresas incluidas en el Dow, porque el Volumen es una variable.
+
+Datos categoricos
+
+Los datos categóricos son datos para los cuales las categorías de elementos similares se identifican mediante etiquetas o nombres Las operaciones aritméticas no se pueden realizar en datos categóricos. podemos resumir datos categóricos contando el número de observaciones o calculando las proporciones de observaciones en cada categoría. Por ejemplo, los datos en la columna Industria en la Tabla 1.3 son categóricos. Podemos contar el número de empresas en el Dow que son, por ejemplo, en la industria alimentaria. La tabla 1.3 muestra dos empresas de la industria alimentaria: Coca-Cola y McDonald's. Sin embargo, no podemos realizar operaciones aritméticas directamente sobre los datos en el columna de la industria.
+
+Datos transversales y de series de tiempo
+
+Datos transversales
+
+se recopilan de varias entidades al mismo tiempo o aproximadamente en el mismo momento. El Los datos de la tabla 1.3 son transversales porque describen las 30 empresas que componen el Dow en el mismo momento (abril de 2020).
+
+Los datos de series temporales 
+
+son datos recopilados en varios puntos en el tiempo (minutos, horas, días, meses, años, etc.). Los gráficos de datos de series de tiempo se encuentran con frecuencia en los negocios, publicaciones económicas y científicas. Dichos gráficos ayudan a los analistas a comprender lo que sucedió en el pasado, identificar tendencias a lo largo del tiempo y proyectar niveles futuros para la serie temporal.
+
+Por ejemplo, el gráfico de la serie temporal de la Figura 1.4 muestra el valor DJI de enero 2010 a abril de 2020. El gráfico muestra la tendencia alcista del valor DJI desde 2010 hasta 2020, cuando hubo una fuerte caída en el valor debido al impacto económico de la Pandemia de COVID-19.
+
+Contabilidad
+
+La contabilidad es una profesión basada en datos. Los contadores preparan estados financieros y Examinar los estados financieros para comprobar su exactitud y conformidad con las normas legales y las mejores prácticas, incluida la presentación de informes exigidos a efectos fiscales. La visualización de datos es una parte de el juego de herramientas de todo contador. La visualización de datos se utiliza para detectar valores atípicos que podrían ser un indicación de un error de datos o fraude. Como ejemplo de visualización de datos en contabilidad, permítanos
+considere la Ley de Benford. La Ley de Benford, también conocida como la Ley del primer dígito, da la probabilidad esperada de que
+el primer dígito de un número informado toma los valores del uno al nueve, con base en muchos conjuntos de datos numéricos de la vida real, como las cuentas de gastos de la empresa. Un gráfico de columnas que muestra La Ley de Benford se muestra en la Figura 1.5. Hemos redondeado las probabilidades a cuatro dígitos. Nosotros vea, por ejemplo, que la probabilidad de que el primer dígito sea un 1 es 0.3010. La probabilidad
+de que el primer dígito sea un 2 es 0,1761, y así sucesivamente.
+
+Definición del objetivo de su visualización de datos
+
+Selección de un gráfico apropiado
+
+¿Cómo se elige un gráfico apropiado? 
+
+Si el objetivo de su gráfico es explicar, entonces la respuesta a esta pregunta depende del mensaje que desee transmitir a su audiencia. Si
+está explorando datos, el mejor tipo de gráfico depende de la pregunta que esté haciendo y de la esperanza para responder a partir de los datos. Además, el tipo de datos que tiene puede influir en la selección de su gráfico.
+
+Algunos de los objetivos más comunes de los gráficos son mostrar lo siguiente:
+
+●● Composición: la composición es lo que constituye la totalidad de una entidad bajo consideración. Un ejemplo es el gráfico de barras de la figura 2.2.
+
+●● Clasificación: la clasificación es el orden relativo de los elementos. La figura 2.2 también es un ejemplo de clasificación, porque hemos ordenado las categorías por longitud de barra, que es proporcional a las cantidades asignadas.
+
+●● Correlación/Relación: la correlación es cómo dos variables se relacionan con una otro. Un ejemplo de esto es la relación entre la temperatura baja promedio y nevadas anuales promedio para varias ciudades en los Estados Unidos.
+
+●● Distribución: la distribución es cómo se dispersan los elementos. Un ejemplo de esto es el número de llamadas recibidas por un centro de llamadas en un día, medido por hora.
+
+
+
+Para crear graficos especificos se deben tener en cuenta:
+
+Entender el proposito del grafico
+La necesidad de la audiencia
+
+Preattentive Attributes
+
+color, form (which includes size),  spatial positioning, and movement
+
+Principios de la Gestalt
+
+similarity, proximity, enclosure, and connection
+
+
+Data-Ink Ratio
+
+FORMAS DE ESPECIFICAR GRAFICOS
+
+KPI
+
+Debemos calcular una medida o VALOR BASE
+VALOR OBJETIVO
+
+
+import pandas as pd
+def ReporteitemView(request):
+
+    reportsize = A4
+    nombre = 'item'
+    nombrereporte = 'item'
+    orientacion = portrait
+    margenes = [40,20,80,20] 
+    font_titulo = 'Helvetica-Bold'
+    font_titulo_size = 20
+    font_columnas = 'Helvetica-Bold'
+    font_columnas_size = 12
+    font = 'Helvetica'
+    font_size = 10
+    font_encabezado = 'Helvetica'
+    font_encabezado_size = 10
+    font_totales = 'Helvetica-Bold'
+    font_totales_size = 10
+
+    doc = SimpleDocTemplate(nombrereporte + '.pdf', pagesize=orientacion(reportsize))
+
+    doc.font = font_encabezado
+    doc.fontSize = font_encabezado_size
+
+    historia = []
+
+    maxpuntos = 595 - doc.leftMargin - doc.rightMargin
+    # 792,612,841,595
+
+    # estilos
+
+    tbl_estilo_titulo = TableStyle([('FONT', (0, 0), (-1, -1), font_titulo),
+                        ('FONTSIZE', (0, 0), (-1, -1), font_titulo_size),
+                        ('VALIGN',(0,0),(1,-1),'MIDDLE')])
+
+    tbl_estilo_texto = TableStyle([('VALIGN',(0,0),(1,-1),'MIDDLE')])
+
+    ps_columnas = ParagraphStyle(name = 'Normal', fontSize = font_columnas_size, fontName=font_columnas)
+    ps_texto = ParagraphStyle(name = 'Normal', fontSize = font_size, fontName=font)
+
+    # titulo
+    historia.append(Spacer(1,15))
+    data = [['Lista de registros']]
+    tbl = Table(data)
+    tbl.setStyle(EstiloTitulo('Helvetica-Bold',20))
+    historia.append(tbl)
+    historia.append(Spacer(1,20))
+    # datos
+    df = pd.DataFrame(item.objects.all().values())
+    data = df[['codigo','descripcion','importe','impuesto']].values.tolist()
+    data.insert(0,['codigo','descripcion','importe','impuesto'])
+    tbl = Table(data, repeatRows=1, colWidths=[150,200,100,100])
+    tbl.setStyle(tbl_estilo_texto)
+    historia.append(tbl)
+    # totales
+    data = [['','',str(df['importe'].sum()),str(df['impuesto'].sum())]]
+    tbl = Table(data, colWidths=[150,200,100,100])
+    tbl.setStyle(tbl_estilo_texto)
+    historia.append(tbl)
+    doc.build(historia, onFirstPage=encabezado, onLaterPages=encabezado)
+    return HttpResponseRedirect('/items/listar_item')
+
+
+Recursivo Platypus
+
+def RecursivoPlatypus(modelo, lista, espacio, tabs,col,texto_reporte,ntabs,delta,numrep,rep):
+
+    fe = modelo.font_encabezado.split(',')
+    fti = modelo.font_titulo.split(',')
+    fc = modelo.font_columnas.split(',')
+    ft = modelo.font.split(',')
+    fto = modelo.font_totales.split(',')
+
+    nombre = modelo.nombre
+    hay_modelo = False
+    ancho = ''
+    suma=0 
+    conModelo = False
+
+    if texto_reporte != '':
+        if SeListaModelo(modelo, json.loads(texto_reporte)['propiedades']):
+            conModelo = True
+
+    if modelo.padre != 'nada':
+        lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + ']')
+        numrep+=1
+        lista.append(ntabs + 'if ' + nombre + '.objects.filter(' + modelo.padre + ' = reg_' + modelo.padre + ').count() > 0:')
+        lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + ']')
+        numrep+=1
+        ntabs += '    '
+
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+    lista.append(ntabs + '# titulo')
+    lista.append(ntabs + 'historia.append(Spacer(1,15))')
+    lista.append(ntabs + 'data = [[' + "'" + modelo.titulolista + "'" + ']]')
+    lista.append(ntabs + 'tbl = Table(data)')
+    lista.append(ntabs + 'tbl.setStyle(EstiloTitulo(' + "'" + fti[0] + "'" + ',' + str(fti[1]) + '))')
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+    if texto_reporte == '' or conModelo == True:
+        lista.append(ntabs + 'historia.append(tbl)')
+    lista.append(ntabs + 'historia.append(Spacer(1,' + str(fti[1]) + '))')
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep += 1
+    if modelo.padre != 'nada':
+        lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+        numrep+=1
+        hay_modelo,ancho,suma = ColumnasReporte(lista,texto_reporte,modelo,delta,ntabs,fc,espacio,col,conModelo)
+        lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+        numrep+=1
+    # Definimos las variables a totalizar
+    lista_prop = Propiedad.objects.filter(modelo=modelo,totaliza=1,enreporte=1)
+
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+    for prop in lista_prop:
+        lista.append(ntabs + 'total_' + prop.nombre + ' = 0')
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+    if modelo.padre == 'nada':
+        hay_modelo,ancho,suma = ColumnasReporte(lista,texto_reporte,modelo,delta,ntabs+ '',fc,espacio,col,conModelo)
+        lista.append(ntabs + 'for reg_' + modelo.nombre + ' in ' + modelo.nombre + '.objects.all():')
+    else:
+        algo = modelo.padre + '=' + 'reg_' + modelo.padre
+        lista.append(ntabs + 'for reg_' + modelo.nombre + ' in ' + modelo.nombre + '.objects.filter(' + algo + '):')
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+
+    # if modelo.padre == 'nada':
+    #     hay_modelo,ancho,suma = ColumnasReporte(lista,texto_reporte,modelo,delta,ntabs+ '    ',fc,espacio,col,conModelo)
+
+    lista.append(ntabs + '    # datos')
+
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+
+    data = '[['
+    data_tot = '[['
+    flgTotaliza = False
+    if not hay_modelo:
+        lista.append(ntabs + 'df = pd.DataFrame(' + modelo.nombre + '.objects.all().values())')
+        lista.append(ntabs + 'data = df[[' + data + ']].values.tolist()')
+
+        num = 1
+        flgYaPuso = False
+        for prop in Propiedad.objects.filter(modelo=modelo):
+            if prop.enreporte:
+                if prop.totaliza:
+                    flgTotaliza = True
+                    if data_tot == '[[':
+                        data_tot += 'Paragraph(' + 'str(total_' + prop.nombre + '), ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                    else:
+                        data_tot += ',Paragraph(' + 'str(total_' + prop.nombre + '), ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                    lista.append(ntabs + '    ' + 'total_' + prop.nombre + ' += ' + 'reg_' + modelo.nombre + '.' + prop.nombre)
+                else:
+                    # if data_tot == '[[':
+                    #     data_tot += "''"
+                    if not flgYaPuso:
+                        flgYaPuso = True
+                        if data_tot == '[[':
+                            data_tot += 'Paragraph(' + '"Total ' + modelo.nombre + '", ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                        else:
+                            data_tot += ',Paragraph(' + '"Total ' + modelo.nombre + '", ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                    else:
+                        if data_tot == '[[':
+                            data_tot += 'Paragraph(' + '""' + ', ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                        else:
+                            data_tot += ',Paragraph(' + '""' + ', ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                strComa = ','
+                if data == '[[':
+                    strComa = ''
+                if prop.tipo == 'i' or prop.tipo == 'l' or prop.tipo == 'm' or prop.tipo == 'd':
+                    # Propiedad numerica
+                    data += strComa + 'Paragraph(' + 'str(reg_' + modelo.nombre + '.' + prop.nombre + '), ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                elif prop.tipo == 'f':
+                    nombreself = Modelo.objects.get(nombre=prop.foranea,proyecto=modelo.proyecto).nombreborrar
+                    data += strComa + 'Paragraph(' + 'str(reg_' + modelo.nombre + '.' + prop.nombre + '.' + nombreself + '), ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                elif prop.tipo == 'p':
+                    lista.append(ntabs + '    ' + 'cd = os.getcwd()') 
+                    lista.append(ntabs + '    ' + prop.nombre + ' = cd + reg_' + modelo.nombre + '.' + prop.nombre + '.url')
+                    lista.append(ntabs + '    ' + 'im_' + prop.nombre + ' = Image(' + prop.nombre + ', 15,15)')
+                    data += ',im_' + prop.nombre
+                elif prop.tipo == 'r':
+                    texto='['
+                    for radio in prop.textobotones.split(';'):
+                        if texto == '[':
+                            texto += "('" + radio.split(',')[0] + "' , '" + radio.split(',')[1] + "')"
+                        else:
+                            texto += ",('" + radio.split(',')[0] + "' , '" + radio.split(',')[1] + "')"
+                    texto += ']'
+                    lista.append(ntabs + '    rb_' + prop.nombre + ' = ' + "''")
+                    lista.append(ntabs + '    for radio in ' + texto + ':')
+                    lista.append(ntabs + '        if reg_' + modelo.nombre + '.' + prop.nombre + ' == radio[0]:')
+                    lista.append(ntabs + '            rb_' + prop.nombre + ' = radio[1]')
+                    data += strComa + 'Paragraph(rb_' + prop.nombre + ', ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                else:
+                    data += strComa + 'Paragraph(' + 'str(reg_' + modelo.nombre + '.' + prop.nombre + '), ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                if prop.alineacion == 'l':
+                    data = data.replace('@ali','TA_LEFT')
+                    data_tot = data_tot.replace('@ali','TA_LEFT')
+                elif prop.alineacion == 'r':
+                    data = data.replace('@ali','TA_RIGHT')
+                    data_tot = data_tot.replace('@ali','TA_RIGHT')
+                else:
+                    data = data.replace('@ali','TA_CENTER')
+                    data_tot = data_tot.replace('@ali','TA_CENTER')
+    else:
+        lista.append('# Listado de zonas')
+        lista_zonas = json.loads(texto_reporte)['propiedades']
+        if SeListaModelo(modelo,lista_zonas):
+            flgYaPuso = False
+            for zona in lista_zonas:
+                if int(zona['zonaid']) == modelo.id:
+                    # if data == '[[':
+                    #     data += "''"
+                    # else:
+                    #     data += ",''"
+                    prop = Propiedad.objects.get(id=zona['propid'])
+
+                    # Totaliza
+                    if prop.totaliza:
+                        flgTotaliza = True
+                        # if data_tot == '[[':
+                        #     data_tot += "''"
+                        # else:
+                        #     data_tot += ",''"
+                        lista.append(ntabs + '    ' + 'total_' + prop.nombre + ' += ' + 'reg_' + modelo.nombre + '.' + prop.nombre)
+                        data_tot += ',Paragraph(' + 'str(total_' + prop.nombre + '), ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                    else:
+                        # if data_tot == '[[':
+                        #     data_tot += "''"
+                        # else:
+                        #     data_tot += ",''"
+                        if not flgYaPuso:
+                            data_tot += ',Paragraph(' + '"Total ' + modelo.nombre + '", ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+                            flgYaPuso = True
+                            # data_tot += ',Paragraph(' + '""' + ', ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                        else:
+                            data_tot += ',Paragraph(' + '""' + ', ParrafoEstiloTotales(' + "'" + fto[0] + "'" + ',' + str(fto[1]) + ',@ali))'
+
+                    # Propiedad numerica
+                    if prop.tipo == 'i' or prop.tipo == 'l' or prop.tipo == 'm' or prop.tipo == 'd':
+                        data += ',Paragraph(' + 'str(reg_' + modelo.nombre + '.' + prop.nombre + '), ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                    elif prop.tipo == 'f':
+                        nombreself = Modelo.objects.get(nombre=prop.foranea,proyecto=modelo.proyecto).nombreborrar
+                        data += ',Paragraph(' + 'str(reg_' + modelo.nombre + '.' + prop.nombre + '.' + nombreself + '), ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                    elif prop.tipo == 'p':
+                        lista.append(ntabs + '    ' + 'cd = os.getcwd()') 
+                        lista.append(ntabs + '    ' + prop.nombre + ' = cd + reg_' + modelo.nombre + '.' + prop.nombre + '.url')
+                        lista.append(ntabs + '    ' + 'im_' + prop.nombre + ' = Image(' + prop.nombre + ', 15,15)')
+                        data += ',im_' + prop.nombre
+                    elif prop.tipo == 'r':
+                        texto='['
+                        for radio in prop.textobotones.split(';'):
+                            if texto == '[':
+                                texto += "('" + radio.split(',')[0] + "' , '" + radio.split(',')[1] + "')"
+                            else:
+                                texto += ",('" + radio.split(',')[0] + "' , '" + radio.split(',')[1] + "')"
+                        texto += ']'
+                        lista.append(ntabs + '    rb_' + prop.nombre + ' = ' + "''")
+                        lista.append(ntabs + '    for radio in ' + texto + ':')
+                        lista.append(ntabs + '        if reg_' + modelo.nombre + '.' + prop.nombre + ' == radio[0]:')
+                        lista.append(ntabs + '            rb_' + prop.nombre + ' = radio[1]')
+                        data += ',Paragraph(rb_' + prop.nombre + ', ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+                    else:
+                        data += ',Paragraph(' + 'str(reg_' + modelo.nombre + '.' + prop.nombre + '), ParrafoEstiloTexto(' + "'" + ft[0] + "'" + ',' + str(ft[1]) + ',@ali))'
+
+                    if prop.alineacion == 'l':
+                        data = data.replace('@ali','TA_LEFT')
+                        data_tot = data_tot.replace('@ali','TA_LEFT')
+                    elif prop.alineacion == 'r':
+                        data = data.replace('@ali','TA_RIGHT')
+                        data_tot = data_tot.replace('@ali','TA_RIGHT')
+                    else:
+                        data = data.replace('@ali','TA_CENTER')
+                        data_tot = data_tot.replace('@ali','TA_CENTER')
+
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+
+    if data == '[[':
+        data += ']]'
+    else:
+        data += ']]'
+
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+    lista.append(ntabs + '    ' + 'data =' + data)
+    lista.append(ntabs + '    ' + 'tbl = Table(data, colWidths=[' + ancho + '])')
+    lista.append(ntabs + '    ' + 'tbl.setStyle(tbl_estilo_texto)')
+    if texto_reporte == '' or hay_modelo == True:
+        lista.append(ntabs + '    ' + 'historia.append(tbl)')
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+
+    for modelo in Modelo.objects.filter(padre = modelo.nombre,proyecto=modelo.proyecto):
+        numrep += 1
+        RecursivoPlatypus(modelo, lista, espacio, tabs+1,col,texto_reporte,ntabs + "    ",delta+20,numrep,rep)
+
+    if flgTotaliza:
+        lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+        numrep+=1
+        data_tot += ']]'
+        lista.append(ntabs + 'data =' + data_tot)
+        lista.append(ntabs + 'tblt = Table(data, colWidths=[' + ancho + '])')
+        lista.append(ntabs + 'tblt.setStyle(EstiloTotales(0))')
+        lista.append(ntabs + 'historia.append(tblt)')
+        lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+        numrep+=1
+
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+    lista.append(ntabs + 'historia.append(Spacer(1,15))')
+    lista.append('#@[p_reporte_' + modelo.nombre + str(numrep) + '_' + rep + ']')
+    numrep+=1
+
+
+
+def Dashhoja():
+    import sqlite3
+
+    conexion=sqlite3.connect("db.sqlite3")
+    # cursor=conexion.execute("select proyectos_proyecto.nombre, "\
+    #                     "proyectos_proyecto.id, "\
+    #                     "modelos_modelo.nombre, modelos_modelo.id, "\
+    #                     "propiedades_propiedad.id, propiedades_propiedad.nombre, "\
+    #                     "reglas_regla.mensaje "
+    #                     "from proyectos_proyecto "\
+    #                     "inner join modelos_modelo "\
+    #                     " on proyectos_proyecto.id = modelos_modelo.proyecto_id "\
+
+                        # "inner join propiedades_propiedad "\
+                        # "on modelos_modelo.id = propiedades_propiedad.modelo_id "\
+                        # "inner join reglas_regla "\
+                        # "on propiedades_propiedad.id = reglas_regla.propiedad_id"
+                        # )	
+    cursor=conexion.execute("select h.paciente_id, h.especialidad_id, h.importeConsulta, h.fechaAtencion, h.fechaRegistro, "\
+                            " p.nombre, p.sexo,  "\
+                            "d.nombre, "\
+                            "cd.nombre, "\
+                            " ba.nombre, "\
+                            " di.descripcion, "\
+                            " dia.enfermedad_id, "\
+                            " enf.descripcion "\
+                             " from generales_hoja as h"\
+                             " inner join generales_paciente as p "\
+                             " on h.paciente_id = p.id "\
+                             " inner join generales_departamento as d "\
+                             " on p.departamento_id = d.id "\
+                             " inner join generales_ciudad as cd "\
+                             " on p.ciudad_id = cd.id "\
+                             " inner join generales_barrio as ba "\
+                             " on p.barrio_id = ba.id "\
+                             " inner join generales_direccion as di "\
+                             " on p.direccion_id = di.id "\
+                             " inner join generales_diagnostico as dia "\
+                             " on dia.hoja_id = h.id "\
+                             " inner join generales_enfermedad as enf "\
+                             " on enf.id = dia.enfermedad_id"
+                             )
+    print(cursor)                             
+    # for fila in cursor:
+    #     print(fila)
+
+
+select  generales_hoja.paciente_id,
+generales_hoja.fechaRegistro,
+generales_hoja.fechaAtencion,
+generales_hoja.importeConsulta,
+generales_hoja.especialidad_id  
+from generales_hoja  
+select  generales_hoja.paciente_id,
+generales_hoja.fechaRegistro,
+generales_hoja.fechaAtencion,
+generales_hoja.importeConsulta,
+generales_hoja.especialidad_id,
+generales_diagnostico.enfermedad_id  
+from generales_hoja   
+inner join generales_diagnostico 
+on generales_diagnostico.id = generales_hoja.diagnostico_id
+select  generales_hoja.paciente_id,
+generales_hoja.fechaRegistro,
+generales_hoja.fechaAtencion,
+generales_hoja.importeConsulta,
+generales_hoja.especialidad_id,
+generales_diagnostico.enfermedad_id,
+generales_tratamiento.medicamento_id  
+from generales_hoja   
+inner join generales_diagnostico 
+on generales_diagnostico.id = generales_hoja.diagnostico_id 
+inner join generales_tratamiento 
+on generales_tratamiento.id = generales_diagnostico.tratamiento_id
+select  generales_hoja.paciente_id,
+generales_hoja.fechaRegistro,
+generales_hoja.fechaAtencion,
+generales_hoja.importeConsulta,
+generales_hoja.especialidad_id,
+generales_diagnostico.enfermedad_id,
+generales_tratamiento.medicamento_id,
+generales_seguimiento.evolucion_id  
+from generales_hoja   
+inner join generales_diagnostico 
+on generales_diagnostico.id = generales_hoja.diagnostico_id 
+inner join generales_tratamiento 
+on generales_tratamiento.id = generales_diagnostico.tratamiento_id 
+inner join generales_seguimiento 
+on generales_seguimiento.id = generales_tratamiento.seguimiento_id
+select  generales_hoja.paciente_id,
+generales_hoja.fechaRegistro,
+generales_hoja.fechaAtencion,
+generales_hoja.importeConsulta,
+generales_hoja.especialidad_id,
+generales_diagnostico.enfermedad_id,
+generales_laboratorio.analisis_id  
+from generales_hoja   
+inner join generales_diagnostico 
+on generales_diagnostico.id = generales_hoja.diagnostico_id 
+inner join generales_laboratorio 
+on generales_laboratorio.id = generales_diagnostico.laboratorio_id 
+
+
+
+select  
+generales_departamento.nombre  
+from generales_departamento  
+select  
+generales_departamento.nombre,
+generales_ciudad.nombre  
+from generales_departamento   
+inner join generales_ciudad 
+on generales_ciudad.id = generales_departamento.ciudad_id
+select  
+generales_departamento.nombre,
+generales_ciudad.nombre,
+generales_barrio.nombre  
+from generales_departamento   
+inner join generales_ciudad 
+on generales_ciudad.id = generales_departamento.ciudad_id 
+inner join generales_barrio 
+on generales_barrio.id = generales_ciudad.barrio_id
+select  
+generales_departamento.nombre,
+generales_ciudad.nombre,
+generales_barrio.nombre,
+generales_direccion.descripcion  
+from generales_departamento   
+inner join generales_ciudad 
+on generales_ciudad.id = generales_departamento.ciudad_id 
+inner join generales_barrio 
+on generales_barrio.id = generales_ciudad.barrio_id 
+inner join generales_direccion 
+on generales_direccion.id = generales_barrio.direccion_id
+
+
+select  generales_hoja.paciente_id,
+generales_hoja.fechaRegistro,
+generales_hoja.fechaAtencion,
+generales_hoja.importeConsulta,
+generales_hoja.especialidad_id,
+generales_diagnostico.enfermedad_id,
+generales_tratamiento.medicamento_id,
+generales_seguimiento.evolucion_id  
+from generales_hoja   
+inner join generales_diagnostico 
+on generales_diagnostico.id = generales_hoja.diagnostico_id 
+inner join generales_tratamiento 
+on generales_tratamiento.id = generales_diagnostico.tratamiento_id 
+inner join generales_seguimiento 
+on generales_seguimiento.id = generales_tratamiento.seguimiento_id
+
+
+select  generales_paciente.sexo,generales_departamento.nombre,generales_ciudad.nombre,generales_barrio.nombre,generales_direccion.descripcion  from generales_paciente   inner join generales_departamento on generales_paciente.departamento_id = generales_departamento.id inner join generales_ciudad on 
+generales_paciente.ciudad_id = generales_ciudad.id inner join generales_barrio on generales_paciente.barrio_id = generales_barrio.id inner join generales_direccion on generales_paciente.direccion_id = generales_direccion.id
+
+select  generales_departamento.nombre  from generales_departamento  
+
+select  generales_departamento.nombre,generales_ciudad.nombre  from generales_departamento   inner join generales_ciudad on generales_ciudad.departamento_id = generales_departamento.id
+
+select  generales_departamento.nombre,generales_ciudad.nombre,generales_barrio.nombre  from generales_departamento   inner join generales_ciudad on generales_ciudad.departamento_id = generales_departamento.id inner join generales_barrio on generales_barrio.ciudad_id = generales_ciudad.id
+
+select  generales_departamento.nombre,generales_ciudad.nombre,generales_barrio.nombre,generales_direccion.descripcion  from generales_departamento   inner join generales_ciudad on generales_ciudad.departamento_id = generales_departamento.id inner join generales_barrio on generales_barrio.ciudad_id = generales_ciudad.id inner join generales_direccion on generales_direccion.barrio_id = generales_barrio.id
+
+select  generales_paciente.ci,generales_hoja.fechaRegistro,generales_hoja.fechaAtencion,generales_hoja.importeConsulta,generales_especialidad.nombre  
+from generales_hoja   inner join generales_paciente on generales_hoja.paciente_id = generales_paciente.id inner join generales_especialidad on generales_hoja.especialidad_id = generales_especialidad.id
+
+select  generales_paciente.ci,generales_hoja.fechaRegistro,generales_hoja.fechaAtencion,generales_hoja.importeConsulta,generales_especialidad.nombre,generales_enfermedad.descripcion  from generales_hoja   inner join generales_paciente on generales_hoja.paciente_id = generales_paciente.id inner join 
+generales_especialidad on generales_hoja.especialidad_id = generales_especialidad.id inner join generales_enfermedad on generales_diagnostico.enfermedad_id = generales_enfermedad.id inner join generales_diagnostico on generales_diagnostico.hoja_id = generales_hoja.id
+
+select  generales_paciente.ci,generales_hoja.fechaRegistro,generales_hoja.fechaAtencion,generales_hoja.importeConsulta,generales_especialidad.nombre,generales_enfermedad.descripcion,generales_medicamento.nombre  from generales_hoja   inner join generales_paciente on generales_hoja.paciente_id = generales_paciente.id inner join generales_especialidad on generales_hoja.especialidad_id = generales_especialidad.id inner join generales_enfermedad on generales_diagnostico.enfermedad_id = generales_enfermedad.id inner join generales_diagnostico on generales_diagnostico.hoja_id = generales_hoja.id inner join generales_medicamento on generales_tratamiento.medicamento_id = generales_medicamento.id inner join generales_tratamiento on generales_tratamiento.diagnostico_id = generales_diagnostico.id
+
+select  generales_paciente.ci,generales_hoja.fechaRegistro,generales_hoja.fechaAtencion,generales_hoja.importeConsulta,generales_especialidad.nombre,generales_enfermedad.descripcion,generales_medicamento.nombre,generales_evolucion.descripcion  from generales_hoja   inner join generales_paciente on generales_hoja.paciente_id = generales_paciente.id inner join generales_especialidad on generales_hoja.especialidad_id = generales_especialidad.id inner join generales_enfermedad on generales_diagnostico.enfermedad_id = generales_enfermedad.id inner join generales_diagnostico on generales_diagnostico.hoja_id = generales_hoja.id inner join generales_medicamento on generales_tratamiento.medicamento_id = generales_medicamento.id inner join generales_tratamiento on generales_tratamiento.diagnostico_id = generales_diagnostico.id inner join generales_evolucion on generales_seguimiento.evolucion_id = 
+generales_evolucion.id inner join generales_seguimiento on generales_seguimiento.tratamiento_id = generales_tratamiento.id
+
+select  generales_paciente.ci,generales_hoja.fechaRegistro,generales_hoja.fechaAtencion,generales_hoja.importeConsulta,generales_especialidad.nombre,generales_enfermedad.descripcion,generales_analisis.nombre  from generales_hoja   inner join generales_paciente on generales_hoja.paciente_id = generales_paciente.id inner join generales_especialidad on generales_hoja.especialidad_id = generales_especialidad.id inner join generales_enfermedad on generales_diagnostico.enfermedad_id = generales_enfermedad.id inner join generales_diagnostico on generales_diagnostico.hoja_id = generales_hoja.id inner 
+join generales_analisis on generales_laboratorio.analisis_id = generales_analisis.id inner join generales_laboratorio on generales_laboratorio.diagnostico_id = generales_diagnostico.id
+
+
+
+select  generales_paciente.sexo,
+generales_departamento.nombre,
+generales_ciudad.nombre,
+generales_barrio.nombre,
+generales_direccion.descripcion,
+generales_hoja.fechaRegistro,
+generales_hoja.fechaAtencion,
+generales_hoja.importeConsulta  
+from generales_hoja   
+inner join generales_departamento 
+on generales_paciente.departamento_id = generales_departamento.id 
+inner join generales_ciudad 
+on generales_paciente.ciudad_id = generales_ciudad.id 
+inner join generales_barrio 
+on generales_paciente.barrio_id = generales_barrio.id 
+inner join generales_direccion 
+on generales_paciente.direccion_id = generales_direccion.id 
+inner join generales_paciente 
+on generales_hoja.paciente_id = generales_paciente.id 
+inner join generales_especialidad 
+on generales_hoja.especialidad_id = generales_especialidad.id 
+inner join generales_enfermedad 
+on generales_diagnostico.enfermedad_id = generales_enfermedad.id 
+inner join generales_diagnostico 
+on generales_diagnostico.hoja_id = generales_hoja.id 
+inner join generales_analisis 
+on generales_laboratorio.analisis_id = generales_analisis.id 
+inner join generales_laboratorio 
+on generales_laboratorio.diagnostico_id = generales_diagnostico.id
+
+
+para treeview
+
+[[<hoja: 830670>, '0', 0, <hoja: 830670>, '', '', 'generales', 'hoja', '', 'hoja', 1], '-']
+
+[[<hoja: 667503>, '10', 0, <hoja: 667503>, '', '', 'generales', 'hoja', '', 'hoja', 11], '+']
+
+
+[[<departamento: Depto 420>, '0', 0, <departamento: Depto 420>, '', '', 'generales', 'departamento', '', 'departamento', 1], '-']
+[[<ciudad: City 674>, '0,0', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<barrio: Neig. 285>, '0,0,0', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1], '-']
+[[<direccion: Address 278>, '0,0,0,0', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1], '+']
+[[<direccion: Address 298>, '0,0,0,1', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1], '+']
+[[<direccion: Address 466>, '0,0,0,2', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1], '+']
+[[<direccion: Address 92>, '0,0,0,3', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1], '+']
+[[<direccion: Address 988>, '0,0,0,4', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1], '+']
+[[<direccion: Address 467>, '0,0,0,5', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1], '+']
+[[<barrio: Neig. 676>, '0,0,1', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1], '+']
+[[<barrio: Neig. 713>, '0,0,2', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1], '+']
+[[<barrio: Neig. 772>, '0,0,3', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1], '+']
+[[<barrio: Neig. 736>, '0,0,4', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1], '+']
+[[<barrio: Neig. 571>, '0,0,5', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1], '+']
+[[<ciudad: City 604>, '0,1', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<ciudad: City 905>, '0,2', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<ciudad: City 846>, '0,3', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<departamento: Depto 635>, '1', 0, <departamento: Depto 635>, '', '', 'generales', 'departamento', '', 'departamento', 2], '+']
+[[<departamento: Depto 492>, '2', 0, <departamento: Depto 492>, '', '', 'generales', 'departamento', '', 'departamento', 3], '+']
+[[<departamento: Depto 237>, '3', 0, <departamento: Depto 237>, '', '', 'generales', 'departamento', '', 'departamento', 4], '+']
+[[<departamento: Depto 306>, '4', 0, <departamento: Depto 306>, '', '', 'generales', 'departamento', '', 'departamento', 5], '+']
+[[<departamento: Depto 541>, '5', 0, <departamento: Depto 541>, '', '', 'generales', 'departamento', '', 'departamento', 6], '+']
+[[<departamento: Depto 989>, '6', 0, <departamento: Depto 989>, '', '', 'generales', 'departamento', '', 'departamento', 7], '+']
+[[<departamento: Depto 873>, '7', 0, <departamento: Depto 873>, '', '', 'generales', 'departamento', '', 'departamento', 8], '+']
+[[<departamento: Depto 27>, '8', 0, <departamento: Depto 27>, '', '', 'generales', 'departamento', '', 'departamento', 9], '+']
+
+
+Se presiona el + en el primer departamento
+
+[[<departamento: Depto 420>, '0', 0, <departamento: Depto 420>, '', '', 'generales', 'departamento', '', 'departamento', 1], '-']
+[[<ciudad: City 674>, '0,0', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<ciudad: City 604>, '0,1', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<ciudad: City 905>, '0,2', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<ciudad: City 846>, '0,3', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1], '+']
+[[<departamento: Depto 635>, '1', 0, <departamento: Depto 635>, '', '', 'generales', 'departamento', '', 'departamento', 2], '+']
+[[<departamento: Depto 492>, '2', 0, <departamento: Depto 492>, '', '', 'generales', 'departamento', '', 'departamento', 3], '+']
+[[<departamento: Depto 237>, '3', 0, <departamento: Depto 237>, '', '', 'generales', 'departamento', '', 'departamento', 4], '+']
+[[<departamento: Depto 306>, '4', 0, <departamento: Depto 306>, '', '', 'generales', 'departamento', '', 'departamento', 5], '+']
+[[<departamento: Depto 541>, '5', 0, <departamento: Depto 541>, '', '', 'generales', 'departamento', '', 'departamento', 6], '+']
+[[<departamento: Depto 989>, '6', 0, <departamento: Depto 989>, '', '', 'generales', 'departamento', '', 'departamento', 7], '+']
+[[<departamento: Depto 873>, '7', 0, <departamento: Depto 873>, '', '', 'generales', 'departamento', '', 'departamento', 8], '+']
+[[<departamento: Depto 27>, '8', 0, <departamento: Depto 27>, '', '', 'generales', 'departamento', '', 'departamento', 9], '+']
+
+[<departamento: Depto 420>, '0', 0, <departamento: Depto 420>, '', '', 'generales', 'departamento', '', 'departamento', 1]
+[<ciudad: City 674>, '0,0', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1]
+[<barrio: Neig. 285>, '0,0,0', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1]
+[<direccion: Address 278>, '0,0,0,0', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1]     
+[<direccion: Address 298>, '0,0,0,1', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1]     
+[<direccion: Address 466>, '0,0,0,2', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1]     
+[<direccion: Address 92>, '0,0,0,3', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1]      
+[<direccion: Address 988>, '0,0,0,4', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1]     
+[<direccion: Address 467>, '0,0,0,5', 60, <departamento: Depto 420>, 'barrio', 1, 'generales', 'direccion', '0,0,0', 'departamento', 1]     
+[<barrio: Neig. 676>, '0,0,1', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1]
+[<direccion: Address 113>, '0,0,1,0', 60, <departamento: Depto 420>, 'barrio', 2, 'generales', 'direccion', '0,0,1', 'departamento', 1]     
+[<direccion: Address 934>, '0,0,1,1', 60, <departamento: Depto 420>, 'barrio', 2, 'generales', 'direccion', '0,0,1', 'departamento', 1]     
+[<direccion: Address 719>, '0,0,1,2', 60, <departamento: Depto 420>, 'barrio', 2, 'generales', 'direccion', '0,0,1', 'departamento', 1]     
+[<direccion: Address 508>, '0,0,1,3', 60, <departamento: Depto 420>, 'barrio', 2, 'generales', 'direccion', '0,0,1', 'departamento', 1]     
+[<direccion: Address 72>, '0,0,1,4', 60, <departamento: Depto 420>, 'barrio', 2, 'generales', 'direccion', '0,0,1', 'departamento', 1]      
+[<barrio: Neig. 713>, '0,0,2', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1]
+[<direccion: Address 76>, '0,0,2,0', 60, <departamento: Depto 420>, 'barrio', 3, 'generales', 'direccion', '0,0,2', 'departamento', 1]      
+[<direccion: Address 897>, '0,0,2,1', 60, <departamento: Depto 420>, 'barrio', 3, 'generales', 'direccion', '0,0,2', 'departamento', 1]     
+[<direccion: Address 285>, '0,0,2,2', 60, <departamento: Depto 420>, 'barrio', 3, 'generales', 'direccion', '0,0,2', 'departamento', 1]     
+[<barrio: Neig. 772>, '0,0,3', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1]
+[<direccion: Address 263>, '0,0,3,0', 60, <departamento: Depto 420>, 'barrio', 4, 'generales', 'direccion', '0,0,3', 'departamento', 1]     
+[<direccion: Address 864>, '0,0,3,1', 60, <departamento: Depto 420>, 'barrio', 4, 'generales', 'direccion', '0,0,3', 'departamento', 1]     
+[<direccion: Address 230>, '0,0,3,2', 60, <departamento: Depto 420>, 'barrio', 4, 'generales', 'direccion', '0,0,3', 'departamento', 1]     
+[<direccion: Address 993>, '0,0,3,3', 60, <departamento: Depto 420>, 'barrio', 4, 'generales', 'direccion', '0,0,3', 'departamento', 1]     
+[<direccion: Address 507>, '0,0,3,4', 60, <departamento: Depto 420>, 'barrio', 4, 'generales', 'direccion', '0,0,3', 'departamento', 1]     
+[<direccion: Address 413>, '0,0,3,5', 60, <departamento: Depto 420>, 'barrio', 4, 'generales', 'direccion', '0,0,3', 'departamento', 1]     
+[<barrio: Neig. 736>, '0,0,4', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1]
+[<direccion: Address 791>, '0,0,4,0', 60, <departamento: Depto 420>, 'barrio', 5, 'generales', 'direccion', '0,0,4', 'departamento', 1]     
+[<direccion: Address 144>, '0,0,4,1', 60, <departamento: Depto 420>, 'barrio', 5, 'generales', 'direccion', '0,0,4', 'departamento', 1]     
+[<direccion: Address 264>, '0,0,4,2', 60, <departamento: Depto 420>, 'barrio', 5, 'generales', 'direccion', '0,0,4', 'departamento', 1]     
+[<direccion: Address 908>, '0,0,4,3', 60, <departamento: Depto 420>, 'barrio', 5, 'generales', 'direccion', '0,0,4', 'departamento', 1]     
+[<direccion: Address 449>, '0,0,4,4', 60, <departamento: Depto 420>, 'barrio', 5, 'generales', 'direccion', '0,0,4', 'departamento', 1]     
+[<direccion: Address 882>, '0,0,4,5', 60, <departamento: Depto 420>, 'barrio', 5, 'generales', 'direccion', '0,0,4', 'departamento', 1]     
+[<barrio: Neig. 571>, '0,0,5', 40, <departamento: Depto 420>, 'ciudad', 1, 'generales', 'barrio', '0,0', 'departamento', 1]
+[<direccion: Address 380>, '0,0,5,0', 60, <departamento: Depto 420>, 'barrio', 6, 'generales', 'direccion', '0,0,5', 'departamento', 1]     
+[<direccion: Address 326>, '0,0,5,1', 60, <departamento: Depto 420>, 'barrio', 6, 'generales', 'direccion', '0,0,5', 'departamento', 1]     
+[<direccion: Address 534>, '0,0,5,2', 60, <departamento: Depto 420>, 'barrio', 6, 'generales', 'direccion', '0,0,5', 'departamento', 1]     
+[<direccion: Address 426>, '0,0,5,3', 60, <departamento: Depto 420>, 'barrio', 6, 'generales', 'direccion', '0,0,5', 'departamento', 1]     
+[<direccion: Address 959>, '0,0,5,4', 60, <departamento: Depto 420>, 'barrio', 6, 'generales', 'direccion', '0,0,5', 'departamento', 1]     
+[<direccion: Address 363>, '0,0,5,5', 60, <departamento: Depto 420>, 'barrio', 6, 'generales', 'direccion', '0,0,5', 'departamento', 1]     
+[<ciudad: City 604>, '0,1', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1]
+[<barrio: Neig. 520>, '0,1,0', 40, <departamento: Depto 420>, 'ciudad', 2, 'generales', 'barrio', '0,1', 'departamento', 1]
+[<direccion: Address 223>, '0,1,0,0', 60, <departamento: Depto 420>, 'barrio', 7, 'generales', 'direccion', '0,1,0', 'departamento', 1]     
+[<direccion: Address 753>, '0,1,0,1', 60, <departamento: Depto 420>, 'barrio', 7, 'generales', 'direccion', '0,1,0', 'departamento', 1]     
+[<direccion: Address 39>, '0,1,0,2', 60, <departamento: Depto 420>, 'barrio', 7, 'generales', 'direccion', '0,1,0', 'departamento', 1]      
+[<direccion: Address 248>, '0,1,0,3', 60, <departamento: Depto 420>, 'barrio', 7, 'generales', 'direccion', '0,1,0', 'departamento', 1]     
+[<barrio: Neig. 280>, '0,1,1', 40, <departamento: Depto 420>, 'ciudad', 2, 'generales', 'barrio', '0,1', 'departamento', 1]
+[<direccion: Address 549>, '0,1,1,0', 60, <departamento: Depto 420>, 'barrio', 8, 'generales', 'direccion', '0,1,1', 'departamento', 1]     
+[<direccion: Address 317>, '0,1,1,1', 60, <departamento: Depto 420>, 'barrio', 8, 'generales', 'direccion', '0,1,1', 'departamento', 1]     
+[<direccion: Address 8>, '0,1,1,2', 60, <departamento: Depto 420>, 'barrio', 8, 'generales', 'direccion', '0,1,1', 'departamento', 1]       
+[<direccion: Address 298>, '0,1,1,3', 60, <departamento: Depto 420>, 'barrio', 8, 'generales', 'direccion', '0,1,1', 'departamento', 1]     
+[<barrio: Neig. 344>, '0,1,2', 40, <departamento: Depto 420>, 'ciudad', 2, 'generales', 'barrio', '0,1', 'departamento', 1]
+[<direccion: Address 237>, '0,1,2,0', 60, <departamento: Depto 420>, 'barrio', 9, 'generales', 'direccion', '0,1,2', 'departamento', 1]     
+[<direccion: Address 76>, '0,1,2,1', 60, <departamento: Depto 420>, 'barrio', 9, 'generales', 'direccion', '0,1,2', 'departamento', 1]      
+[<direccion: Address 168>, '0,1,2,2', 60, <departamento: Depto 420>, 'barrio', 9, 'generales', 'direccion', '0,1,2', 'departamento', 1]
+[<direccion: Address 553>, '0,1,2,3', 60, <departamento: Depto 420>, 'barrio', 9, 'generales', 'direccion', '0,1,2', 'departamento', 1]     
+[<direccion: Address 457>, '0,1,2,4', 60, <departamento: Depto 420>, 'barrio', 9, 'generales', 'direccion', '0,1,2', 'departamento', 1]     
+[<direccion: Address 475>, '0,1,2,5', 60, <departamento: Depto 420>, 'barrio', 9, 'generales', 'direccion', '0,1,2', 'departamento', 1]     
+[<barrio: Neig. 577>, '0,1,3', 40, <departamento: Depto 420>, 'ciudad', 2, 'generales', 'barrio', '0,1', 'departamento', 1]
+[<direccion: Address 349>, '0,1,3,0', 60, <departamento: Depto 420>, 'barrio', 10, 'generales', 'direccion', '0,1,3', 'departamento', 1]    
+[<direccion: Address 53>, '0,1,3,1', 60, <departamento: Depto 420>, 'barrio', 10, 'generales', 'direccion', '0,1,3', 'departamento', 1]     
+[<direccion: Address 671>, '0,1,3,2', 60, <departamento: Depto 420>, 'barrio', 10, 'generales', 'direccion', '0,1,3', 'departamento', 1]    
+[<barrio: Neig. 442>, '0,1,4', 40, <departamento: Depto 420>, 'ciudad', 2, 'generales', 'barrio', '0,1', 'departamento', 1]
+[<direccion: Address 821>, '0,1,4,0', 60, <departamento: Depto 420>, 'barrio', 11, 'generales', 'direccion', '0,1,4', 'departamento', 1]    
+[<direccion: Address 287>, '0,1,4,1', 60, <departamento: Depto 420>, 'barrio', 11, 'generales', 'direccion', '0,1,4', 'departamento', 1]    
+[<direccion: Address 492>, '0,1,4,2', 60, <departamento: Depto 420>, 'barrio', 11, 'generales', 'direccion', '0,1,4', 'departamento', 1]    
+[<direccion: Address 244>, '0,1,4,3', 60, <departamento: Depto 420>, 'barrio', 11, 'generales', 'direccion', '0,1,4', 'departamento', 1]    
+[<ciudad: City 905>, '0,2', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1]
+[<barrio: Neig. 362>, '0,2,0', 40, <departamento: Depto 420>, 'ciudad', 3, 'generales', 'barrio', '0,2', 'departamento', 1]
+[<direccion: Address 862>, '0,2,0,0', 60, <departamento: Depto 420>, 'barrio', 12, 'generales', 'direccion', '0,2,0', 'departamento', 1]    
+[<direccion: Address 396>, '0,2,0,1', 60, <departamento: Depto 420>, 'barrio', 12, 'generales', 'direccion', '0,2,0', 'departamento', 1]    
+[<direccion: Address 987>, '0,2,0,2', 60, <departamento: Depto 420>, 'barrio', 12, 'generales', 'direccion', '0,2,0', 'departamento', 1]    
+[<direccion: Address 759>, '0,2,0,3', 60, <departamento: Depto 420>, 'barrio', 12, 'generales', 'direccion', '0,2,0', 'departamento', 1]    
+[<direccion: Address 706>, '0,2,0,4', 60, <departamento: Depto 420>, 'barrio', 12, 'generales', 'direccion', '0,2,0', 'departamento', 1]    
+[<barrio: Neig. 729>, '0,2,1', 40, <departamento: Depto 420>, 'ciudad', 3, 'generales', 'barrio', '0,2', 'departamento', 1]
+[<direccion: Address 93>, '0,2,1,0', 60, <departamento: Depto 420>, 'barrio', 13, 'generales', 'direccion', '0,2,1', 'departamento', 1]     
+[<direccion: Address 152>, '0,2,1,1', 60, <departamento: Depto 420>, 'barrio', 13, 'generales', 'direccion', '0,2,1', 'departamento', 1]    
+[<direccion: Address 701>, '0,2,1,2', 60, <departamento: Depto 420>, 'barrio', 13, 'generales', 'direccion', '0,2,1', 'departamento', 1]    
+[<barrio: Neig. 926>, '0,2,2', 40, <departamento: Depto 420>, 'ciudad', 3, 'generales', 'barrio', '0,2', 'departamento', 1]
+[<direccion: Address 460>, '0,2,2,0', 60, <departamento: Depto 420>, 'barrio', 14, 'generales', 'direccion', '0,2,2', 'departamento', 1]    
+[<direccion: Address 579>, '0,2,2,1', 60, <departamento: Depto 420>, 'barrio', 14, 'generales', 'direccion', '0,2,2', 'departamento', 1]    
+[<direccion: Address 674>, '0,2,2,2', 60, <departamento: Depto 420>, 'barrio', 14, 'generales', 'direccion', '0,2,2', 'departamento', 1]    
+[<ciudad: City 846>, '0,3', 20, <departamento: Depto 420>, 'departamento', 1, 'generales', 'ciudad', '0', 'departamento', 1]
+[<barrio: Neig. 709>, '0,3,0', 40, <departamento: Depto 420>, 'ciudad', 4, 'generales', 'barrio', '0,3', 'departamento', 1]
+[<direccion: Address 70>, '0,3,0,0', 60, <departamento: Depto 420>, 'barrio', 15, 'generales', 'direccion', '0,3,0', 'departamento', 1]     
+[<direccion: Address 364>, '0,3,0,1', 60, <departamento: Depto 420>, 'barrio', 15, 'generales', 'direccion', '0,3,0', 'departamento', 1]    
+[<direccion: Address 467>, '0,3,0,2', 60, <departamento: Depto 420>, 'barrio', 15, 'generales', 'direccion', '0,3,0', 'departamento', 1]    
+[<barrio: Neig. 703>, '0,3,1', 40, <departamento: Depto 420>, 'ciudad', 4, 'generales', 'barrio', '0,3', 'departamento', 1]
+[<direccion: Address 314>, '0,3,1,0', 60, <departamento: Depto 420>, 'barrio', 16, 'generales', 'direccion', '0,3,1', 'departamento', 1]    
+[<direccion: Address 998>, '0,3,1,1', 60, <departamento: Depto 420>, 'barrio', 16, 'generales', 'direccion', '0,3,1', 'departamento', 1]    
+[<direccion: Address 333>, '0,3,1,2', 60, <departamento: Depto 420>, 'barrio', 16, 'generales', 'direccion', '0,3,1', 'departamento', 1]    
+[<barrio: Neig. 575>, '0,3,2', 40, <departamento: Depto 420>, 'ciudad', 4, 'generales', 'barrio', '0,3', 'departamento', 1]
+[<direccion: Address 43>, '0,3,2,0', 60, <departamento: Depto 420>, 'barrio', 17, 'generales', 'direccion', '0,3,2', 'departamento', 1]     
+[<direccion: Address 694>, '0,3,2,1', 60, <departamento: Depto 420>, 'barrio', 17, 'generales', 'direccion', '0,3,2', 'departamento', 1]    
+[<direccion: Address 78>, '0,3,2,2', 60, <departamento: Depto 420>, 'barrio', 17, 'generales', 'direccion', '0,3,2', 'departamento', 1]     
+[<barrio: Neig. 295>, '0,3,3', 40, <departamento: Depto 420>, 'ciudad', 4, 'generales', 'barrio', '0,3', 'departamento', 1]
+[<direccion: Address 479>, '0,3,3,0', 60, <departamento: Depto 420>, 'barrio', 18, 'generales', 'direccion', '0,3,3', 'departamento', 1]    
+[<direccion: Address 314>, '0,3,3,1', 60, <departamento: Depto 420>, 'barrio', 18, 'generales', 'direccion', '0,3,3', 'departamento', 1]    
+[<direccion: Address 280>, '0,3,3,2', 60, <departamento: Depto 420>, 'barrio', 18, 'generales', 'direccion', '0,3,3', 'departamento', 1]    
+
+
+Lista
+
+0	modelo
+1	lista de nudos (esquema)
+2	identacion
+3	modelo raiz
+4	nombre modelo padre
+5	id del modelo padre
+6	nombre de la aplicacion
+7	nombre del modelo
+8	lista nudos modelo padre
+9	nombre modelo raiz
+10	id del modelo raiz
+
+campos utilizados
+3
+1
+4
+0
+7
+4
+5
+9
+10
+
+
+
+		<div class='col-12 d-none d-md-block col-md-3 mt-2 pt-3'  style='font-weight: normal; font-name: "Open+Sans"; font-size: 8pt; background-color: #0375B4; color:white;'>
+			{% for obj in listar %}
+				{% if obj.1.0 == '+' %}
+					<div class='row' style='padding-left: {{obj.0.2}}px; '>
+						<div class='col-1'>
+							<a style='text-decoration: none; color:white;' href='{% url "generales:editar_departamento" obj.0.3.id %}?esquema={{obj.0.1}}'>
+								{{obj.1.0}}
+							</a>
+						</div>
+						<div class='col-10'>
+							{% if obj.0.4 == '' %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_departamento" obj.0.0.id %}?esquema={{obj.0.1}}'>{{obj.0.0}}</a>
+							{% else %}
+							{% if obj.0.7 == "direccion" %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_direccion" obj.0.0.id %}?{{obj.0.4}}_id={{obj.0.5}}&esquema={{obj.0.1}}&modelo_raiz={{obj.0.9}}&id_raiz={{obj.0.10}}'>{{obj.0.0}}
+							{% endif %}
+								</a>
+							{% if obj.0.7 == "barrio" %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_barrio" obj.0.0.id %}?{{obj.0.4}}_id={{obj.0.5}}&esquema={{obj.0.1}}&modelo_raiz={{obj.0.9}}&id_raiz={{obj.0.10}}'>{{obj.0.0}}
+							{% endif %}
+								</a>
+							{% if obj.0.7 == "ciudad" %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_ciudad" obj.0.0.id %}?{{obj.0.4}}_id={{obj.0.5}}&esquema={{obj.0.1}}&modelo_raiz={{obj.0.9}}&id_raiz={{obj.0.10}}'>{{obj.0.0}}
+							{% endif %}
+								</a>
+							{% endif %}
+						</div>
+					</div>
+				{% else %}
+					<div class='row' style='padding-left: {{obj.0.2}}px; '>
+						<div class='col-1'>
+							<a style='text-decoration: none; color:white;' href='{% url "generales:editar_departamento" obj.0.3.id %}?esquema={{obj.0.8}}'>
+								{{obj.1.0}}
+							</a>
+						</div>
+						<div class='col-10'>
+							{% if obj.0.4 == '' %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_departamento" obj.0.0.id %}'>{{obj.0.0}}</a>
+							{% else %}
+							{% if obj.0.7 == "direccion" %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_direccion" obj.0.0.id %}?{{obj.0.4}}_id={{obj.0.5}}&esquema={{obj.0.1}}&modelo_raiz={{obj.0.9}}&id_raiz={{obj.0.10}}'>{{obj.0.0}}
+							{% endif %}
+								</a>
+							{% if obj.0.7 == "barrio" %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_barrio" obj.0.0.id %}?{{obj.0.4}}_id={{obj.0.5}}&esquema={{obj.0.1}}&modelo_raiz={{obj.0.9}}&id_raiz={{obj.0.10}}'>{{obj.0.0}}
+							{% endif %}
+								</a>
+							{% if obj.0.7 == "ciudad" %}
+								<a style='text-decoration: none; color:white;' href='{% url "generales:editar_ciudad" obj.0.0.id %}?{{obj.0.4}}_id={{obj.0.5}}&esquema={{obj.0.1}}&modelo_raiz={{obj.0.9}}&id_raiz={{obj.0.10}}'>{{obj.0.0}}
+							{% endif %}
+								</a>
+							{% endif %}
+						</div>
+					</div>
+
+
+Opciones de Fill
+

@@ -1,0 +1,65 @@
+		{% load static %}
+		<div id="primera_fila" class="row" style="border: 1pt solid black; height: {{proyecto.altofilaenizcede}}px;
+								background-color: {{proyecto.colorfilaenizcede}}">
+			<div class="col-{{proyecto.numerocolumnaenizquierda}}" style="
+								height: {{proyecto.altocolumnaenizquierda}}px;
+								background-color: {{proyecto.colorcolumnaenizquierda}}">
+								</div>
+			<div id="logo" class="col-{{proyecto.numerocolumnalogo}}" style="
+								height: {{proyecto.altocolumnalogo}}px;
+								background-color: {{proyecto.colorcolumnalogo}}">
+									{% if proyecto.avatar %}
+										<img src="{{proyecto.avatar.url}}" alt="">
+									{% endif %}
+								</div>
+			<div id="titulo" class="col-{{proyecto.numerocolumnatitulo}}" style="
+								height: {{proyecto.altocolumnatitulo}}px;
+								background-color: {{proyecto.colorcolumnatitulo}};">
+									{% if proyecto.titulo != '' %}
+										{{proyecto.titulo}}
+									{% elif proyecto.imagentitulo %}
+										<img src="{{proyecto.imagentitulo.url}}" alt="">
+									{% endif %}
+								</div>
+			<div class="col-{{proyecto.numerocolumnalogin}}" style="
+								height: {{proyecto.altocolumnalogin}}px;
+								background-color: {{proyecto.colorcolumnalogin}}"></div>
+			<div class="col-{{proyecto.numerocolumnaenderecha}}"style="
+								height: {{proyecto.altocolumnaenderecha}}px;
+								background-color: {{proyecto.colorcolumnaenderecha}}"></div>
+		</div>
+
+		<!-- busqueda, menu -->
+
+		<div id="segunda_fila" class="row mt-{{proyecto.separacionsecciones}}" 
+		                   style="height: {{proyecto.altofilabume}; 
+								background-color: {{proyecto.colorfilabume}}">
+			<div class="col-{{proyecto.numerocolumnabumeizquierda}}" style="
+								height: {{proyecto.altocolumnabumeizquierda}}px;
+								background-color: {{proyecto.colorcolumnabumeizquierda}}"></div>
+			<div class="col-{{proyecto.numerocolumnabusqueda}}" style="
+								height: {{proyecto.altocolumnabusqueda}}px;
+								background-color: {{proyecto.colorcolumnabusqueda}};
+								display: flex; align-items: center;">
+				<div class="row">
+					<div class="col-10 ">
+						<input type="text" placeholder="Datos del nombre o descripcion">
+					</div>
+					<!-- <div class="col-2 col-md-2 " style="padding-top: 1px;"> -->
+					<div class="col-2">
+						<a href="" id="link-busqueda" class="btn btn-white" ><img src="{% static 'core/img/lupa.png' %}" alt=""></a>
+					</div>
+				</div>
+			</div>
+			<div id="menu" class="col-{{proyecto.numerocolumnamenu}}"style="
+								height: {{proyecto.altocolumnamenu}}px;
+								background-color: {{proyecto.colorcolumnamenu}};
+								display: flex; align-items: center;">
+									<a class="mr-2" href="">Primera</a>
+									<a class="mr-2" href="">Segunda</a>
+									<a href="">Tercera</a>
+								</div>
+			<div class="col-{{proyecto.numerocolumnabumederecha}}" style="
+								height: {{proyecto.altocolumnabumederecha}}px;
+								background-color: {{proyecto.colorcolumnabumederecha}}"></div>
+		</div>

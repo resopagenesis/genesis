@@ -1,0 +1,51 @@
+{% load static %}
+
+<!-- #@[p_menu_aplicacion_01] -->
+<!-- #@[p_menu_aplicacion_02] -->
+<!-- #@[p_menu_aplicacion_03] -->
+
+<style type="text/css">
+	.navbar li a {
+    line-height: 20px;
+    height: 20px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#opcionmenu_@aplicacion{
+  color:@coloropcionmenu;
+   font-family: @menufontfamily;
+    font-size: @menufontsizept;
+    font-weight:@menufontweight;
+/*#@[p_estilos_14]*/
+}
+
+</style>
+
+<nav id="id_navbar" class="navbar navbar-expand-lg ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a id="opcionmenu_@aplicacion" class="nav-link active opcionmenu_volver" href="{% url 'core:home' %}">Volver</a>
+        </li>
+        @opciones
+        @opcionseguridad
+      </ul>
+     
+    </div>
+  </div>
+</nav>
+
+<!-- #@[p_menu_aplicacion_04] -->
+<!-- #@[p_menu_aplicacion_05] -->
+<!-- #@[p_menu_aplicacion_06] -->
+<!-- #@[p_menu_aplicacion_07] -->
+<!-- #@[p_menu_aplicacion_08] -->
+<!-- #@[p_menu_aplicacion_09] -->
+<!-- #@[p_menu_aplicacion_10] -->
+ 

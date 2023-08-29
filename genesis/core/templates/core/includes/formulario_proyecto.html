@@ -1,0 +1,957 @@
+{% load static %}
+            <div class="container">
+              <div class="row mt-5 mb-4">
+                <div class="col">
+                  <span class="controles-texto-grupo">Datos Generales</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="row " >
+                    <div class="col controles-label">Nombre del Proyecto</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.nombre}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Descripcion del Proyecto</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.descripcion}}
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-6">
+                  <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">El proyecto tiene seguridad:</div>
+                    <div class="col controles_control">
+                      {{form.conseguridad}}
+                    </div>
+                  </div>
+                  <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">El codigo incluye las etiquetas de personalizacion:</div>
+                    <div class="col controles_control">
+                      {{form.conetiquetaspersonalizacion}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Separacion entre secciones (max:5)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.separacionsecciones}}
+                    </div>
+                  </div>
+                  <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">El proyecto tiene Roles:</div>
+                    <div class="col controles_control">
+                      {{form.conroles}}
+                    </div>
+                  </div>
+                  <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">El proyecto tiene la opcion de busqueda:</div>
+                    <div class="col controles_control">
+                      {{form.conbusqueda}}
+                    </div>
+                  </div>
+                    <!-- <div class="row" >
+                    {% include 'core/includes/esquema.html' with titulo='Imagen de la Pagina principal' target='imagenpaginaprincipal' imagen='core/img/esquema_imagenpaginaprincipal.png' %}
+                  </div>
+                  {% if proyecto.imagenpaginaprincipal %}
+                    <img src="{{proyecto.imagenpaginaprincipal.url}}" width="50px" height="50px" alt="">
+                  {% endif %}
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.imagenpaginaprincipal}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Primer color pagina principal</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorpaginaprincipal}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Segundo color pagina principal</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.segundocolorpaginaprincipal}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">El degradado es hacia arriba:</div>
+                    <div class="col controles_control">
+                      {{form.degradehaciaarriba}}
+                    </div>
+                  </div>
+                  <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">Los menus son contiguos:</div>
+                    <div class="col controles_control">
+                      {{form.menuscontiguos}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row mb-4" >
+                    <div class="col-10 controles-label ">El proyecto utiliza su base.html particular:</div>
+                    <div class="col controles_control">
+                      {{form.usabaseparticular}}
+                    </div>
+                  </div>
+                  <div class="row" >
+                    {% include 'core/includes/esquema.html' with titulo='Imagen de la seccion central' target='imagenmedio' imagen='core/img/esquema_imagenmedio.png' %}
+                  </div>
+                  {% if proyecto.imagenmedio %}
+                    <img src="{{proyecto.imagenmedio.url}}" width="50px" height="50px" alt="">
+                  {% endif %}
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.imagenmedio}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color del texto de la seccion central</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colortextomedio}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Font del texto seccion central</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.fonttextomedio}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Texto de seccion central</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.textomedio}}
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Titulo del proyecto</span>
+                    </div>
+                  </div>
+                  <div class="row" >
+                    {% include 'core/includes/esquema.html' with titulo='Imagen del titulo' target='imagentitulo' imagen='core/img/esquema_imagentitulo.png' %}
+                  </div>
+                  {% if proyecto.imagentitulo %}
+                    <img src="{{proyecto.imagentitulo.url}}" width="50px" height="50px" alt="">
+                  {% endif %}
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.imagentitulo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Dimension horizontal de la imagen del titulo (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.imagentitulowidth}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Dimension vertical de la imagen del titulo (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.imagentituloheight}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal del titulo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.justificacionhorizontaltitulo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical del titulo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.justificacionverticaltitulo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Texto del titulo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.titulo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Font del titulo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.fonttitulo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Color del titulo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colortitulo}}
+                    </div>
+                  </div>
+                  <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Menu del proyecto</span>
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Font del Menu</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.fontmenu}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Color del Menu</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colormenu}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal del Menu</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.justificacionmenu}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Color de fondo del Menu</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorfondomenu}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Logo del proyecto</span>
+                    </div>
+                  </div>
+                  <div class="row" >
+                    {% include 'core/includes/esquema.html' with titulo='Logo del Proyecto' target='avatar' imagen='core/img/esquema_avatar.png' %}
+                  </div>
+                  {% if proyecto.avatar %}
+                    <img src="{{proyecto.avatar.url}}" width="50px" height="50px" alt="">
+                  {% endif %}
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.avatar}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Dimension horizontal del logo (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.avatarwidth}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Dimension vertical del logo (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.avatarheight}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal del logo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.justificacionhorizontallogo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical del logo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.justificacionverticallogo}}
+                    </div>
+                  </div>
+                  <!-- <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Imagen y texto de volver entre paginas</span>
+                    </div>
+                  </div>
+                  <div class="row" >
+                    <div class="col controles-label ">Imagen de volver</div>
+                  </div>
+                  {% if proyecto.imagenvolver %}
+                    <img src="{{proyecto.imagenvolver.url}}" width="50px" height="50px" alt="">
+                  {% endif %}
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.imagenvolver}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Texto de volver</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.textovolver}}
+                    </div>
+                  </div> -->
+                  <div class="row " >
+                    <div class="col controles-label">Font de texto volver</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.fonttextovolver}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Color de texto volver</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colortextovolver}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              <div class="row">
+                <div class="col">
+                  <!-- <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Fila del Logo, Titulo y Adicional</span>
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la fila (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altofilaenizcede}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la fila</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorfilaenizcede}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna izquierda (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnaenizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna izquierda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnaenizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna izquierda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnaenizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna logo (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnalogo}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna logo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnalogo}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones del logo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnalogo}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna del titulo (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnatitulo}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna titulo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnatitulo}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna titulo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnatitulo}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna adicional (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnalogin}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna adicional</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnalogin}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna adicional</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnalogin}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna derecha (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnaenderecha}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna derecha</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnaenderecha}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna derecha</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnaenderecha}}
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">Las secciones tienen borde:</div>
+                    <div class="col controles_control">
+                      {{form.enborde}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color del borde</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.encolorborde}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Ancho del borde (pt)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.enanchoborde}}
+                    </div>
+                  </div> -->
+
+                </div>
+                <div class="col">
+                  <!-- <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Fila de Busqueda y Menu</span>
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la fila</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altofilabume}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la fila</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorfilabume}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna izquierda (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnabumeizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna izquierda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnabumeizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna izquierda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnabumeizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna busqueda (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnabusqueda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna busqueda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnabusqueda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna busqueda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnabusqueda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna del menu (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnamenu}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna menu</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnamenu}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna del menu</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnamenu}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna derecha (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnabumederecha}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna derecha</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnabumederecha}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna derecha</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnabumederecha}}
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">Las secciones tienen borde:</div>
+                    <div class="col controles_control">
+                      {{form.bumeborde}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color del borde</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.bumecolorborde}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Ancho del borde (pt)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.bumeanchoborde}}
+                    </div>
+                  </div> -->
+
+
+                </div>              
+              </div>       
+              <div class="row">
+                <div class="col">
+                  <!-- <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Fila de seccion central</span>
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la fila (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altofilamedio}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la fila</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorfilamedio}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna izquierda (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnamedioizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna izquierda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnamedioizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna izquierda</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnamedioizquierda}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna central (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnamediocentro}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna central</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnamediocentro}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna central</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnamediocentro}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna central (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnamedioderecha}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna derecha</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnamedioderecha}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Numero de secciones de la columna derecha</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.numerocolumnamedioderecha}}
+                    </div>
+                  </div> -->
+
+                  <!-- <div class="row  mb-4" >
+                    <div class="col-10 controles-label ">Las secciones tienen borde:</div>
+                    <div class="col controles_control">
+                      {{form.cenborde}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color del borde</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.cencolorborde}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Ancho del borde (pt)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.cenanchoborde}}
+                    </div>
+                  </div> -->
+
+                </div>              
+                <div class="col">
+                  <!-- <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Fila del pie</span>
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la fila (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altofilapie}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la fila</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorfilapie}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Altura de la columna pie (px)</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altocolumnapie}}
+                    </div>
+                  </div> -->
+                  <!-- <div class="row " >
+                    <div class="col controles-label">Color de la columna pie</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.colorcolumnapie}}
+                    </div>
+                  </div> -->
+                  <!-- Reporte  -->
+<!--                   <div class="row mt-5 mb-4">
+                    <div class="col">
+                      <span class="controles-texto-grupo">Reportes</span>
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical de la primera linea</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.primeralinea}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Numero maximo de lineas por pagina</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.maxlineas}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Ancho del logo para reporte</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.anchologo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Altura del logo para reporte</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.altologo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal del logo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.posxlogo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical del logo</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.posylogo}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal del nombre</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.posxnombre}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical del nombre</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.posynombre}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion inicial horizontal linea encabezado</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.iniciolineax}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion final horizontal linea encabezado</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.finallineax}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical linea encabezado</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.iniciolineay}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Grosor linea encabezado</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.grosorlinea}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal del numero de pagina</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.piex}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical del numero de pagina</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.piey}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion horizontal linea pie</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.lineapiex}}
+                    </div>
+                  </div>
+                  <div class="row " >
+                    <div class="col controles-label">Posicion vertical linea pie</div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col controles_control">
+                      {{form.lineapiey}}
+                    </div>
+                  </div> -->
+                </div>
+              </div>       
+            </div>

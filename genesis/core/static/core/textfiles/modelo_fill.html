@@ -1,0 +1,157 @@
+{% extends 'core/base@modelo.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+{% block cuerpo %}
+
+{% load static %}
+
+<style>
+    
+#inserta_curso{
+    margin-top: @margintoppx;
+    padding: 20px 20px 20px 20px;
+}
+#fila_titulo_inserta{
+    background-color: transparent;
+    height: 40px;
+}
+#titulo_inserta{
+    font-family: 'Roboto';
+    font-size: 18pt;
+    font-weight: 700;
+    color:#1a1a1a;
+    background-color: transparent;
+}
+#comentario_inserta{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:#3a3a3a;
+}
+#columna_comentario_inserta{
+    background-color:transparent;
+}
+#fila_datos_inserta{
+
+}
+#font_label_curso{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: bold;
+    color:#010203;
+}
+@fila_boton_inserta{
+
+}
+#boton_inserta{
+
+}
+
+
+</style>
+
+
+<!-- #@[p_modelo_fill_01] -->
+  <div id="inserta-curso" class="container inserta-curso border">
+
+<!-- ********************** -->
+<!-- TITULO DE FILL -->
+<!-- ********************** -->
+
+<!-- #@[p_modelo_fill_02] -->
+    <div id="fila_titulo_inserta" class="row fila_titulo_inserta d-flex align-items-center">
+<!-- #@[p_modelo_fill_03] -->
+        <div id="titulo_inserta" class="col-12 d-flex col-md-12 justify-content-start align-items-center titulo_inserta">
+<!-- #@[p_modelo_fill_04] -->
+            Fill&nbsp;{{nombremodelo}} 
+<!-- #@[p_modelo_fill_05] -->            
+        </div>
+<!-- #@[p_modelo_fill_06] -->        
+    </div>
+
+    {% if form.errors %}
+        <ul class="user-msg error">
+        {% for field in form %}
+            {% for error in field.errors %}
+            <li>
+                {% if field != '__all__' %}
+                <strong>Error en el control: {{ field.label }}:</strong>
+                {% endif %}
+                {{ error }}
+            </li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+<!-- #@[p_modelo_fill_07] -->
+    <div id="" class="row d-flex align-items-center">
+<!-- #@[p_modelo_fill_08] -->
+        <!-- Controles -->
+        <div class="col-3">
+<!-- #@[p_modelo_fill_09] -->          
+            <div id="fila_datos_inserta" class="row fila_datos_inserta d-flex align-items-center">
+<!-- #@[p_modelo_fill_10] -->
+                <div class="col-12 col-md-12">
+<!-- #@[p_modelo_fill_11] -->
+                  <form action="" method="get" enctype="multipart/form-data" id="cursoForm" >
+                    {% csrf_token %}
+<!-- #@[p_modelo_fill_12] -->
+                    <div class="row">
+<!-- #@[p_modelo_fill_13] -->
+                      <div class="col">
+<!-- #@[p_modelo_fill_14] -->
+                        {% if form.non_field_errors %}
+                          <ol>
+                            {% for error in form.non_field_errors %}
+                              <li class="color_error"><strong>{{ error|escape }}</strong></li>
+                            {% endfor %}
+                          </ol>
+                        {% endif %}
+                      </div>
+                    </div>
+<!-- #@[p_modelo_fill_15] -->                    
+                    <div class="row mt-4">
+<!-- #@[p_modelo_fill_16] -->
+                      <div id="font_label_curso" class="col font_label_curso">
+<!-- #@[p_modelo_fill_17] -->
+                        {{form.as_p}}
+<!-- #@[p_modelo_fill_18] -->
+                      </div>
+<!-- #@[p_modelo_fill_19] -->
+                    </div>
+<!-- #@[p_modelo_fill_20] -->
+                    <div id="fila_boton_inserta" class="row fila_boton_inserta mt-3 mb-3">
+<!-- #@[p_modelo_fill_21] -->
+                      <div class="col">
+<!-- #@[p_modelo_fill_22] -->
+                        <input id="boton_inserta" type="submit" class="btn btn-primary btn-block mt-3 boton_inserta" value="Desplegar" />
+<!-- #@[p_modelo_fill_23] -->
+                      </div>
+<!-- #@[p_modelo_fill_24] -->
+                    </div>
+<!-- #@[p_modelo_fill_25] -->
+                  </form>               
+<!-- #@[p_modelo_fill_26] -->
+                </div>
+<!-- #@[p_modelo_fill_27] -->
+              </div>
+          <!-- #@[p_modelo_fill_01] -->
+        </div>
+<!-- #@[p_modelo_fill_28] -->
+        <div class="col-9">
+<!-- #@[p_modelo_fill_29] -->            
+        </div>
+<!-- #@[p_modelo_fill_30] -->        
+    </div>
+<!-- #@[p_modelo_fill_31] -->    
+  </div>
+
+
+{% endblock %}
+
+ 
+
+

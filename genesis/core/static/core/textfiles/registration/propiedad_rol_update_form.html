@@ -1,0 +1,237 @@
+{% extends 'core/base@proyecto.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+
+{% block cuerpo %}
+
+{% load static %}
+
+
+<style>
+    
+#update-propiedad_rol{
+    margin-top: @margintoppx;
+}
+#fila-titulo-update{
+    background-color: transparent;
+    height: 40px;
+}
+#titulo-update{
+    font-family: 'Roboto';
+    font-size: 14pt;
+    font-weight: 700;
+    color:black;
+    background-color: transparent;
+}
+#comentario-update{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+}
+#columna-comentario-update{
+    background-color:transparent;;
+}
+#fila-datos-update{
+
+}
+#font-label-propiedad_rol{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: bold;
+    color:black;
+}
+#fila-boton-update{
+
+}
+#boton-update{
+
+}
+
+
+/*  */
+
+
+</style>
+
+
+  <div id="update-propiedad_rol" class="container update-propiedad_rol">
+
+    <div class="row">
+        
+        <div class="col-12">
+
+            
+<!-- ******************** -->
+<!-- TITULO DE LA EDICION -->
+<!-- ******************** -->
+
+            <div id="fila-titulo-update" class="row fila-titulo-update d-flex align-items-center">
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+                <div id="titulo-update" class="col-12 d-flex col-md-10 justify-content-start align-items-center titulo-update">
+
+									<div class="col">
+					<div class="" style="float: left">propiedad_rol:&nbsp&nbsp</div>
+					<div class="" style="float: left; color:green;"><b>{{nombre}}</b>&nbsp&nbsp</div>
+					<div class="" style="float: left;">
+					{% if esquema == "sin_treeview" %}
+						<a href="{% url 'seguridad:editar_modelo_rol' modelo_rol_id %}?rol_id={{rol_id}}"><span class="volver">Volver</span></a>
+					{% else %}
+						<a href="{% url 'seguridad:editar_rol' rol.id %}?esquema={{esquema}}"><span class="volver">Volver</span></a>
+					{% endif %}
+					</div>
+				</div>
+
+
+                </div>
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+            </div>
+
+<!-- ****************************** -->
+<!-- FINAL DEL TITULO DE LA EDICION -->
+<!-- ****************************** -->
+
+
+            {% if form.errors %}
+                <ul class="user-msg error">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>
+                                {% if field != '__all__' %}
+                                    <strong>Error en el control: {{ field.label }}:</strong>
+                                {% endif %}
+                                {{ error }}
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+    </div>
+
+<!-- ************************ -->
+<!-- COMENTARIO DE LA EDICION -->
+<!-- ************************ -->
+    
+    <div class="row fila-comentario-update d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div id="columna-comentario-update" class="col-12 col-md-10 columna-comentario-update">
+        <span id="comentario-update" class="comentario-update">
+
+			
+
+        </span>
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+
+    <div class="row">
+
+<!-- ******************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************** -->
+
+                
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************* -->
+
+<!-- ********************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS DEL MODELO -->
+<!-- ********************************************** -->
+        
+        <div class="col-12 col-md-12">
+            <!-- Inicio de los controles para el objeto raiz -->
+            <div id="fila-datos-update" class="row fila-datos-update d-flex align-items-center">
+            <div class="col-12 d-none d-md-block col-md-1"></div>
+            <div class="col-12 col-md-10 border rounded">
+                <form action="" method="post" enctype="multipart/form-data" id="propiedad_rolForm" >
+                    {% csrf_token %}
+
+                    {% if not form.errors %}
+                        {% if 'correcto' in request.GET %}
+                            <p style="color:red;">(Registro modificado correctamente)</p>
+                        {% endif %}
+                    {% endif %}
+                    <div class="row">
+                        <div class="col">
+                            {% if form.non_field_errors %}
+                                <ol>
+                                    {% for error in form.non_field_errors %}
+                                        <li class="color_error"><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+
+<!-- ************************* -->
+<!-- CONTROLES PARA LA EDICION -->
+<!-- ************************* -->
+
+							{% include 'core/includes/formulario_propiedad_rol.html'%}
+
+                        </div>
+                    </div>
+                    <div id="fila-boton-update" class="row fila-boton-update mt-3 mb-3">
+                        <div class="col">
+                            <input id="boton-update" type="submit" class="btn btn-primary btn-block mt-3 boton-update" value="Actualizar" />
+                        </div>
+                    </div>
+                </form>               
+              </div>
+              <div class="col-12 d-none d-md-block col-md-1"></div>
+            </div>
+
+<!-- ****************************************** -->
+<!-- FINAL DE LOS CONTROLES PARA EL OBJETO RAIZ -->
+<!-- ****************************************** -->
+
+
+<!-- ******************************************* -->
+<!-- INICIO DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+            
+            <div class="row mt-3">
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+                    <div class="col-12  col-md-10 ">
+
+<!-- ***** -->
+<!-- HIJOS -->
+<!-- ***** -->
+
+     
+
+                    </div>
+                    <div class="col-12 d-none d-md-block col-md-1"></div>
+                </div>
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+
+        </div>
+    </div>
+
+
+<!-- ***************** -->
+<!-- PIE DE LA EDICION -->
+<!-- ***************** -->
+    
+    <div class="row pie-lista">
+    </div>
+  </div>
+
+
+
+{% endblock %}
+
+ 
+

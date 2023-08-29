@@ -1,0 +1,303 @@
+body {
+
+height: 100%;
+font-family: 'Roboto',sans-serif;
+background: linear-gradient(to @direccion_degrade, @colorpaginaprincipal, @segundocolorpaginaprincipal); 
+padding-top: 30px;
+/*#@[p_estilos_01]*/
+}
+
+html {
+    height: 100%;
+}
+
+/* ESTRUCTURA DE LA PAGINA */
+
+main .fila-enizcede{
+	height: @alto-fila-enizcede;
+	background-color: @color-fila-enizcede;
+/*#@[p_estilos_02]*/
+}
+main .columna-enizquierda{
+	height: @alto-columna-enizquierda;
+	background-color: @color-columna-enizquierda;
+	border:@enbordei ;
+/*#@[p_estilos_03]*/
+}
+main .columna-logo{
+	height: @alto-columna-logo;
+	background-color: @color-columna-logo;
+	border:@enbordel  ;
+	/*padding-top: @verticallogopx;
+	padding-left: @horizontallogopx;*/
+/*#@[p_estilos_04]*/
+}
+
+main .columna-logo img{
+	height: @alto-logopx;
+	width: @ancho-logopx;
+	border: none;
+/*#@[p_estilos_05]*/
+}
+
+main .columna-titulo{
+	height: @alto-columna-titulo;
+	background-color: @color-columna-titulo;
+	font-family: @titulofontfamily;
+    font-size: @titulofontsizept;
+    font-weight:@titulofontweight;
+    color:@colortitulo;
+	border:@enbordet  ;
+	/*padding-top: @verticaltitulopx;
+	padding-left: @horizontaltitulopx;*/
+/*#@[p_estilos_06]*/
+}
+
+main .columna-login{
+	height: @alto-columna-login;
+	background-color: @color-columna-login;
+	border:@enbordea  ;
+/*#@[p_estilos_07]*/
+}
+
+main .columna-enderecha{
+	height: @alto-columna-enderecha;
+	background-color: @color-columna-enderecha;
+	border:@enborded  ;
+/*#@[p_estilos_08]*/
+}
+
+main .fila-bume{
+	height: @alto-fila-bume;
+	background-color: @color-fila-bume;
+/*#@[p_estilos_09]*/
+}
+main .columna-bume-izquierda{
+	height: @alto-columna-bume-izquierda;
+	background-color: @color-columna-bume-izquierda;
+	border:@bumebordei  ;
+/*#@[p_estilos_10]*/
+}
+main .columna-bume-derecha{
+	height: @alto-columna-bume-derecha;
+	background-color: @color-columna-bume-derecha;
+	border:@bumeborded ;
+/*#@[p_estilos_11]*/
+}
+main .columna-busqueda{
+	/*height: @alto-columna-busqueda;*/
+	background-color: @color-columna-busqueda;
+	border:@bumebordeb ;
+	/*margin-top: 1px;*/
+/*#@[p_estilos_12]*/
+}
+main #id_navbar{
+	background-color: @colorfondomenu;
+}
+main .columna-menu{
+	/*height: @alto-columna-menu;*/
+	background-color: @color-columna-menu;
+	border:@bumebordem ;
+/*#@[p_estilos_13]*/
+}
+main .opcionmenu{
+	color:@coloropcionmenu;
+	font-family: @menufontfamily;
+    font-size: @menufontsizept;
+    font-weight:@menufontweight;
+/*#@[p_estilos_14]*/
+}
+main .fila-medio{
+	height: @alto-fila-medio;
+	background-color: @color-fila-medio;
+/*#@[p_estilos_15]*/
+}
+main .columna-medioizquierda{
+	height: @alto-columna-medio-izquierda;
+	background-color: @color-columna-medio-izquierda;
+	border:@cenbordei;
+/*#@[p_estilos_16]*/
+}
+main .columna-mediocentro{
+	height: @alto-columna-medio-centro;
+	background-color: @color-columna-medio-centro;
+	border:@cenbordec ;
+/*#@[p_estilos_17]*/
+}
+main .columna-medioderecha{
+	height: @alto-columna-medio-derecha;
+	background-color: @color-columna-medio-derecha;
+	border:@cenborded ;
+/*#@[p_estilos_18]*/
+}
+main .textomedio{
+	font-family: @textomediofontfamily;
+    font-size: @textomediofontsizept;
+    font-weight:@textomediofontweight;
+	color:@color-texto-medio;
+/*#@[p_estilos_19]*/
+}
+main .fila-pie{
+	height: @alto-fila-pie;
+	background-color: @color-fila-pie;
+/*#@[p_estilos_20]*/
+}
+main .columna-pie{
+	height: @alto-columna-pie;
+	background-color: @color-columna-pie;
+/*#@[p_estilos_21]*/
+}
+
+/* BUSQUEDA */
+
+main .fila-bume{
+    padding-top: @posYfila-bumepx;
+/*#@[p_estilos_22]*/
+}
+
+main .columna-busqueda input[type="text"]{
+    width: 100%;
+    background-color: #fff;
+    border: none;
+    font-size: 12px;
+    padding: 0 10px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 3px 0 0 3px;
+    color:#6d6d6d;
+    font-family: 'Open+Sans',sans-serif;
+/*#@[p_estilos_23]*/
+}
+
+main .columna-busqueda a{
+    width: 100%;
+    background-color: #fff;
+    border: none;
+    font-size: 12px;
+    padding: 0 10px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    color: #6d6d6d;
+/*#@[p_estilos_24]*/
+}
+
+main .columna-busqueda a:hover{
+    background-color: #099efc;
+    color:#fff;
+/*#@[p_estilos_24]*/
+}
+
+/* MENU */
+
+main .columna-menu a{
+    color: rgba(255,255,255,.8);
+    text-decoration: none;
+    margin-left: 20px;
+/*#@[p_estilos_25]*/
+}
+
+main .columna-menu a:hover{
+    color: rgba(255,255,255);
+/*#@[p_estilos_26]*/
+}
+
+main .columna-menu a span{
+    margin-left: 1px;
+/*#@[p_estilos_27]*/
+}
+main .opcionmenu_volver{
+	color:@color-volver;
+	font-family: @volverfontfamily;
+    font-size: @volverfontsizept;
+    font-weight:@volverfontweight;
+/*#@[p_estilos_28]*/
+}
+
+main .color_error{
+	color:red;
+}
+
+@media screen and (max-width:1200px) {
+		/*main .opcionmenu {
+		visibility: hidden;
+		display: none;
+	}*/
+    main .fila-bume{
+        height: auto;
+        padding: 5px 0 5px 0;
+    }
+}
+
+/* LISTA DE MODELOS */
+/*@media screen and (max-width:1050px) {
+		main .opcionmenu {
+		visibility: hidden;
+		display: none;
+	}
+		main .fila-bume{
+		height: auto;
+	}	
+	}
+@media screen and (max-width:767px) {
+	main .columna-titulo{
+		padding-left: 0px;
+	}
+	main .columna-bume-izquierda{
+	height: 0px;
+	}
+	main .columna-bume-derecha{
+		height: 0px;
+	}
+	main .columna-busqueda{
+		height: auto;
+	}	
+	main .fila-enizcede{
+		height: 0px;
+		visibility: hidden;
+	}
+
+
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+main .columna-logo img{
+	width: @avatarwidthpx;
+	height: @avatarheightpx;
+}
+
+main .columna-titulo img{
+	width: @imagentitulowidthpx;
+	height: @imagentituloheightpx;
+}
+
+/* css ckeditor para todas las propiedades RichtextBox */
+@ckeditor 

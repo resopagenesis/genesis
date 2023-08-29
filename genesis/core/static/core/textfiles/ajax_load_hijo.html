@@ -1,0 +1,21 @@
+<script>
+// <!-- #@[p_modelo_ajax_01] -->
+    $("#id_@padre").change(function () {
+// <!-- #@[p_modelo_ajax_02] -->
+      var url = $("#@modeloForm").attr("data-@foraneos-url");  
+      var @padreId = $(this).val();  
+// <!-- #@[p_modelo_ajax_03] -->
+      $.ajax({                       
+        url: url,                   
+        data: {
+          '@padre': @padreId      
+        },
+// <!-- #@[p_modelo_ajax_04] -->
+        success: function (data) {   
+          $("#id_@foraneo").html(data); 
+        }
+// <!-- #@[p_modelo_ajax_05] -->        
+      });
+// <!-- #@[p_modelo_ajax_06] -->
+    });
+  </script> 

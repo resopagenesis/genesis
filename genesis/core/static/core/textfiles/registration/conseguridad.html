@@ -1,0 +1,28 @@
+<!-- #@[p_conseguridad_01] -->
+				{% if not request.user.is_authenticated %}
+					<a href="{% url 'registration:registro' %}">
+						<img src="{% static 'core/img/registroSF.png' %}" width="20px" height="20px" alt=""  data-toggle="tooltip" title="Crear un nuevo usuario">
+						<span class="opcionmenu" data-toggle="tooltip" title="Crear un nuevo usuario">Registro</span>
+					</a>
+<!-- #@[p_conseguridad_02] -->
+					<a href="{% url 'login' %}">
+						<img src="{% static 'core/img/loginSF.png' %}" width="20px" height="20px" alt="" data-toggle="tooltip" title="Iniciar la sesion">
+						<span class="opcionmenu" data-toggle="tooltip" title="Iniciar la sesion">Login</span>
+					</a>
+<!-- #@[p_conseguridad_03] -->
+				{% else %}
+<!-- #@[p_conseguridad_04] -->
+					<a href="{% url 'registration:profile' %}">
+						<img src="{% static 'core/img/perfilSF.png' %}" width="20px" height="20px" alt="" data-toggle="tooltip" title="Datos adicionales del usaurio">
+						<span class="opcionmenu"  data-toggle="tooltip" title="Datos adicionales del usaurio">Perfil</span>
+					</a>
+<!-- #@[p_conseguridad_05] -->
+					<a href="{% url 'logout' %}">
+						<img src="{% static 'core/img/logoutSF.png' %}" width="20px" height="20px" alt=""  data-toggle="tooltip" title="Terminar la sesion">
+						<span class="opcionmenu"  data-toggle="tooltip" title="Terminar la sesion">Logout</span>
+					</a>
+<!-- #@[p_conseguridad_06] -->
+				{% endif %}
+<!-- #@[p_conseguridad_07] -->
+
+ 

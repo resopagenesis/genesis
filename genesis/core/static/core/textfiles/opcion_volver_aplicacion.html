@@ -1,0 +1,13 @@
+<!-- #@[p_volver_aplicacion_01] -->
+					{% if opcion_menu == '@aplicacion' %}
+<!-- #@[p_volver_aplicacion_02] -->
+						<a href="{% url 'core:home' %}?opcion_menu=aplicaciones">
+							<img src="{% static 'core/img/volver.png' %}" @hidden alt="" data-toggle="tooltip" title="Volver a principal">
+							<span class="opcionmenu" data-toggle="tooltip" title="Volver a principal">Volver</span>
+						</a>
+<!-- #@[p_volver_aplicacion_03] -->
+@modelos
+<!-- #@[p_volver_aplicacion_04] -->
+					{% endif %}
+<!-- #@[p_volver_aplicacion_05] -->
+										 

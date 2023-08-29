@@ -1,0 +1,298 @@
+{% extends 'core/base@modelo.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+{% block cuerpo %}
+
+{% load static %}
+
+
+<style>
+
+#lista_@modelo{
+    margin-top: 2px;
+    padding: 20px 20px 20px 20px;
+/*#@[p_modelo_css_01]*/
+}
+#fila_titulo_lista{
+    background-color: @colorfondotitulolista;
+    height: @altotitulolista;
+/*#@[p_modelo_css_02]*/
+}
+
+#titulo_lista{
+    font-family: @titulolistafontfamily;
+    font-size: @titulolistafontsizept;
+    font-weight: @titulolistafontweight;
+    color:@colortitulolista;
+/*#@[p_modelo_css_03]*/
+}
+
+#fila_comentario_lista{
+    background-color: @colorfondocomentariolista;
+/*#@[p_modelo_css_04]*/
+}
+
+#comentario_lista{
+    font-family: @comentariolistafontfamily;
+    font-size: @comentariolistafontsizept;
+    font-weight: @comentariolistafontweight;
+    color:@colorcomentariolista;
+/*#@[p_modelo_css_05]*/
+}
+
+#fila_columnas{
+    font-family: @columnaslistafontfamily;
+    font-size: @columnaslistafontsizept;
+    font-weight: @columnaslistafontweight;
+    color:@colorcolumnaslista;
+    background-color:@colorfondocolumnaslista;
+    height: @altocolumnaslistapx;
+/*#@[p_modelo_css_06]*/
+}
+
+#fila_datos{
+    font-family: @textolistafontfamily;
+    font-size: @textolistafontsizept;
+    font-weight: @textolistafontweight;
+    color:@colortextolista;
+    background-color:@colorfondotextolista;
+/*#@[p_modelo_css_07]*/
+}
+
+#fila_totaliza{
+    background-color:@colorfondocolumnaslista;
+}
+
+#edita_@modelo a{
+    font-family: @editarborrarfontfamily;
+    font-size: @editarborrarfontsizept;
+    font-weight: @editarborrarfontweight;
+    color:@coloreditarborrar;
+/*#@[p_modelo_css_08]*/
+}
+
+#borra_@modelo a{
+    font-family: @editarborrarfontfamily;
+    font-size: @editarborrarfontsizept;
+    font-weight: @editarborrarfontweight;
+    color:@coloreditarborrar;
+/*#@[p_modelo_css_09]*/
+}
+@media screen and (max-width:790px) {
+
+    #fila_columnas{
+        height: auto;
+    }
+/*#@[p_modelo_css_10]*/
+}    
+
+#fila_nuevo_@modelo a{
+    font-family: @nuevomodelofontfamily;
+    font-size: @nuevomodelofontsizept;
+    font-weight: @nuevomodelofontweight;
+    color:@colorlinknuevomodelo;
+/*#@[p_modelo_css_11]*/
+}
+
+#textob@modelo{
+	width: 100%;
+	background-color: #fff;
+	border: 1pt solid gray;
+	font-size: 12px;
+	padding: 0 10px;
+	height: 25px;
+	line-height: 25px;
+	border-radius: 3px 0 0 3px;
+	color:#6d6d6d;
+	font-family: 'Open+Sans',sans-serif;
+}
+
+#link_busqueda_@modelo{
+	width: 100%;
+	background-color: #fff;
+	border: none;
+	font-size: 12px;
+	padding: 0 10px;
+	height: 25px;
+	line-height: 25px;
+	border-radius: 0 3px 3px 0;
+	cursor: pointer;
+	color: #6d6d6d;
+}
+
+
+
+#link_busqueda_@modelo:hover{
+	background-color: #099efc;
+	color:#fff;
+}
+
+
+</style>
+
+<!-- #@[p_modelo_list_01] -->
+
+    <div id="lista_@modelo" class="container lista_@modelo @bordeexterior">
+
+<!-- ****************** -->
+<!-- TITULO DE LA LISTA -->
+<!-- ****************** -->
+
+        <div id="fila_titulo_lista" class="row fila_titulo_lista d-flex">
+<!-- #@[p_modelo_titulo_list_01] -->
+            <div class="col d-flex @justificacionhorizontaltitulolista @justificacionverticaltitulolista">
+<!-- #@[p_modelo_titulo_list_02] -->
+                <span id="titulo_lista" class="titulo_lista @uppercasetitulo">
+<!-- #@[p_modelo_titulo_list_03] -->
+@titulolista
+<!-- #@[p_modelo_titulo_list_04] -->
+                </span>
+<!-- #@[p_modelo_titulo_list_05] -->
+            </div>
+        </div>
+
+<!-- ********************** -->
+<!-- COMENTARIO DE LA LISTA -->
+<!-- ********************** -->
+
+<!-- #@[p_modelo_comentario_list_01] -->
+        <div id="fila_comentario_lista" class="row fila_comentario_lista mb-3 @bordecomentario">
+<!-- #@[p_modelo_comentario_list_02] -->
+            <div class="col">
+<!-- #@[p_modelo_comentario_list_03] -->
+                <span id="comentario_lista" class="comentario_lista">
+<!-- #@[p_modelo_comentario_list_04] -->
+
+@comentariolista
+
+<!-- #@[p_modelo_comentario_list_05] -->
+                </span>
+<!-- #@[p_modelo_comentario_list_06] -->
+            </div>
+        </div>
+<!-- #@[p_modelo_comentario_list_07] -->
+
+<!-- ************************************************************ -->
+<!-- SI EL HTML TIENE OPCION DE BUSQUEDA DE REGISTROS EN LA LISTA -->
+<!-- ************************************************************ -->
+
+<!-- #@[p_modelo_busqueda_01] -->
+
+@busqueda
+
+<!-- #@[p_modelo_busqueda_02] -->
+
+<!-- ******************** -->
+<!-- COLUMNAS DE LA LISTA -->
+<!-- ******************** -->
+
+<!-- #@[p_modelo_columnas_list_01] -->
+        <div id="fila_columnas" class="row fila_columnas @conborde mb-1 mt-2">
+<!-- #@[p_modelo_columnas_list_02] -->
+
+@listacolumnas
+
+<!-- #@[p_modelo_columnas_list_03] -->
+        
+        </div>
+
+<!-- **************** -->
+<!-- LISTADO DE DATOS -->
+<!-- **************** -->
+
+<!-- #@[p_modelo_datos_list_01] -->
+        {% for obj in lista %}
+<!-- #@[p_modelo_datos_list_02] -->
+            <div id="fila_datos" class="row fila_datos">
+<!-- #@[p_modelo_datos_list_03] -->
+
+@listadatos
+
+<!-- #@[p_modelo_datos_list_04] -->
+
+@editarenlista
+
+@ifconroles
+                <div id="borra_@modelo" class="col-12 col-md-1 borra_@modelo">
+<!-- #@[p_modelo_datos_list_05] -->
+                    <a href="{% url '@aplicacion:borrar_@modelo' obj.id %}" >@textoborrar</a>
+<!-- #@[p_modelo_datos_list_06] -->
+                </div> 
+@endifconroles
+
+<!-- #@[p_modelo_datos_list_07] -->
+          </div>
+        {% endfor %}   
+<!-- #@[p_modelo_datos_list_08] -->
+
+<!-- *************** -->
+<!-- PIE DEL LISTADO -->
+<!-- *************** -->
+
+<!-- #@[p_modelo_pie_list_01] -->
+        <div id="fila_totaliza" class="row pie_lista fila_datos border-top border-2  pt-1 fw-bold">
+<!-- #@[p_modelo_pie_list_02] -->
+
+<!-- ************************************************ -->
+<!-- SI EXISTEN PROPIEDADES QUE DEBAN SER TOTALIZADAS -->
+<!-- ************************************************ -->
+
+<!-- #@[p_modelo_totaliza_01] -->
+
+@totaliza        
+
+<!-- #@[p_modelo_list_03] -->
+        </div>
+<!-- #@[p_modelo_list_04] -->
+
+<!-- **************** -->
+<!-- LINK DEL REPORTE -->
+<!-- **************** -->
+
+        <div class="row fila_datos mt-3 mb-3">
+<!-- #@[p_modelo_list_05] -->
+            <div class="d-none d-lg-block col-lg-2">
+<!-- #@[p_modelo_list_06] -->
+@dash
+<!-- #@[p_modelo_list_07] -->
+            </div>      
+            <div class="d-none d-lg-block col-lg-2">
+<!-- #@[p_modelo_list_08] -->
+@fill
+<!-- #@[p_modelo_list_09] -->
+            </div>      
+            <div class="d-none d-lg-block col-lg-2">
+<!-- #@[p_modelo_list_10] -->
+                <a class="nuevo_@modelo" href="{% url '@aplicacion:reporte_@modelo' %}">Reporte</a>
+<!-- #@[p_modelo_list_11] -->
+            </div>      
+        </div>      
+
+<!-- *********************** -->
+<!-- BOTON DE NUEVO REGISTRO -->
+<!-- *********************** -->
+
+@ifnuevoconroles
+
+        {% if unico != '1' %}
+          <div id="fila_nuevo_@modelo" class="row fila_nuevo_@modelo mt-3 mb-3">
+<!-- #@[p_modelo_list_12] -->
+            <div class="col">
+<!-- #@[p_modelo_list_13] -->
+              <a class="nuevo_@modelo @linknuevomodelo" href="{% url '@aplicacion:crear_@modelo' %}">@textolinknuevomodelo</a>
+<!-- #@[p_modelo_list_14] -->
+            </div>
+          </div>
+        {% endif %}
+
+@endifnuevoconroles
+
+<!-- #@[p_modelo_list_15] -->
+    </div>
+<!-- #@[p_modelo_list_16] -->
+{% endblock %}
+<!-- #@[p_modelo_list_17] -->
+ 

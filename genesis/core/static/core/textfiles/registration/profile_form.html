@@ -1,0 +1,72 @@
+{% extends 'core/base@proyecto.html' %}
+{% block menu %}
+<!-- #@[p_profile_form_01] -->
+  {% include 'core/includes/menu_core.html'%}
+<!-- #@[p_profile_form_02] -->
+{% endblock %}
+{% block cuerpo %}
+<!-- #@[p_profile_form_03] -->
+{% load static %}
+<!-- #@[p_profile_form_04] -->
+<style>.errorlist{color:red;} label{display:none}</style>
+<!-- #@[p_profile_form_05] -->
+<main role="main">
+<!-- #@[p_profile_form_06] -->
+  <div class="container">
+    <div class="row mt-3">
+<!-- #@[p_profile_form_07] -->
+      <div class="col-md-9 mx-auto mb-5">
+<!-- #@[p_profile_form_08] -->
+        <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+<!-- #@[p_profile_form_09] -->
+          <div class="row">
+            <!-- Previa del avatar -->
+<!-- #@[p_profile_form_10] -->
+            <div class="col-md-2">
+<!-- #@[p_profile_form_11] -->
+              {% if request.user.profile.avatar %}
+<!-- #@[p_profile_form_12] -->
+                <img src="{{request.user.profile.avatar.url}}" class="img-fluid">
+<!-- #@[p_profile_form_13] -->
+                <p class="mt-1">¿Borrar? <input type="checkbox" id="avatar-clear" name="avatar-clear" /></p>
+<!-- #@[p_profile_form_14] -->
+              {% else %}
+<!-- #@[p_profile_form_15] -->
+                <img src="{% static 'registration/img/no-avatar.jpg' %}" class="img-fluid">
+<!-- #@[p_profile_form_16] -->
+              {% endif %}
+<!-- #@[p_profile_form_17] -->
+            </div>
+            <!-- Formulario -->
+<!-- #@[p_profile_form_18] -->
+            <div class="col-md-10">
+<!-- #@[p_profile_form_19] -->
+              <h3>Perfil</h3>
+<!-- #@[p_profile_form_20] -->
+              <input type="file" name="avatar" class="form-control-file mt-3" id="id_avatar">
+<!-- #@[p_profile_form_21] -->
+              {{ form.biografia }}
+<!-- #@[p_profile_form_22] -->
+              <input type="email" class="form-control mt-3" value="{{request.user.email}}" readonly>
+<!-- #@[p_profile_form_23] -->
+              <input type="submit" class="btn btn-primary btn-block mt-3" value="Actualizar">
+<!-- #@[p_profile_form_24] -->
+              <p class="mt-3">Si deseas editar tu email haz click <a href="{% url 'registration:profile_email' %}">aqui</a>.<br>Y si quieres cambiar tu contrasena, haz click <a href="{% url 'password_change' %}">aqui</a></p>
+<!-- #@[p_profile_form_25] -->
+            </div>
+<!-- #@[p_profile_form_26] -->
+          </div>
+<!-- #@[p_profile_form_27] -->
+        </form>
+<!-- #@[p_profile_form_28] -->
+      </div>
+<!-- #@[p_profile_form_29] -->
+    </div>
+<!-- #@[p_profile_form_30] -->
+  </div>
+<!-- #@[p_profile_form_31] -->
+</main>
+<!-- #@[p_profile_form_32] -->
+{% endblock %}
+<!-- #@[p_profile_form_33] -->
+ 

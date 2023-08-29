@@ -1,0 +1,141 @@
+	<style>
+		/* Primera fila */
+		.s1 > div:nth-child(1) > div:nth-child(2) {height: {{proyecto.altofilaenizcede}}px; background-color: {{proyecto.colorfilaenizcede}}; {% if not proyecto.enborde %} border: none; {% else %} border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}} {% endif %}}	
+		/* primera fila primera columna */
+		.s1 > div:first-of-type > div:nth-child(2) > div:nth-child(1) {background-color: {{proyecto.colorcolumnaenizquierda}}; height: {{proyecto.altocolumnaenizquierda}}px; {% if not proyecto.enborde %} border: none; {% else %} border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}} {% endif %}}
+		/* logo */
+		.s1 > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) {background-color: {{proyecto.colorcolumnalogo}}; height: {{proyecto.altocolumnalogo}}px; {% if not proyecto.enborde %} border: none; {% else %} border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}} {% endif %};
+					{% if proyecto.justificacionhorizontallogo == 'i' %}
+						display:flex; justify-content: start;
+					{% elif proyecto.justificacionhorizontallogo == 'd' %}
+						display:flex; justify-content: end;
+					{% else %}
+						display:flex; justify-content: center;
+					{% endif %};
+					{% if proyecto.justificacionverticallogo == 's' %}
+						display:flex; align-items: : start;
+					{% elif proyecto.justificacionverticallogo == 'i' %}
+						display:flex; align-items: end;
+					{% else %}
+						display:flex; align-items: center;
+					{% endif %};
+			}
+		/* titulo */
+		.s1 > div:nth-child(1) > div:nth-child(2) > div:nth-child(3) {background-color: {{proyecto.colorcolumnatitulo}}; height: {{proyecto.altocolumnatitulo}}px; {% if not proyecto.enborde %} border: none; {% else %} border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}} {% endif %};
+					{% if proyecto.justificacionhorizontaltitulo == 'i' %}
+						display:flex; justify-content: start;
+					{% elif proyecto.justificacionhorizontaltitulo == 'd' %}
+						display:flex; justify-content: end;
+					{% else %}
+						display:flex; justify-content: center;
+					{% endif %};
+					{% if proyecto.justificacionverticaltitulo == 's' %}
+						display:flex; align-items: : start;
+					{% elif proyecto.justificacionverticaltitulo == 'i' %}
+						display:flex; align-items: end;
+					{% else %}
+						display:flex; align-items: center;
+					{% endif %};
+			}
+			/* login*/
+		.s1 > div:first-of-type > div:nth-child(2) > div:nth-child(4) {background-color: {{proyecto.colorcolumnalogin}}; height: {{proyecto.altocolumnalogin}}px; {% if not proyecto.enborde %} border: none; {% else %} border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}} {% endif %};
+			}
+
+		.s1 > div:first-of-type > div:nth-child(2) > div:nth-child(5) {background-color: {{proyecto.colorcolumnaenderecha}}; height: {{proyecto.altocolumnaenderecha}}px; {% if not proyecto.enborde %} border: none; {% else %} border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}} {% endif %}}
+
+		/* Segunda fila */
+		.s1 > div:nth-child(1) > div:nth-child(4) {height: {{proyecto.altofilabume}}px; background-color: {{proyecto.colorfilabume}}; {% if not proyecto.bumeborde %} border: none; {% else %} border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}} {% endif %};}	
+
+			/* Segunda fila primera columna*/
+		.s1 > div:first-of-type > div:nth-child(4) > div:nth-child(1) {background-color: {{proyecto.colorcolumnabumeizquierda}}; height: {{proyecto.altocolumnabumeizquierda}}px; {% if not proyecto.bumeborde %} border: none; {% else %} border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}} {% endif %};}
+			/* Segunda fila segunda columna*/
+		.s1 > div:first-of-type > div:nth-child(4) > div:nth-child(2) {background-color: {{proyecto.colorcolumnabusqueda}}; height: {{proyecto.altocolumnabusqueda}}px; {% if not proyecto.bumeborde %} border: none; {% else %} border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}} {% endif %};}
+			/* Segunda fila tercera columna*/
+		.s1 > div:first-of-type > div:nth-child(4) > div:nth-child(3) {background-color: {{proyecto.colorcolumnamenu}}; height: {{proyecto.altocolumnamenu}}px; {% if not proyecto.bumeborde %} border: none; {% else %} border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}} {% endif %};}
+			/* Segunda fila cuarta columna*/
+		.s1 > div:first-of-type > div:nth-child(4) > div:nth-child(4) {background-color: {{proyecto.colorcolumnabumederecha}}; height: {{proyecto.altocolumnabumederecha}}px; {% if not proyecto.bumeborde %} border: none; {% else %} border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}} {% endif %};}
+			/* Tercera medio izquierda*/
+		.s1 > div:first-of-type > div:nth-child(6) > div:nth-child(1) {background-color: {{proyecto.colorcolumnamedioizquierda}}; height: {{proyecto.altocolumnamedioizquierda}}px; {% if not proyecto.cenborde %} border: none; {% else %} border: {{proyecto.cenanchoborde}}pt solid {{proyecto.cencolorborde}} {% endif %};}
+			/* Tercera medio izquierda*/
+		.s1 > div:first-of-type > div:nth-child(6) > div:nth-child(2) {background-color: {{proyecto.colorcolumnamediocentro}}; height: {{proyecto.altocolumnamediocentro}}px; {% if not proyecto.cenborde %} border: none; {% else %} border: {{proyecto.cenanchoborde}}pt solid {{proyecto.cencolorborde}} {% endif %};}
+		.s1 > div:first-of-type > div:nth-child(6) > div:nth-child(3) {background-color: {{proyecto.colorcolumnamedioderecha}}; height: {{proyecto.altocolumnamedioderecha}}px; {% if not proyecto.cenborde %} border: none; {% else %} border: {{proyecto.cenanchoborde}}pt solid {{proyecto.cencolorborde}} {% endif %};}
+
+	</style>
+
+	<style>
+		div.container {
+			height: 500px;
+			overflow: auto;}
+	</style>
+
+	<section class="s1">
+		<div class="container">
+			<div class="row">
+				<a name="btn-modal" id="11" href="{% url 'crear:conf_11' proyecto.id %}" class="col-{{proyecto.numerocolumnaenizquierda}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="12" href="{% url 'crear:conf_12' proyecto.id %}" class="col-{{proyecto.numerocolumnalogo}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="13" href="{% url 'crear:conf_13' proyecto.id %}" class="col-{{proyecto.numerocolumnatitulo}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="14" href="{% url 'crear:conf_14' proyecto.id %}" class="col-{{proyecto.numerocolumnalogin}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="15" href="{% url 'crear:conf_15' proyecto.id %}" class="col-{{proyecto.numerocolumnaenderecha}}" style="height: 5px;"></a>
+			</div>
+			<div class="row">
+				<!-- separacion izquierda -->
+				<div class="col-{{proyecto.numerocolumnaenizquierda}}"></div>
+				<!-- logo -->
+				<div id="logo" class="col-{{proyecto.numerocolumnalogo}}" style="">
+					<img src="{{proyecto.avatar.url}}" width="{{proyecto.avatarwidth}}px" height="{{proyecto.avatarheight}}px" alt="">
+				</div>
+				<!-- titulo -->
+				<div id="titulo" class="col-{{proyecto.numerocolumnatitulo}}" style="">
+					{% if proyecto.imagentitulo %}
+						<img src="{{proyecto.imagentitulo.url}}" width="{{proyecto.imagentitulowidth}}px" height="{{proyecto.imagentituloheight}}px" alt="">
+					{% else %}
+						{{proyecto.titulo}}
+					{% endif %}
+				</div>
+				<!-- login -->
+				<div class="col-{{proyecto.numerocolumnalogin}}"></div>
+				<!-- separacion derecha -->
+				<div class="col-{{proyecto.numerocolumnaenderecha}}"></div>
+			</div>
+			<div class="row">
+				<a name="btn-modal" id="21" href="{% url 'crear:conf_21' proyecto.id %}" class="col-{{proyecto.numerocolumnabumeizquierda}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="22" href="{% url 'crear:conf_22' proyecto.id %}" class="col-{{proyecto.numerocolumnabusqueda}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="23" href="{% url 'crear:conf_23' proyecto.id %}" class="col-{{proyecto.numerocolumnamenu}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="24" href="{% url 'crear:conf_24' proyecto.id %}" class="col-{{proyecto.numerocolumnabumederecha}}" style="height: 5px;"></a>
+			</div>
+			<div class="row">
+				<!-- separacion izquierda -->
+				<div class="col-{{proyecto.numerocolumnabumeizquierda}}"></div>
+				<!-- busqueda -->
+				<div class="col-{{proyecto.numerocolumnabusqueda}}"></div>
+				<!-- menu principal -->
+				<div class="col-{{proyecto.numerocolumnamenu}}"></div>
+				<!-- separacion derecha -->
+				<div class="col-{{proyecto.numerocolumnabumederecha}}"></div>
+			</div>
+			<div class="row">
+				<a name="btn-modal" id="31" href="{% url 'crear:conf_31' proyecto.id %}" class="col-{{proyecto.numerocolumnamedioizquierda}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="32" href="{% url 'crear:conf_32' proyecto.id %}" class="col-{{proyecto.numerocolumnamediocentro}}" style="height: 5px;"></a>
+				<a name="btn-modal" id="33" href="{% url 'crear:conf_33' proyecto.id %}" class="col-{{proyecto.numerocolumnamedioderecha}}" style="height: 5px;"></a>
+			</div>
+			<div class="row">
+				<!-- separacion izquierda -->
+				<div class="col-{{proyecto.numerocolumnamedioizquierda}}"></div>
+				<!-- busqueda -->
+				<div class="col-{{proyecto.numerocolumnamediocentro}}"></div>
+				<!-- separacion derecha -->
+				<div class="col-{{proyecto.numerocolumnamedioderecha}}"></div>
+			</div>
+		</div>
+
+	</section>
+
+
+	<section>
+		<!-- pie -->
+		<div class="container">
+			<div class="row">
+				<div class="col"></div>
+			</div>
+		</div>
+	<section>

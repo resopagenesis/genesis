@@ -1,0 +1,64 @@
+	<style>
+		#logo{display: flex; 
+			justify-content:{% if proyecto.justificacionhorizontallogo == 'c' %}
+								center;
+						{% elif proyecto.justificacionhorizontallogo == 'e' %}
+	                            end;
+	                    {% else %}
+	                            center;
+	                     {% endif %}
+			align-items:{% if proyecto.justificacionverticallogo == 'c' %}
+								center;
+						{% elif proyecto.justificacionverticallogo == 'e' %}
+	                            end;
+	                    {% else %}
+	                            center;
+	                     {% endif %}
+	         }
+	    #logo img{width: {{proyecto.avatarwidth}}px; height: {{proyecto.avatarheight}}px;}
+		#titulo{display: flex; 
+			justify-content:{% if proyecto.justificacionhorizontaltitulo == 'c' %}
+								center;
+						{% elif proyecto.justificacionhorizontaltitulo == 'e' %}
+	                            end;
+	                    {% else %}
+	                            center;
+	                     {% endif %}
+			align-items:{% if proyecto.justificacionverticaltitulo == 'c' %}
+								center;
+						{% elif proyecto.justificacionverticaltitulo == 'e' %}
+	                            end;
+	                    {% else %}
+	                            center;
+	                     {% endif %}
+		}
+	    #titulo img{width: {{proyecto.imagentitulowidth}}px; height: {{proyecto.imagentituloheight}}px;}
+		#menu{display: flex; 
+			justify-content:{% if proyecto.justificacionmenu == 'c' %}
+								center;
+						{% elif proyecto.justificacionmenu == 'e' %}
+	                            end;
+	                    {% else %}
+	                            center;
+	                     {% endif %}
+		}
+	    #menu{font-size: {{menu_font_size}}; font-weight: {{menu_font_bold}}; font-name:{{menu_font_name}};
+				color: {{proyecto.colormenu}}}
+		#primera_fila > div {
+			{% if proyecto.enborde %}
+				border: {{proyecto.enanchoborde}}pt solid {{proyecto.encolorborde}};
+			{% endif %}
+			}
+		#segunda_fila > div {
+			{% if proyecto.bumeborde %}
+				border: {{proyecto.bumeanchoborde}}pt solid {{proyecto.bumecolorborde}};
+			{% endif %}
+			}
+		#tercera_fila > div {
+			{% if proyecto.cenborde %}
+				border: {{proyecto.cenanchoborde}}pt solid {{proyecto.cencolorborde}};
+			{% endif %}
+			}
+
+	</style>
+

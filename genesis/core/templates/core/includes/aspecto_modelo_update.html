@@ -1,0 +1,378 @@
+            <!-- fin superior -->
+
+            <div class="row">
+              <div class="col-{{modelo.numerocolumnasizquierdaupdate}}"></div>
+              <div class="col-{{modelo.numerocolumnasmodeloupdate}}">
+                <!-- lista de modelos -->
+                <!-- titulo del formulario -->
+                <div class="row" style="
+                    height: {{modelo.altofilatituloupdate}}px;
+                    display: flex;
+                    {% if modelo.justificacionhorizontaltituloupdate == 'c' %}
+                      justify-content: center;
+                    {% endif %}
+                    {% if modelo.justificacionhorizontaltituloupdate == 'i' %}
+                      justify-content: start;
+                    {% endif %}
+                    {% if modelo.justificacionhorizontaltituloupdate == 'd' %}
+                      justify-content: end;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltituloupdate == 'c' %}
+                      align-items: center;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltituloupdate == 's' %}
+                      align-items: start;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltituloupdate == 'i' %}
+                      align-items: end;
+                    {% endif %}
+                    background-color: {{modelo.colorfondotituloupdate}};
+                    ">
+                  <span style="
+                        font-name: {{font_titulo_update.0}}; font-size: {{font_titulo_update.1}}pt; font-weight: {{font_titulo_update.2}};
+                        color: {{modelo.colortituloupdate}};
+                        background-color: {{modelo.colorfondotituloupdate}};
+                  ">
+                    {{modelo.tituloupdate}}                    
+                  </span>  
+                </div>
+
+                <!-- comentario de la lista -->
+                <div class="row" style="
+                background-color: {{modelo.colorfondocomentarioupdate}};
+                ">
+                  <span style="
+                        font-name: {{font_comentario_update.0}}; font-size: {{font_comentario_update.1}}pt; font-weight: {{font_titulo_update.2}};
+                        color: {{modelo.colorcomentarioupdate}};
+
+                  ">
+                    {{modelo.comentarioupdate}}
+                  </span>
+                </div>
+
+                <!-- Campos del formulario -->
+                <div class="row mt-4">
+                  <div class="col-{{modelo.numerocolumnaslabels}}" style="
+                        font-name: {{font_label.0}}; font-size: {{font_label.1}}pt; font-weight: {{font_label.2}};
+                        color: {{modelo.colorlabelmodelo}};
+                  ">Codigo
+                  </div>                    
+                  <div class="col-{{modelo.numerocolumnascontroles}}">
+                    <input class="form-control" type="text" placeholder="">
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-{{modelo.numerocolumnaslabels}}" style="
+                        font-name: {{font_label.0}}; font-size: {{font_label.1}}pt; font-weight: {{font_label.2}};
+                        color: {{modelo.colorlabelmodelo}};
+                  ">Descripcion
+                  </div>                    
+                  <div class="col-{{modelo.numerocolumnascontroles}}">
+                    <input class="form-control" type="text" placeholder="" style="height: 100px;">
+                  </div>
+                </div>
+
+                <div class="row mt-2">
+                  <div class="col-{{modelo.numerocolumnaslabels}}" style="
+                        font-name: {{font_label.0}}; font-size: {{font_label.1}}pt; font-weight: {{font_label.2}};
+                        color: {{modelo.colorlabelmodelo}};
+                  ">Importe
+                  </div>                    
+                  <div class="col-{{modelo.numerocolumnascontroles}}">
+                    <input class="form-control" type="text" placeholder="">
+                  </div>
+                </div>
+
+                <div class="row mt-3 mb-3">
+                  <div class="col">
+                      <input type="submit" class="btn btn-primary btn-block mt-3 boton-inserta" value="Grabar" />
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-{{modelo.numerocolumnasderechaupdate}}"></div>
+              {% if modelo.hijoscontiguos %}
+                <div class="col-{{modelo.numerocolumnashijosupdate}} ">
+                  
+
+                  <!-- lista de modelos -->
+                  <!-- titulo de la lista -->
+                  <div class="row" style="
+                      height: 40px;
+                      display: flex;
+                        justify-content: center; align-items: center;
+                      background-color: #e0e0e0;
+                      ">
+                    <span style="
+                          font-name: {{font_titulo_lista_hijo.0}}; font-size: {{font_titulo_lista_hijo.1}}pt; font-weight: {{font_titulo_lista_hijo.2}};
+                          color: black;
+                    ">
+                      Lista de Hijos                    
+                    </span>  
+                  </div>
+
+                  <!-- comentario de la lista -->
+                  <div class="row" style="
+                  background-color: transparent;
+                  ">
+                    <span style="
+                          font-name: {{font_comentario_lista_hijo.0}}; font-size: {{font_comentario_lista_hijo.1}}pt; font-weight: {{font_comentario_lista_hijo.2}};
+                          color: gray;
+
+                    ">
+                      Este es un despliegue de los hijos del modelo padre
+                    </span>
+                  </div>
+
+                  <!-- columnas de la lista -->
+                  <div class="row" style="
+                    height: 20px;
+                    color: black;
+                    background-color: #d0d0d0;
+                    font-name: {{font_columnas_lista_hijo.0}}; font-size: {{font_columnas_lista_hijo.1}}pt; font-weight: {{font_columnas_lista_hijo.2}};
+                  ">
+                    <div class="col-3 pl-1" style="
+                    border: 1pt solid black;
+                    display: flex; align-items: center; justify-content:  start;
+                    ">Codigo</div>
+                    <div class="col-9 pl-1" style="
+                    border: 1pt solid black;
+                    display: flex; align-items: center; justify-content: start;
+                    ">Importe</div>
+                  </div>
+
+                  <!-- datos de la lista -->
+                  <div class="row" style="
+                    font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                    color: black;
+                    background-color: transparent;
+                  ">
+                    <div class="col-3">
+                      ABC
+                    </div>
+                    <div class="col-5">
+                    2.34
+                    </div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.0}}</div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.1}}</div>
+                  </div>              
+                  <div class="row" style="
+                    font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                    color: black;
+                    background-color: transparent;
+                  ">
+                    <div class="col-3">
+                      FRG
+                    </div>
+                    <div class="col-5">
+                      23.45
+                    </div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.0}}</div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.1}}</div>
+                  </div>              
+                  <div class="row" style="
+                    font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                    color: black;
+                    background-color: transparent;
+                  ">
+                    <div class="col-3">
+                      HTY
+                    </div>
+                    <div class="col-5">
+                      123.45
+                    </div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.0}}</div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.1}}</div>
+                  </div>              
+
+                  <div class="row" style="
+                    font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                    color: black;
+                    background-color: transparent;
+                  ">
+                    <div class="col-3">
+                      JJU
+                    </div>
+                    <div class="col-5">
+                      0.45
+                    </div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.0}}</div>
+                    <div class="col-1" style="
+                    font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                    color: blue;
+                    ">{{texto_editar_borrar_hijo.1}}</div>
+                  </div>              
+
+
+                  <div class="row">
+                    <a class="btn btn-{{modelo.colorbotonlinknuevomodelo}}" href="">{{modelo.textolinknuevomodelo}}</a>
+                  </div>
+
+                </div>
+              {% else %}
+
+                <div class="container">
+                <!-- lista de modelos -->
+                <!-- titulo de la lista -->
+                <div class="row" style="
+                    height: 40px;
+                    display: flex;
+                      justify-content: center; align-items: center;
+                    background-color: #e0e0e0;
+                    ">
+                  <span style="
+                        font-name: {{font_titulo_lista_hijo.0}}; font-size: {{font_titulo_lista_hijo.1}}pt; font-weight: {{font_titulo_lista_hijo.2}};
+                        color: black;
+                  ">
+                    Lista de Hijos                    
+                  </span>  
+                </div>
+
+                <!-- comentario de la lista -->
+                <div class="row" style="
+                background-color: transparent;
+                ">
+                  <span style="
+                        font-name: {{font_comentario_lista_hijo.0}}; font-size: {{font_comentario_lista_hijo.1}}pt; font-weight: {{font_comentario_lista_hijo.2}};
+                        color: gray;
+
+                  ">
+                    Este es un despliegue de los hijos del modelo padre
+                  </span>
+                </div>
+
+                <!-- columnas de la lista -->
+                <div class="row" style="
+                  height: 20px;
+                  color: black;
+                  background-color: #d0d0d0;
+                  font-name: {{font_columnas_lista_hijo.0}}; font-size: {{font_columnas_lista_hijo.1}}pt; font-weight: {{font_columnas_lista_hijo.2}};
+                ">
+                  <div class="col-3 pl-1" style="
+                  border: 1pt solid black;
+                  display: flex; align-items: center; justify-content:  start;
+                  ">Codigo</div>
+                  <div class="col-9 pl-1" style="
+                  border: 1pt solid black;
+                  display: flex; align-items: center; justify-content: start;
+                  ">Importe</div>
+                </div>
+
+                <!-- datos de la lista -->
+                <div class="row" style="
+                  font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                  color: black;
+                  background-color: transparent;
+                ">
+                  <div class="col-3">
+                    ABC
+                  </div>
+                  <div class="col-5">
+                  2.34
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.1}}</div>
+                </div>              
+                <div class="row" style="
+                  font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                  color: black;
+                  background-color: transparent;
+                ">
+                  <div class="col-3">
+                    FRG
+                  </div>
+                  <div class="col-5">
+                    23.45
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.1}}</div>
+                </div>              
+                <div class="row" style="
+                  font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                  color: black;
+                  background-color: transparent;
+                ">
+                  <div class="col-3">
+                    HTY
+                  </div>
+                  <div class="col-5">
+                    123.45
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.1}}</div>
+                </div>              
+
+                <div class="row" style="
+                  font-name: {{font_texto_lista_hijo.0}}; font-size: {{font_texto_lista_hijo.1}}pt; font-weight: {{font_texto_lista_hijo.2}};
+                  color: black;
+                  background-color: transparent;
+                ">
+                  <div class="col-3">
+                    JJU
+                  </div>
+                  <div class="col-5">
+                    0.45
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar_hijo.0}}; font-size: {{font_editar_borrar_hijo.1}}pt; font-weight: {{font_editar_borrar_hijo.2}};
+                  color: blue;
+                  ">{{texto_editar_borrar_hijo.1}}</div>
+                </div>              
+
+
+                <div class="row">
+                  <a class="btn btn-{{modelo.colorbotonlinknuevomodelo}}" href="">{{modelo.textolinknuevomodelo}}</a>
+                </div>
+
+              </div>
+
+
+              {% endif %}
+            </div>
+
+
+            <!-- Inicio inferior -->
+

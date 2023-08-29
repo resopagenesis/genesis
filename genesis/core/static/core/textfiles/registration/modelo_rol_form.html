@@ -1,0 +1,156 @@
+{% extends 'core/base@proyecto.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+{% block cuerpo %}
+
+{% load static %}
+
+<style>
+    
+#inserta-propiedad_rol{
+    margin-top: @margintoppx;
+    padding: 20px 20px 20px 20px;
+}
+#fila-titulo-inserta{
+    background-color: transparent;
+    height: 40px;
+}
+#titulo-inserta{
+    font-family: 'Roboto';
+    font-size: 14pt;
+    font-weight: 700;
+    color:black;
+    background-color: transparent;
+}
+#comentario-inserta{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+}
+#columna-comentario-inserta{
+    background-color:transparent;
+}
+#fila-datos-inserta{
+
+}
+#font-label-propiedad_rol{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: bold;
+    color:black;
+}
+@fila-boton-inserta{
+
+}
+#boton-inserta{
+
+}
+
+
+</style>
+
+
+
+  <div id="inserta-propiedad_rol" class="container inserta-propiedad_rol border">
+
+<!-- ********************** -->
+<!-- TITULO DE LA INSERCION -->
+<!-- ********************** -->
+
+    <div id="fila-titulo-inserta" class="row fila-titulo-inserta d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div id="titulo-inserta" class="col-12 d-flex col-md-10 justify-content-start align-items-center titulo-inserta">
+				<div class="" style="float: left;">Nuevo modelo: &nbsppropiedad_rol&nbsp&nbsp</div>
+<div class=""><a href="{% url 'seguridad:editar_rol' rol_id %}?rol_id={{rol_id}}">(Volver)</a></div>
+
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+
+    {% if form.errors %}
+      <ul class="user-msg error">
+        {% for field in form %}
+          {% for error in field.errors %}
+            <li>
+              {% if field != '__all__' %}
+                <strong>Error en el control: {{ field.label }}:</strong>
+              {% endif %}
+              {{ error }}
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+<!-- ************************** -->
+<!-- COMENTARIO DE LA INSERCION -->
+<!-- ************************** -->
+
+    <div class="row fila-comentario-inserta d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div id="columna-comentario-inserta" class="col-12 col-md-10 columna-comentario-inserta">
+        <span id="comentario-inserta" class="comentario-inserta">
+
+					
+
+        </span>
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+
+<!-- *************** -->
+<!-- CUERPO DE DATOS -->
+<!-- *************** -->
+
+    <div id="fila-datos-inserta" class="row fila-datos-inserta d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div class="col-12 col-md-10">
+        <form action="" method="post" enctype="multipart/form-data" id="propiedad_rolForm" >
+          {% csrf_token %}
+          <div class="row">
+            <div class="col">
+              {% if form.non_field_errors %}
+                <ol>
+                  {% for error in form.non_field_errors %}
+                    <li class="color_error"><strong>{{ error|escape }}</strong></li>
+                  {% endfor %}
+                </ol>
+              {% endif %}
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div id="font-label-propiedad_rol" class="col font-label-propiedad_rol">
+
+							{% include 'core/includes/formulario_modelo_rol.html'%}
+
+            </div>
+          </div>
+          <div id="fila-boton-inserta" class="row fila-boton-inserta mt-3 mb-3">
+            <div class="col">
+                <input id="boton-inserta" type="submit" class="btn btn-primary btn-block mt-3 boton-inserta" value="Grabar" />
+            </div>
+          </div>
+        </form>               
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+
+<!-- ******************* -->
+<!-- PIE DE LA INSERCION -->
+<!-- ******************* -->
+
+    <div class="row pie-lista">
+    </div>
+  </div>
+
+
+
+{% endblock %}
+
+ 
+
+

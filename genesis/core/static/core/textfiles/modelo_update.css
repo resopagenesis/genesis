@@ -1,0 +1,50 @@
+main .update-@modelo{
+	margin-top: @margintoppx;
+/*#@[p_modelo_update_@modelo_01]*/
+}
+main .update-@modelo .fila-titulo-update{
+	background-color: @colorfondofilatituloupdate;
+	height: @altofilatituloupdate;
+/*#@[p_modelo_update_@modelo_02]*/
+}
+main .update-@modelo .fila-titulo-update .titulo-update{
+	font-family: @tituloupdatefontfamily;
+	font-size: @tituloupdatefontsizept;
+	font-weight: @tituloupdatefontweight;
+	color:@colortituloupdate;
+	background-color: @colorfondotituloupdate;
+/*#@[p_modelo_update_@modelo_03]*/
+}
+main .update-@modelo .fila-comentario-update .comentario-update{
+	font-family: @comentarioupdatefontfamily;
+	font-size: @comentarioupdatefontsizept;
+	font-weight: @comentarioupdatefontweight;
+	color:@colorcomentarioupdate;
+/*#@[p_modelo_update_@modelo_04]*/
+}
+main .update-@modelo .fila-comentario-update .columna-comentario-update{
+	background-color:@colorfondocomentarioupdate;;
+/*#@[p_modelo_update_@modelo_05]*/
+}
+main .update-@modelo .fila-datos-update{
+
+/*#@[p_modelo_update_@modelo_06]*/
+}
+main .update-@modelo .font-label-@modelo{
+	font-family: @label@modelofontfamily;
+	font-size: @label@modelofontsizept;
+	font-weight: @label@modelofontweight;
+	color:@colorlabel@modelo;
+/*#@[p_modelo_update_@modelo_07]*/
+}
+main .update-@modelo .fila-boton-update{
+
+/*#@[p_modelo_update_@modelo_08]*/
+}
+main .update-@modelo .fila-boton-update .boton-update{
+
+/*#@[p_modelo_update_@modelo_09]*/
+}
+
+/*#@[p_modelo_update_@modelo_10]*/
+ 

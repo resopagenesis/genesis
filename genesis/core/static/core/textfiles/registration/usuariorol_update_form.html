@@ -1,0 +1,344 @@
+{% extends 'core/base@proyecto.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+
+{% block cuerpo %}
+
+{% load static %}
+
+
+<style>
+    
+#update-usuariorol{
+    margin-top: @margintoppx;
+}
+#fila-titulo-update{
+    background-color: transparent;
+    height: 40px;
+}
+#titulo-update{
+    font-family: 'Roboto';
+    font-size: 14pt;
+    font-weight: 700;
+    color:black;
+    background-color: transparent;
+}
+#comentario-update{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:black;
+}
+#columna-comentario-update{
+    background-color:transparent;;
+}
+#fila-datos-update{
+
+}
+#font-label-usuariorol{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: bold;
+    color:black;
+}
+#fila-boton-update{
+
+}
+#boton-update{
+
+}
+#fila_columnas_rolusuario{
+background-color: #f5d7ef;
+	font-weight: bold;
+}
+
+/* #lista-rolusuario{
+	margin-top: @margintoppx;
+}
+
+#fila-titulo-lista-rolusuario{
+	background-color: transparent;
+	height: 40px;
+}
+
+#titulo-lista-rolusuario{
+	font-family: 'Roboto';
+	font-size: 14pt;
+	font-weight: 700;
+	color:black;
+}
+
+#fila-comentario-lista-rolusuario{
+	background-color: transparent;
+}
+
+#comentario-lista-rolusuario{
+	font-family: 'Open+Sans';
+	font-size: 10pt;
+	font-weight: normal;
+	color:black;
+}
+
+#fila-columnas-rolusuario{
+	font-family: 'Roboto';
+	font-size: 10pt;
+	font-weight: 700;
+	color:black;
+	background-color:transparent;
+	height: 30px;
+}
+
+#fila-datos-rolusuario{
+	font-family: 'Arial';
+	font-size: 10pt;
+	font-weight: normal;
+	color:black;
+	background-color:transparent;
+}
+
+#editar-borrar-lista-rolusuario{
+	font-family: 'Arial';
+	font-size: 10pt;
+	font-weight: normal;
+	color:blue;
+}
+
+#editar-borrar-lista-rolusuario{
+	font-family: 'Arial';
+	font-size: 10pt;
+	font-weight: normal;
+	color:blue;
+}
+
+#fila-nuevo-rolusuario a{
+	font-family: 'Roboto';
+	font-size: 14pt;
+	font-weight: 700;
+	color:white;
+}
+
+ */
+
+
+</style>
+
+
+  <div id="update-usuariorol" class="container update-usuariorol">
+
+    <div class="row">
+        
+        <div class="col-12">
+
+            
+<!-- ******************** -->
+<!-- TITULO DE LA EDICION -->
+<!-- ******************** -->
+
+            <div id="fila-titulo-update" class="row fila-titulo-update d-flex align-items-center">
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+                <div id="titulo-update" class="col-12 d-flex col-md-10 justify-content-start align-items-center titulo-update">
+
+					Modelo a editar: &nbsp;<a href="{% url 'seguridad:listar_usuariorol' %}"><span style="color:green">{{nombre}}</span></a>
+
+                </div>
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+            </div>
+
+<!-- ****************************** -->
+<!-- FINAL DEL TITULO DE LA EDICION -->
+<!-- ****************************** -->
+
+
+            {% if form.errors %}
+                <ul class="user-msg error">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>
+                                {% if field != '__all__' %}
+                                    <strong>Error en el control: {{ field.label }}:</strong>
+                                {% endif %}
+                                {{ error }}
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+        </div>
+    </div>
+
+<!-- ************************ -->
+<!-- COMENTARIO DE LA EDICION -->
+<!-- ************************ -->
+    
+    <div class="row fila-comentario-update d-flex align-items-center">
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+      <div id="columna-comentario-update" class="col-12 col-md-10 columna-comentario-update">
+        <span id="comentario-update" class="comentario-update">
+
+			
+
+        </span>
+      </div>
+      <div class="col-12 d-none d-md-block col-md-1"></div>
+    </div>
+
+    <div class="row">
+
+<!-- ******************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************** -->
+
+                
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************* -->
+
+<!-- ********************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS DEL MODELO -->
+<!-- ********************************************** -->
+        
+        <div class="col-12 col-md-12">
+            <!-- Inicio de los controles para el objeto raiz -->
+            <div id="fila-datos-update" class="row fila-datos-update d-flex align-items-center">
+            <div class="col-12 d-none d-md-block col-md-1"></div>
+            <div class="col-12 col-md-10 border rounded">
+                <form action="" method="post" enctype="multipart/form-data" id="usuariorolForm" >
+                    {% csrf_token %}
+
+                    {% if not form.errors %}
+                        {% if 'correcto' in request.GET %}
+                            <p style="color:red;">(Registro modificado correctamente)</p>
+                        {% endif %}
+                    {% endif %}
+                    <div class="row">
+                        <div class="col">
+                            {% if form.non_field_errors %}
+                                <ol>
+                                    {% for error in form.non_field_errors %}
+                                        <li class="color_error"><strong>{{ error|escape }}</strong></li>
+                                    {% endfor %}
+                                </ol>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+
+<!-- ************************* -->
+<!-- CONTROLES PARA LA EDICION -->
+<!-- ************************* -->
+
+							{% include 'core/includes/formulario_usuariorol.html'%}
+
+                        </div>
+                    </div>
+                    <div id="fila-boton-update" class="row fila-boton-update mt-3 mb-3">
+                        <div class="col">
+                            <input id="boton-update" type="submit" class="btn btn-primary btn-block mt-3 boton-update" value="Actualizar" />
+                        </div>
+                    </div>
+                </form>               
+              </div>
+              <div class="col-12 d-none d-md-block col-md-1"></div>
+            </div>
+
+<!-- ****************************************** -->
+<!-- FINAL DE LOS CONTROLES PARA EL OBJETO RAIZ -->
+<!-- ****************************************** -->
+
+
+<!-- ******************************************* -->
+<!-- INICIO DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+            
+            <div class="row mt-3">
+                <div class="col-12 d-none d-md-block col-md-1"></div>
+                    <div class="col-12  col-md-10 ">
+
+<!-- ***** -->
+<!-- HIJOS -->
+<!-- ***** -->
+
+						<div class="border rounded mb-3" style="padding: 5px;">
+							<div id="lista-rolusuario" class="container-fluid lista-rolusuario mb-3">
+								<div id="fila-titulo-lista-rolusuario" class="row mt-2 mb-2 fila-titulo-lista-rolusuario ">
+									<div class="col align-items-center justify-content-start ">
+										<span id="titulo-lista-rolusuario" class="titulo-lista-rolusuario">
+											Lista de registros</span>
+										</span>
+									</div>
+								</div>
+								<div id=fila-comentario-lista-rolusuario class="row mt-2 mb-2 fila-comentario-lista-rolusuario ">
+									<div class="col @justificacionverticalcomentariolista @justificacionhorizontalcomentariolista @uppercasecomentario">
+										<span id="comentario-lista-rolusuario" class="comentario-lista-rolusuario">
+											
+										</span>
+									</div>
+								</div>
+								<div id="fila_columnas_rolusuario" class="row fila_columnas_rolusuario " >
+									{% if numerorolusuario > 0 %}
+									<div class="d-none d-md-block col-md-9 align-self-center  columna-propiedad-rol">
+										Rol
+									</div>
+
+									{% endif %}
+								</div>
+								{% for obj in listarolusuario %}
+									<div id="fila-datos-rolusuario" class="row  fila-datos-rolusuario" >
+										<div class="d-none d-md-block col-md-9 dato-rol">
+											{{obj.rol}}
+										</div>
+
+										<div class="col-12 col-md-1 edita-rolusuario">
+											<a id="editar-borrar-lista-rolusuario" class="editar-borrar-lista-rolusuario" href="{% url 'seguridad:editar_rolusuario' obj.id %}?usuariorol_id={{ usuariorol_id }}">Editar</a>
+
+										</div>
+										<div class="col-12 col-md-1 ml-2 borra-rolusuario">
+											<a id="editar-borrar-lista-rolusuario" class="editar-borrar-lista-rolusuario" href="{% url 'seguridad:borrar_rolusuario' obj.id %}?usuariorol_id={{ usuariorol_id }}">Borrar</a>
+
+										</div>
+										<div class="col-1">
+										</div>
+									</div>
+								{% endfor %}
+								<div id="fila-nuevo-rolusuario" class="row mt-3 mb-3 fila-nuevo-rolusuario">
+									<div class="col">
+										<a class="btn btn-block btn-primary mt-2" href="{% url 'seguridad:crear_rolusuario'%}?usuariorol_id={{ usuariorol.id }}">Nuevo Rol</a>
+
+									</div>
+								</div>
+							</div>
+						</div>
+     
+
+                    </div>
+                    <div class="col-12 d-none d-md-block col-md-1"></div>
+                </div>
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+
+        </div>
+    </div>
+
+
+<!-- ***************** -->
+<!-- PIE DE LA EDICION -->
+<!-- ***************** -->
+    
+    <div class="row pie-lista">
+    </div>
+  </div>
+
+
+
+{% endblock %}
+
+ 
+

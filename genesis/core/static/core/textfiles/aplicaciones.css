@@ -1,0 +1,7 @@
+/*#@[p_aplicaciones_css_01]*/
+main .opcionmenu_@aplicacion{
+   font-family: @menufontfamily;
+    font-size: @menufontsizept;
+    font-weight:@menufontweight;
+/*#@[p_aplicaciones_css_02]*/
+}

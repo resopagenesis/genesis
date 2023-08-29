@@ -1,0 +1,74 @@
+{% extends 'core/base.html' %}
+
+{% block cuerpo %}
+
+  {% load static %}
+
+{% if error == '' %}
+	<style>
+		.grupo{font-size: 10pt;font-weight: 400;}
+	</style>
+
+  <div class="container-fluid arbol-proyectos">
+    <div class="row mb-2 pt-2">
+      <div class="col-12 titulo-arbol d-flex" >
+      	{% if proyecto.avatar %}
+      		<img src="{{proyecto.avatar.url}}" alt="">
+      	{% endif %}
+        <!-- <h3 class="nombre-proyecto ml-2 align-self-end">{{proyecto.nombre}}</h3> -->
+        <h3 class="nombre-proyecto ml-2 align-self-end">{{proyecto.nombre}}<a class="nombre-proyecto ml-2 align-self-end" href="{% url 'proyectos:arbol' %}?proyecto_id={{ proyecto.id }}"><span style="color:green; font-size: 8pt;">(volver)</span></a></h3>
+      </div>
+    </div>
+
+		<div class="row pl-2 pr-2" >
+			<div class="col-12 col-md-3 pl-5 pt-4 border rounded">
+				{% for objeto in lista %}
+					<div class="row lista mb-2">
+						<div class="col d-flex align-items-center"  style="padding-left: {{objeto.2}}px ">
+							{% if objeto.1 == 's' %}
+								<!-- Crear filas -->
+								<!-- <a class="ml-1" href="{% url 'modelos:crear_fila' %}?proyecto_id={{objeto.0.modelo.proyecto.id}}&seccion_id={{objeto.0.id}}&modelo_id={{objeto.0.modelo.id}}" data-toggle="tooltip" data-placement="top" title="Nueva Fila"><img src="{% static 'core/img/nuevaaplicacion32.ico' %}" alt=""></a> -->
+								<a class="ml-1" href="{% url 'modelos:crear_fila' %}?seccion_id={{objeto.0.id}}&modelo_id={{objeto.0.modelo.id}}" data-toggle="tooltip" data-placement="top" title="Nueva Fila"><img src="{% static 'core/img/nuevaaplicacion32.ico' %}" alt=""></a>
+								<!-- Borrar seccion -->
+								<a class="ml-1" href="{% url 'modelos:borrar_seccion' objeto.0.id  %}?nombre={{objeto.0.nombre}}&modelo_id={{objeto.0.modelo.id}}" data-toggle="tooltip" data-placement="top" title="Borrar Seccion"><img src="{% static 'core/img/borrar.png' %}" alt=""></a>
+								<!-- Editar seccion -->
+								<a href="{% url 'modelos:editar_seccion' objeto.0.id %}?seccion_id={{objeto.0.id}}&modelo_id={{objeto.0.modelo.id}}" data-toggle="tooltip" data-placement="top" title="Editar Seccion"><span class="ml-1 grupo">{{objeto.0.nombre}}</span></a>
+							{% endif %}
+							{% if objeto.1 == 'f' %}
+								<!-- Crear columnas -->
+								<a class="ml-1" href="{% url 'modelos:crear_columna' %}?modelo_id={{objeto.0.seccion.modelo.id}}&fila_id={{objeto.0.id}}" data-toggle="tooltip" data-placement="top" title="Nueva Columna"><img src="{% static 'core/img/nuevaaplicacion32.ico' %}" alt=""></a>
+								<!-- Borrar fila -->
+								<a class="ml-1" href="{% url 'modelos:borrar_fila' objeto.0.id  %}?proyecto_id={{objeto.0.seccion.modelo.proyecto.id}}&nombre={{objeto.0.nombre}}&seccion_id={{objeto.0.seccion.id}}&modelo_id={{objeto.0.seccion.modelo.id}}" data-toggle="tooltip" data-placement="top" title="Borrar Fila"><img src="{% static 'core/img/borrar.png' %}" alt=""></a>
+								<!-- Editar fila -->
+								<a href="{% url 'modelos:editar_fila' objeto.0.id %}?seccion_id={{objeto.0.seccion.id}}&modelo_id={{objeto.0.seccion.modelo.id}}&fila_id={{objeto.0.id}}" data-toggle="tooltip" data-placement="top" title="Editar Fila"><span class="grupo ml-1">{{objeto.0.nombre}}</span></a>
+							{% endif %}
+							{% if objeto.1 == 'c' %}
+								<!-- Borrar columna -->
+								<a class="ml-1" href="{% url 'modelos:borrar_columna' objeto.0.id  %}?modelo_id={{objeto.0.fila.seccion.modelo.id}}&nombre={{objeto.0.nombre}}" data-toggle="tooltip" data-placement="top" title="Borrar Columna"><img src="{% static 'core/img/borrar.png' %}" alt=""></a>
+								<!-- Editar columna -->
+								<a href="{% url 'modelos:editar_columna' objeto.0.id %}?modelo_id={{objeto.0.fila.seccion.modelo.id}}&fila_id={{objeto.0.fila.id}}" data-toggle="tooltip" data-placement="top" title="Editar Columna"><span class="grupo ml-1">{{objeto.0.nombre}}</span></a>
+							{% endif %}
+						</div>
+					</div>
+				{% endfor %}
+			</div>	
+
+
+<!-- <style>
+	.fit-image{
+width: 100%;
+object-fit: cover;
+height: auto; /* only if you want fixed height */
+}
+</style> -->
+
+			{% include 'core/includes/despliega_seccion.html'%}
+
+		</div>
+  </div>
+	
+
+{% else %}
+    {% include 'core/includes/pagina_error.html'%}
+{% endif %}	
+{% endblock %}  

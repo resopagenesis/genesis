@@ -1,0 +1,171 @@
+            <!-- fin de superior -->
+
+                <!-- lista de modelos -->
+                <!-- titulo de la lista -->
+                <div class="row" style="
+                    height: {{modelo.altotitulolista}}px;
+                    display: flex;
+                    {% if modelo.justificacionhorizontaltitulolista == 'c' %}
+                      justify-content: center;
+                    {% endif %}
+                    {% if modelo.justificacionhorizontaltitulolista == 'i' %}
+                      justify-content: start;
+                    {% endif %}
+                    {% if modelo.justificacionhorizontaltitulolista == 'd' %}
+                      justify-content: end;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltitulolista == 'c' %}
+                      align-items: center;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltitulolista == 's' %}
+                      align-items: start;
+                    {% endif %}
+                    {% if modelo.justificacionverticaltitulolista == 'i' %}
+                      align-items: end;
+                    {% endif %}
+                    background-color: {{modelo.colorfondotitulolista}};
+                    ">
+                  <span style="
+                        font-name: {{font_titulo_lista.0}}; font-size: {{font_titulo_lista.1}}pt; font-weight: {{font_titulo_lista.2}};
+                        color: {{modelo.colortitulolista}};
+                  ">
+                    {{modelo.titulolista}}                    
+                  </span>  
+                </div>
+
+                <!-- comentario de la lista -->
+                <div class="row" style="
+                background-color: {{modelo.colorfondocomentariolista}};
+                ">
+                  <span style="
+                        font-name: {{font_comentario_lista.0}}; font-size: {{font_comentario_lista.1}}pt; font-weight: {{font_comentario_lista.2}};
+                        color: {{modelo.colorcomentariolista}};
+
+                  ">
+                    {{modelo.comentariolista}}
+                  </span>
+                </div>
+
+                <!-- columnas de la lista -->
+                <div class="row" style="
+                  height: {{modelo.altocolumnas}}px;
+                  color: {{modelo.colorcolumnaslista}};
+                  background-color: {{modelo.colorfondocolumnaslista}};
+                  font-name: {{font_columnas_lista.0}}; font-size: {{font_columnas_lista.1}}pt; font-weight: {{font_columnas_lista.2}};
+                ">
+                  <div class="col-3" style="
+                  {% if modelo.columnaslistaconborde %}border: 1pt solid black; {% endif %}
+                  display: flex; align-items: center;
+                  ">Codigo</div>
+                  <div class="col-5" style="
+                  {% if modelo.columnaslistaconborde %}border: 1pt solid black; {% endif %}
+                  display: flex; align-items: center;
+                  ">Descripcion</div>
+                  <div class="col-4" style="
+                  {% if modelo.columnaslistaconborde %}border: 1pt solid black; {% endif %}
+                  display: flex; align-items: center;
+                  ">Importe</div>
+                </div>
+
+                <!-- datos de la lista -->
+                <div class="row" style="
+                  font-name: {{font_texto_lista.0}}; font-size: {{font_texto_lista.1}}pt; font-weight: {{font_texto_lista.2}};
+                  color: {{modelo.colortextolista}};
+                  background-color: {{modelo.colorfondotextolista}};
+                ">
+                  <div class="col-3">
+                    123-EFG
+                  </div>
+                  <div class="col-5">
+                    Carburador de gasolina
+                  </div>
+                  <div class="col-2">
+                    123.45
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.1}}</div>
+                </div>              
+                <div class="row" style="
+                  font-name: {{font_texto_lista.0}}; font-size: {{font_texto_lista.1}}pt; font-weight: {{font_texto_lista.2}};
+                  color: {{modelo.colortextolista}};
+                  background-color: {{modelo.colorfondotextolista}};
+                ">
+                  <div class="col-3">
+                    123-EFG
+                  </div>
+                  <div class="col-5">
+                    Carburador de gasolina
+                  </div>
+                  <div class="col-2">
+                    123.45
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.1}}</div>
+                </div>              
+                <div class="row" style="
+                  font-name: {{font_texto_lista.0}}; font-size: {{font_texto_lista.1}}pt; font-weight: {{font_texto_lista.2}};
+                  color: {{modelo.colortextolista}};
+                  background-color: {{modelo.colorfondotextolista}};
+                ">
+                  <div class="col-3">
+                    123-EFG
+                  </div>
+                  <div class="col-5">
+                    Carburador de gasolina
+                  </div>
+                  <div class="col-2">
+                    123.45
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.1}}</div>
+                </div>              
+
+                <div class="row" style="
+                  font-name: {{font_texto_lista.0}}; font-size: {{font_texto_lista.1}}pt; font-weight: {{font_texto_lista.2}};
+                  color: {{modelo.colortextolista}};
+                  background-color: {{modelo.colorfondotextolista}};
+                ">
+                  <div class="col-3">
+                    123-EFG
+                  </div>
+                  <div class="col-5">
+                    Carburador de gasolina
+                  </div>
+                  <div class="col-2">
+                    123.45
+                  </div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.0}}</div>
+                  <div class="col-1" style="
+                  font-name: {{font_editar_borrar.0}}; font-size: {{font_editar_borrar.1}}pt; font-weight: {{font_editar_borrar.2}};
+                  color: {{modelo.coloreditarborrar}};
+                  ">{{texto_editar_borrar.1}}</div>
+                </div>              
+
+
+                <div class="row">
+                  <a class="btn btn-{{modelo.colorbotonlinknuevomodelo}}" href="">{{modelo.textolinknuevomodelo}}</a>
+                </div>
+
+            <!-- Inicio de inferior -->
+

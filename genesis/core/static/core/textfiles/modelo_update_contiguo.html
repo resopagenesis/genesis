@@ -1,0 +1,261 @@
+{% extends 'core/base@modelo.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+<!-- #@[p_modelo_update_contiguo_01] -->
+/*#@[p_modelo_inserta_@modelo_01]*/}
+
+{% block cuerpo %}
+
+{% load static %}
+
+<style>
+    
+#update-@modelo{
+    margin-top: 2px;
+    padding: 20px 20px 20px 20px;
+/*#@[p_modelo_css_update_01]*/
+}
+#fila_titulo_update{
+    background-color: @colorfondofilatituloupdate;
+    height: @altofilatituloupdate;
+/*#@[p_modelo_css_update_02]*/
+}
+#titulo_update{
+    font-family: @tituloupdatefontfamily;
+    font-size: @tituloupdatefontsizept;
+    font-weight: @tituloupdatefontweight;
+    color:@colortituloupdate;
+    background-color: @colorfondotituloupdate;
+/*#@[p_modelo_css_update_03]*/
+}
+#comentario_update{
+    font-family: @comentarioupdatefontfamily;
+    font-size: @comentarioupdatefontsizept;
+    font-weight: @comentarioupdatefontweight;
+    color:@colorcomentarioupdate;
+/*#@[p_modelo_css_update_04]*/
+}
+#columna_comentario_update{
+    background-color:@colorfondocomentarioupdate;;
+/*#@[p_modelo_css_update_05]*/
+}
+#fila_datos_update{
+
+/*#@[p_modelo_css_update_06]*/
+}
+#font_label_@modelo{
+    font-family: @label@modelofontfamily;
+    font-size: @label@modelofontsizept;
+    font-weight: @label@modelofontweight;
+    color:@colorlabel@modelo;
+/*#@[p_modelo_css_update_07]*/
+}
+#font_label_@modelo input{
+    font-family: @label@modelofontfamily;
+    font-size: @label@modelofontsizept;
+    /* font-weight: @label@modelofontweight; */
+    color:@colorlabel@modelo;
+/*#@[p_modelo_css_update_08]*/
+}
+#fila_boton_update{
+
+/*#@[p_modelo_css_update_08]*/
+}
+#boton_update{
+
+/*#@[p_modelo_css_update_09]*/
+}
+
+/*#@[p_modelo_css_update_10]*/
+
+/* @hijos */
+
+</style>
+
+<!-- #@[p_modelo_update_contiguo_01] -->
+
+<div class="container update-@modelo @bordeexterior rounded">
+
+<!-- ********************** -->
+<!-- TITULO DE LA INSERCION -->
+<!-- ********************** -->
+
+<!-- #@[p_modelo_titulo_update_contiguo_01] -->
+
+        <div class="row d-flex align-items-center">
+<!-- #@[p_modelo_titulo_update_contiguo_02] -->
+            <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaupdate"></div>
+<!-- #@[p_modelo_titulo_update_contiguo_03] -->
+            <div id="fila_titulo_update" class="col-12 fila_titulo_update d-flex col-md-@numerocolumnasmodeloupdate @justificacionhorizontaltituloupdate @justificacionverticaltituloupdate titulo-update">
+<!-- #@[p_modelo_titulo_update_contiguo_04] -->
+                <span id="titulo_update" class="titulo_update @uppercasetitulo">
+    @tituloupdate
+                </span>
+<!-- #@[p_modelo_titulo_update_contiguo_05] -->
+            </div>
+<!-- #@[p_modelo_titulo_update_contiguo_06] -->
+            <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaupdate"></div>
+        </div>
+<!-- #@[p_modelo_titulo_update_contiguo_07] -->
+
+<!-- ******* -->
+<!-- ERRORES -->
+<!-- ******* -->
+
+<!-- #@[p_modelo_update_abajo_error_01] -->
+    {% if form.errors %}
+<!-- #@[p_modelo_update_abajo_error_02] -->
+    	<ul class="user-msg error">
+<!-- #@[p_modelo_update_abajo_error_03] -->
+        {% for field in form %}
+<!-- #@[p_modelo_update_abajo_error_04] -->
+          {% for error in field.errors %}
+<!-- #@[p_modelo_update_abajo_error_05] -->
+            <li>
+<!-- #@[p_modelo_update_abajo_error_06] -->
+              {% if field != '__all__' %}
+<!-- #@[p_modelo_update_abajo_error_07] -->
+                <strong>Error en el control: {{ field.label }}:</strong>
+<!-- #@[p_modelo_update_abajo_error_08] -->
+              {% endif %}
+<!-- #@[p_modelo_update_abajo_error_09] -->
+              {{ error }}
+<!-- #@[p_modelo_update_abajo_error_10] -->
+            </li>
+<!-- #@[p_modelo_update_abajo_error_11] -->
+          {% endfor %}
+<!-- #@[p_modelo_update_abajo_error_12] -->
+        {% endfor %}
+<!-- #@[p_modelo_update_abajo_error_13] -->
+      </ul>
+<!-- #@[p_modelo_update_abajo_error_14] -->
+    {% endif %}
+<!-- #@[p_modelo_update_abajo_error_15] -->
+
+<!--     {% if form.errors %}
+      <ol>
+        {% for error in form.errors %}
+          <li class="color_error"><strong>Error en el campo : {{ error|escape }}</strong></li>
+        {% endfor %}
+      </ol>
+    {% endif %} -->
+
+<!-- ********** -->
+<!-- COMENTARIO -->
+<!-- ********** -->
+
+<!-- #@[p_modelo_comentario_update_contiguo_01] -->
+    <div class="row fila_comentario_update d-flex align-items-center @bordecomentario">
+<!-- #@[p_modelo_comentario_update_contiguo_02] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaupdate"></div>
+<!-- #@[p_modelo_comentario_update_contiguo_03] -->
+      <div class="col-12 col-md-@numerocolumnasmodeloupdate columna_comentario-update">
+<!-- #@[p_modelo_comentario_update_contiguo_04] -->
+        <span class="comentario_update">
+<!-- #@[p_modelo_comentario_update_contiguo_05] -->
+          @comentarioupdate
+<!-- #@[p_modelo_comentario_update_contiguo_06] -->
+        </span>
+<!-- #@[p_modelo_comentario_update_contiguo_07] -->
+      </div>
+<!-- #@[p_modelo_comentario_update_contiguo_09] -->
+      <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaupdate"></div>
+<!-- #@[p_modelo_comentario_update_contiguo_10] -->
+    </div>
+
+<!-- ***** -->
+<!-- DATOS -->
+<!-- ***** -->
+
+<!-- #@[p_modelo_datos_update_contiguo_01] -->
+    <div class="row fila_datos_update d-flex">
+<!-- #@[p_modelo_datos_update_contiguo_02] -->
+      	<div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaupdate"></div>
+<!-- #@[p_modelo_datos_update_contiguo_03] -->
+      	<div class="col-12 col-md-@numerocolumnasmodeloupdate @bordeformulario rounded">
+<!-- #@[p_modelo_datos_update_contiguo_04] -->
+            <form action="" method="post" enctype="multipart/form-data" id="@modeloForm" @loaddata>
+                {% csrf_token %}
+                {% if not form.errors %}
+                	{% if 'correcto' in request.GET %}
+                    	<p style="color:red;">(Registro modificado correctamente)</p>
+                    {% endif %}
+                {% endif %}
+<!-- #@[p_modelo_datos_update_contiguo_05] -->
+                <div class="row">
+<!-- #@[p_modelo_datos_update_contiguo_06] -->
+                	<div class="col">
+<!-- #@[p_modelo_datos_update_contiguo_07] -->
+                    	{% if form.non_field_errors %}
+<!-- #@[p_modelo_datos_update_contiguo_08] -->
+                        	<ol>
+<!-- #@[p_modelo_datos_update_contiguo_09] -->
+                            	{% for error in form.non_field_errors %}
+<!-- #@[p_modelo_datos_update_contiguo_10] -->
+                                	<li class="color_error"><strong>{{ error|escape }}</strong></li>
+<!-- #@[p_modelo_datos_update_contiguo_11] -->
+                                {% endfor %}
+<!-- #@[p_modelo_datos_update_contiguo_12] -->
+                            </ol>
+<!-- #@[p_modelo_datos_update_contiguo_13] -->
+                        {% endif %}
+<!-- #@[p_modelo_datos_update_contiguo_14] -->
+                    </div>
+<!-- #@[p_modelo_datos_update_contiguo_15] -->
+                </div>
+<!-- #@[p_modelo_datos_update_contiguo_16] -->
+            	<div class="row mt-4">
+<!-- #@[p_modelo_datos_update_contiguo_17] -->
+                	<div class="col">
+<!-- #@[p_modelo_datos_update_contiguo_18] -->
+@controles
+<!-- #@[p_modelo_datos_update_contiguo_19] -->
+                  	</div>
+<!-- #@[p_modelo_datos_update_contiguo_20] -->
+            	</div>
+<!-- #@[p_modelo_datos_update_contiguo_21] -->
+            	<div class="row fila_boton_update mt-3 mb-3">
+<!-- #@[p_modelo_datos_update_contiguo_22] -->
+                	<div class="col">
+<!-- #@[p_modelo_datos_update_contiguo_23] -->
+                    	<input type="submit" class="btn btn-primary btn-block mt-3 boton_update" value="Actualizar" />
+<!-- #@[p_modelo_datos_update_contiguo_24] -->
+                  	</div>
+<!-- #@[p_modelo_datos_update_contiguo_25] -->
+            	</div>
+<!-- #@[p_modelo_datos_update_contiguo_26] -->
+            </form>               
+<!-- #@[p_modelo_datos_update_contiguo_27] -->
+      	</div>
+<!-- #@[p_modelo_datos_update_contiguo_28] -->
+      	<div class="col-12 col-md-@numerocolumnashijosupdate  ">
+        <!-- Hijos -->
+<!-- #@[p_modelo_datos_update_contiguo_29] -->
+@listahijos
+<!-- #@[p_modelo_datos_update_contiguo_30] -->
+      	</div>
+<!-- #@[p_modelo_datos_update_contiguo_31] -->
+      	<div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaupdate"></div>
+<!-- #@[p_modelo_datos_update_contiguo_32] -->
+    </div>
+<!-- #@[p_modelo_datos_update_contiguo_33] -->
+    <!-- Pie de insercion -->
+<!-- #@[p_modelo_pie_update_contiguo_01] -->
+    <div class="row pie_lista">
+<!-- #@[p_modelo_pie_update_contiguo_02] -->
+    </div>
+</div>
+<!-- </main> -->
+<!-- #@[p_modelo_update_contiguo_08] -->
+
+@ajaxhijo
+<!-- #@[p_modelo_update_contiguo_09] -->
+
+{% endblock %}
+
+<!-- #@[p_modelo_update_contiguo_10] -->
+
+ 

@@ -1,0 +1,337 @@
+{% extends 'core/base@modelo.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+<!-- #@[p_modelo_update_abajo_01] -->
+
+{% block cuerpo %}
+
+{% load static %}
+
+
+<style>
+    
+#update_@modelo{
+    margin-top: 2px;
+    padding: 20px 20px 20px 20px;
+/*#@[p_modelo_css_update_01]*/
+}
+#fila_titulo_update{
+    background-color: @colorfondofilatituloupdate;
+    height: @altofilatituloupdate;
+/*#@[p_modelo_css_update_02]*/
+}
+#titulo_update{
+    font-family: @tituloupdatefontfamily;
+    font-size: @tituloupdatefontsizept;
+    font-weight: @tituloupdatefontweight;
+    color:@colortituloupdate;
+    background-color: @colorfondotituloupdate;
+/*#@[p_modelo_css_update_03]*/
+}
+#comentario_update{
+    font-family: @comentarioupdatefontfamily;
+    font-size: @comentarioupdatefontsizept;
+    font-weight: @comentarioupdatefontweight;
+    color:@colorcomentarioupdate;
+/*#@[p_modelo_css_update_04]*/
+}
+#columna_comentario_update{
+    background-color:@colorfondocomentarioupdate;;
+/*#@[p_modelo_css_update_05]*/
+}
+#fila_datos_update{
+
+/*#@[p_modelo_css_update_06]*/
+}
+#font_label_@modelo{
+    font-family: @label@modelofontfamily;
+    font-size: @label@modelofontsizept;
+    font-weight: @label@modelofontweight;
+    color:@colorlabel@modelo;
+/*#@[p_modelo_css_update_07]*/
+}
+#font_label_@modelo input{
+    font-family: @label@modelofontfamily;
+    font-size: @label@modelofontsizept;
+    /* font-weight: @label@modelofontweight; */
+    color:@colorlabel@modelo;
+/*#@[p_modelo_css_update_08]*/
+}
+#fila_boton_update{
+
+/*#@[p_modelo_css_update_08]*/
+}
+#boton_update{
+
+/*#@[p_modelo_css_update_09]*/
+}
+
+/*#@[p_modelo_css_update_10]*/
+
+@hijos
+
+
+</style>
+
+<!-- #@[p_modelo_update_abajo_01] -->
+
+<!-- ******************** -->
+<!-- TITULO DE LA EDICION -->
+<!-- ******************** -->
+
+<div id="update_@modelo" class="container update_@modelo @bordeexterior rounded">
+<!-- #@[p_modelo_titulo_update_abajo_01] -->
+    <div class="row">
+<!-- #@[p_modelo_titulo_update_abajo_02] -->
+        @colextratreeview
+<!-- #@[p_modelo_titulo_update_abajo_03] -->        
+        <div class="col-@datossintreeview">
+<!-- #@[p_modelo_titulo_update_abajo_04] -->
+            
+    <div class="row d-flex align-items-center">
+<!-- #@[p_modelo_titulo_update_abajo_05] -->
+        <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaupdate"></div>
+<!-- #@[p_modelo_titulo_update_abajo_06] -->
+        <div id="fila_titulo_update" class="col-12 fila_titulo_update d-flex col-md-@numerocolumnasmodeloupdate @justificacionhorizontaltituloupdate @justificacionverticaltituloupdate titulo-update">
+<!-- #@[p_modelo_titulo_update_abajo_07] -->
+            <span id="titulo_update" class="titulo_update @uppercasetitulo">
+<!-- #@[p_modelo_titulo_update_abajo_08] -->
+@tituloupdate
+<!-- #@[p_modelo_titulo_update_abajo_09] -->
+            </span>
+<!-- #@[p_modelo_titulo_update_abajo_10] -->
+        </div>
+<!-- #@[p_modelo_titulo_update_abajo_11] -->
+        <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaupdate"></div>
+<!-- #@[p_modelo_titulo_update_abajo_12] -->    
+    </div>
+<!-- #@[p_modelo_titulo_update_abajo_13] -->
+
+<!-- ****************************** -->
+<!-- FINAL DEL TITULO DE LA EDICION -->
+<!-- ****************************** -->
+
+<!-- #@[p_modelo_update_abajo_02] -->
+
+<!-- #@[p_modelo_update_abajo_error_01] -->
+            {% if form.errors %}
+<!-- #@[p_modelo_update_abajo_error_02] -->
+                <ul class="user-msg error">
+<!-- #@[p_modelo_update_abajo_error_03] -->
+                    {% for field in form %}
+<!-- #@[p_modelo_update_abajo_error_04] -->
+                        {% for error in field.errors %}
+<!-- #@[p_modelo_update_abajo_error_05] -->
+                            <li>
+<!-- #@[p_modelo_update_abajo_error_06] -->
+                                {% if field != '__all__' %}
+<!-- #@[p_modelo_update_abajo_error_07] -->
+                                    <strong>Error en el control: {{ field.label }}:</strong>
+<!-- #@[p_modelo_update_abajo_error_08] -->
+                                {% endif %}
+<!-- #@[p_modelo_update_abajo_error_09] -->
+                                {{ error }}
+<!-- #@[p_modelo_update_abajo_error_10] -->
+                            </li>
+<!-- #@[p_modelo_update_abajo_error_11] -->
+                        {% endfor %}
+<!-- #@[p_modelo_update_abajo_error_12] -->
+                    {% endfor %}
+<!-- #@[p_modelo_update_abajo_error_13] -->
+                </ul>
+<!-- #@[p_modelo_update_abajo_error_14] -->
+            {% endif %}
+<!-- #@[p_modelo_update_abajo_error_15] -->
+
+        </div>
+    </div>
+
+<!-- ************************ -->
+<!-- COMENTARIO DE LA EDICION -->
+<!-- ************************ -->
+
+<!-- #@[p_modelo_comentario_update_abajo_01] -->
+
+    <div class="row">
+<!-- #@[p_modelo_comentario_update_abajo_02] -->
+        @colextratreeview
+<!-- #@[p_modelo_comentario_update_abajo_03] -->
+        <div class="col-@datossintreeview">
+<!-- #@[p_modelo_comentario_update_abajo_04] -->
+            <div class="row fila_comentario_update d-flex align-items-center @bordecomentario">
+<!-- #@[p_modelo_comentario_update_abajo_05] -->
+                <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaupdate"></div>
+<!-- #@[p_modelo_comentario_update_abajo_06] -->
+                <div id="columna_comentario_update" class="col-12 col-md-@numerocolumnasmodeloupdate columna-comentario-update">
+<!-- #@[p_modelo_comentario_update_abajo_07] -->
+                    <span id="comentario_update" class="comentario_update">
+<!-- #@[p_modelo_comentario_update_abajo_08] -->
+
+@comentarioupdate
+
+<!-- #@[p_modelo_comentario_update_abajo_09] -->
+                    </span>
+<!-- #@[p_modelo_comentario_update_abajo_10] -->
+                </div>
+<!-- #@[p_modelo_comentario_update_abajo_11] -->
+                <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaupdate"></div>
+<!-- #@[p_modelo_comentario_update_abajo_12] -->
+            </div>
+<!-- #@[p_modelo_comentario_update_abajo_13] -->
+        </div>
+    </div>
+
+    <div class="row">
+
+<!-- ******************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************** -->
+
+<!-- #@[p_modelo_update_abajo_03] -->
+@treeview                
+<!-- #@[p_modelo_update_abajo_04] -->
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA COLUMNA PARA LOS DATOS TREEVIEW -->
+<!-- ******************************************* -->
+
+<!-- ********************************************** -->
+<!-- INICIO DE LA COLUMNA PARA LOS DATOS DEL MODELO -->
+<!-- ********************************************** -->
+
+<!-- #@[p_modelo_datos_update_abajo_01] -->
+        <div class="col-12 col-md-@datossintreeview">
+            <!-- Inicio de los controles para el objeto raiz -->
+<!-- #@[p_modelo_datos_update_abajo_02] -->
+            <div id="fila_datos_update" class="row fila_datos_update d-flex align-items-center">
+<!-- #@[p_modelo_datos_update_abajo_03] -->
+            <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaupdate"></div>
+<!-- #@[p_modelo_datos_update_abajo_04] -->
+            <div class="col-12 col-md-@numerocolumnasmodeloupdate @bordeformulario rounded">
+<!-- #@[p_modelo_datos_update_abajo_05] -->
+                <form action="" method="post" enctype="multipart/form-data" id="@modeloForm" @loaddata>
+                    {% csrf_token %}
+
+                    {% if not form.errors %}
+                        {% if 'correcto' in request.GET %}
+                            <p style="color:red;">(Registro modificado correctamente)</p>
+                        {% endif %}
+                    {% endif %}
+<!-- #@[p_modelo_datos_update_abajo_06] -->
+                    <div class="row">
+<!-- #@[p_modelo_datos_update_abajo_07] -->
+                        <div class="col">
+<!-- #@[p_modelo_datos_update_abajo_08] -->
+                            {% if form.non_field_errors %}
+<!-- #@[p_modelo_datos_update_abajo_09] -->
+                                <ol>
+<!-- #@[p_modelo_datos_update_abajo_10] -->
+                                    {% for error in form.non_field_errors %}
+<!-- #@[p_modelo_datos_update_abajo_11] -->
+                                        <li class="color_error"><strong>{{ error|escape }}</strong></li>
+<!-- #@[p_modelo_datos_update_abajo_12] -->
+                                    {% endfor %}
+<!-- #@[p_modelo_datos_update_abajo_13] -->
+                                </ol>
+<!-- #@[p_modelo_datos_update_abajo_14] -->
+                            {% endif %}
+<!-- #@[p_modelo_datos_update_abajo_15] -->
+                        </div>
+<!-- #@[p_modelo_datos_update_abajo_16] -->
+                    </div>
+<!-- #@[p_modelo_datos_update_abajo_17] -->
+                    <div class="row mt-4">
+<!-- #@[p_modelo_datos_update_abajo_18] -->
+                        <div id="font_label_@modelo" class="col font_label_@modelo">
+<!-- #@[p_modelo_datos_update_abajo_19] -->
+
+<!-- ************************* -->
+<!-- CONTROLES PARA LA EDICION -->
+<!-- ************************* -->
+
+@controles
+
+<!-- #@[p_modelo_update_abajo_05] -->
+                        </div>
+<!-- #@[p_modelo_update_abajo_06] -->
+                    </div>
+<!-- #@[p_modelo_update_abajo_07] -->
+                    <div id="fila_boton_update" class="row fila_boton_update mt-3 mb-3">
+<!-- #@[p_modelo_update_abajo_08] -->
+                        <div class="col">
+<!-- #@[p_modelo_update_abajo_09] -->
+                            <input id="boton_update" type="submit" class="btn btn-primary btn-block mt-3 boton_update" value="Actualizar" />
+<!-- #@[p_modelo_update_abajo_10] -->
+                        </div>
+<!-- #@[p_modelo_update_abajo_11] -->
+                    </div>
+<!-- #@[p_modelo_update_abajo_12] -->
+                </form>               
+<!-- #@[p_modelo_update_abajo_13] -->
+              </div>
+<!-- #@[p_modelo_update_abajo_14] -->
+              <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaupdate"></div>
+<!-- #@[p_modelo_update_abajo_15] -->
+            </div>
+
+<!-- ****************************************** -->
+<!-- FINAL DE LOS CONTROLES PARA EL OBJETO RAIZ -->
+<!-- ****************************************** -->
+
+
+<!-- ******************************************* -->
+<!-- INICIO DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+            
+<!-- #@[p_modelo_update_abajo_17] -->
+            <div class="row mt-3">
+<!-- #@[p_modelo_update_abajo_18] -->
+                <div class="col-12 d-none d-md-block col-md-@numerocolumnasizquierdaupdate"></div>
+<!-- #@[p_modelo_update_abajo_19] -->
+                    <div class="col-12  col-md-@numerocolumnasmodeloupdate ">
+<!-- #@[p_modelo_update_abajo_20] -->
+
+<!-- ***** -->
+<!-- HIJOS -->
+<!-- ***** -->
+
+@listahijos     
+
+<!-- #@[p_modelo_update_abajo_21] -->
+                    </div>
+<!-- #@[p_modelo_update_abajo_22] -->
+                    <div class="col-12 d-none d-md-block col-md-@numerocolumnasderechaupdate"></div>
+<!-- #@[p_modelo_update_abajo_23] -->
+                </div>
+
+<!-- ******************************************* -->
+<!-- FINAL DE LA FILA PARA LOS HIJOS DEL MODELO -->
+<!-- ******************************************* -->
+
+        </div>
+    </div>
+
+<!-- #@[p_modelo_update_abajo_24] -->
+
+<!-- ***************** -->
+<!-- PIE DE LA EDICION -->
+<!-- ***************** -->
+
+<!-- #@[p_modelo_pie_update_abajo_01] -->
+    <div class="row pie_lista">
+<!-- #@[p_modelo_pie_update_abajo_02] -->
+    </div>
+<!-- #@[p_modelo_pie_update_abajo_03] -->
+  </div>
+<!-- #@[p_modelo_update_abajo_25] -->
+
+@ajaxhijo
+
+<!-- #@[p_modelo_update_abajo_26] -->
+{% endblock %}
+
+<!-- #@[p_modelo_update_abajo_27] -->
+ 

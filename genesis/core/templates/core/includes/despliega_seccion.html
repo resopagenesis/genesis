@@ -1,0 +1,65 @@
+{% load static %}
+
+<div class="col-md-9  border rounded pt-3 mb-4 pb-3">
+    {% for seccion in lista %}
+        {% if seccion.1 == 's' %}
+            <div class="container " style="width: 90%; 
+                height: 600px;
+                background: linear-gradient(to {{seccion.0.degradado}}, {{seccion.0.color1}}, {{seccion.0.color2}}); 
+                {% if seccion.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}
+                ">{{seccion.0.texto}}
+                {% for fila in lista %}
+                    {% if fila.1 == 'f' %}
+                        {% if fila.0.seccion.id == seccion.0.id %}
+                            <div class="row " style="height: {{fila.0.altura}};background: linear-gradient(to {{fila.0.degradado}}, {{fila.0.color1}}, {{fila.0.color2}});
+                                {% if fila.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}
+                            ">
+                                {% for columna in lista %}
+                                   {% if columna.1 == 'c' %}
+                                           {% if columna.0.fila.id == fila.0.id %}
+                                               {% if columna.14 != '' %}
+                                               <div  class="imagen col-{{columna.0.secciones}}" 
+                                                        style="height:100%;background: linear-gradient(to {{columna.0.degradado}}, {{columna.0.color1}}, {{columna.0.color2}});
+                                                            display: flex;
+                                                            justify-content: {{columna.15}};
+                                                            align-items: {{columna.16}}; 
+                                                            {% if columna.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}
+                                                        ">
+                                                                <img id="imagen_principal_{{columna.3}}" class="" src="{{columna.14}}" style="max-width: {{columna.7}} ; max-height: {{columna.8}};width: {{columna.7}} ; height: {{columna.8}};"  alt="">
+                                               </div>
+                                               {% else %}
+                                               <div class="col-{{columna.0.secciones}} " 
+                                                        style="height:100%;background: linear-gradient(to {{columna.0.degradado}}, {{columna.0.color1}}, {{columna.0.color2}});
+                                                            display: flex;
+                                                            justify-content: {{columna.15}};
+                                                            align-items: {{columna.16}}; 
+                                                            {% if columna.0.borde %}border:  1pt solid gray;{% else %}border: none;{% endif %}
+                                                        ">
+                                                             {% if columna.0.funcion == 'b' %}
+
+                                                                <div class="busqueda texto_busqueda col" >
+                                                                    <div class="row no-gutters align-items-center d-flex">
+                                                                        <div class="col-11 col-md-11 border ">
+                                                                            <input type="text" id="textob" style="width:100%;" name="textob" placeholder="Datos del nombre o descripcion">
+                                                                        </div>
+                                                                        <div class="col-1 col-md-1 ">
+                                                                            <a href="" id="link-busqueda" class="btn btn-white" ><img src="{% static "core/img/lupa.png" %}" alt=""></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                    
+                                                            {% endif %}
+                                                                <span style="font-size:{{columna.5}}pt ; font-family:{{columna.4}} ; font-weight: {{columna.6}};color:{{columna.18}} ;">{{columna.17}}</span>
+                                               </div>
+                                               {% endif %}
+                                           {% endif %}
+                                   {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>

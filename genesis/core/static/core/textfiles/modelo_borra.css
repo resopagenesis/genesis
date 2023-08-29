@@ -1,0 +1,59 @@
+main .borra-@modelo{
+	margin-top: @margintoppx;
+/*#@[p_modelo_borra_@modelo_01]*/
+}
+main .borra-@modelo .fila-titulo-borra{
+	background-color: @colorfondofilatituloborra;
+	height: @altofilatituloborra;
+/*#@[p_modelo_borra_@modelo_02]*/
+}
+main .borra-@modelo .fila-titulo-borra .titulo-borra{
+	font-family: @tituloborrafontfamily;
+	font-size: @tituloborrafontsizept;
+	font-weight: @tituloborrafontweight;
+	color:@colortituloborra;
+	background-color: @colorfondotituloborra;
+/*#@[p_modelo_borra_@modelo_03]*/
+}
+main .borra-@modelo .fila-comentario-borra .comentario-borra{
+	font-family: @comentarioborrafontfamily;
+	font-size: @comentarioborrafontsizept;
+	font-weight: @comentarioborrafontweight;
+	color:@colorcomentarioborra;
+/*#@[p_modelo_borra_@modelo_04]*/
+}
+main .borra-@modelo .fila-comentario-borra .columna-comentario-borra{
+	background-color:@colorfondocomentarioborra;
+/*#@[p_modelo_borra_@modelo_05]*/
+}
+main .borra-@modelo .fila-texto-borra .texto-borra{
+	font-family: @textoborrafontfamily;
+	font-size: @textoborrafontsizept;
+	font-weight: @textoborrafontweight;
+	color:@colortextoborra;
+	background-color:@colorfondotextoborra;
+	padding: 5px;
+/*#@[p_modelo_borra_@modelo_06]*/
+}
+main .borra-@modelo .fila-datos-borra{
+
+/*#@[p_modelo_borra_@modelo_07]*/
+}
+main .borra-@modelo .font-texto-borra-@modelo{
+	font-family: @label@modelofontfamily;
+	font-size: @label@modelofontsizept;
+	font-weight: @label@modelofontweight;
+	color:@colorlabel@modelo;
+/*#@[p_modelo_borra_@modelo_08]*/
+}
+main .borra-@modelo .fila-boton-borra{
+
+/*#@[p_modelo_borra_@modelo_09]*/
+}
+main .borra-@modelo .fila-boton-borra .boton-borra{
+
+/*#@[p_modelo_borra_@modelo_10]*/
+}
+
+/*#@[p_modelo_borra_@modelo_11]*/
+ 

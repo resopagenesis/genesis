@@ -1,0 +1,124 @@
+main .lista_@modelo{
+	margin-top: @margintoppx;
+/*#@[p_modelo_list_@modelo_01]*/
+}
+
+main .lista_@modelo .fila_titulo_lista{
+	background-color: @colorfondotitulolista;
+	height: @altotitulolista;
+/*#@[p_modelo_list_@modelo_02]*/
+}
+
+main .lista_@modelo .fila_titulo_lista .titulo_lista{
+	font-family: @titulolistafontfamily;
+	font-size: @titulolistafontsizept;
+	font-weight: @titulolistafontweight;
+	color:@colortitulolista;
+/*#@[p_modelo_list_@modelo_03]*/
+}
+
+main .lista_@modelo .fila_comentario_lista{
+	background-color: @colorfondocomentariolista;
+/*#@[p_modelo_list_@modelo_04]*/
+}
+
+main .lista_@modelo .fila_comentario-lista .comentario_lista{
+	font-family: @comentariolistafontfamily;
+	font-size: @comentariolistafontsizept;
+	font-weight: @comentariolistafontweight;
+	color:@colorcomentariolista;
+/*#@[p_modelo_list_@modelo_05]*/
+}
+
+main .lista_@modelo .fila_columnas{
+	font-family: @columnaslistafontfamily;
+	font-size: @columnaslistafontsizept;
+	font-weight: @columnaslistafontweight;
+	color:@colorcolumnaslista;
+	background-color:@colorfondocolumnaslista;
+	height: @altocolumnaslistapx;
+/*#@[p_modelo_list_@modelo_06]*/
+}
+
+main .lista_@modelo .fila_datos{
+	font-family: @textolistafontfamily;
+	font-size: @textolistafontsizept;
+	font-weight: @textolistafontweight;
+	color:@colortextolista;
+	background-color:@colorfondotextolista;
+/*#@[p_modelo_list_@modelo_07]*/
+}
+
+main .lista_@modelo .edita_@modelo a{
+	font-family: @editarborrarfontfamily;
+	font-size: @editarborrarfontsizept;
+	font-weight: @editarborrarfontweight;
+	color:@coloreditarborrar;
+/*#@[p_modelo_list_@modelo_08]*/
+}
+
+main .lista_@modelo .borra_@modelo a{
+	font-family: @editarborrarfontfamily;
+	font-size: @editarborrarfontsizept;
+	font-weight: @editarborrarfontweight;
+	color:@coloreditarborrar;
+/*#@[p_modelo_list_@modelo_09]*/
+}
+
+main .fila_nuevo_@modelo a{
+	font-family: @nuevomodelofontfamily;
+	font-size: @nuevomodelofontsizept;
+	font-weight: @nuevomodelofontweight;
+	color:@colorlinknuevomodelo;
+/*#@[p_modelo_list_@modelo_10]*/
+}
+
+/*#@[p_modelo_list_@modelo_11]*/
+
+main .columna_busqueda_@modelo input[type="text"]{
+    width: 100%;
+    background-color: #fff;
+    border: 1pt solid #e6e6e6;
+    font-size: 12px;
+    padding: 0 10px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 3px 0 0 3px;
+    color:#6d6d6d;
+    font-family: 'Open+Sans',sans-serif;
+/*#@[p_modelo_list_@modelo_12]*/
+}
+/*#@[p_modelo_list_@modelo_13]*/
+main .columna_busqueda_@modelo a{
+    width: 100%;
+    background-color: #fff;
+    /*border: 1pt solid #e6e6e6;*/
+    font-size: 12px;
+    padding: 0 10px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 0 3px 3px 0;
+    cursor: pointer;
+    color: #6d6d6d;
+/*#@[p_modelo_list_@modelo_14]*/    
+}
+/*#@[p_modelo_list_@modelo_15]*/
+
+main .busqueda a:hover{
+    background-color: #099efc;
+    color:#fff;
+/*#@[p_modelo_list_@modelo_16]*/
+}
+
+
+/*#@[p_modelo_list_@modelo_17]*/
+
+@media screen and (max-width:790px) {
+
+/*#@[p_modelo_list_@modelo_18]*/
+
+	main .lista_@modelo .fila_columnas{
+    	height: auto;
+    }
+}
+ 

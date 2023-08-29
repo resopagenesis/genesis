@@ -1,0 +1,161 @@
+{% extends 'core/base@modelo.html' %}
+
+{% block menu %}
+  {% include 'core/includes/menu_core.html'%}
+{% endblock %}
+
+{% block cuerpo %}
+
+{% load static %}
+
+<style>
+    
+#inserta_curso{
+    margin-top: @margintoppx;
+    padding: 20px 20px 20px 20px;
+/*#@[p_modelo_css_dash_01]*/    
+}
+#fila_titulo_inserta{
+    background-color: transparent;
+    height: 40px;
+/*#@[p_modelo_css_dash_02]*/    
+}
+#titulo_inserta{
+    font-family: 'Roboto';
+    font-size: 18pt;
+    font-weight: 700;
+    color:#1a1a1a;
+    background-color: transparent;
+/*#@[p_modelo_css_dash_03]*/    
+}
+#comentario_inserta{
+    font-family: 'Open+Sans';
+    font-size: 10pt;
+    font-weight: normal;
+    color:#3a3a3a;
+/*#@[p_modelo_css_dash_04]*/    
+}
+#columna_comentario_inserta{
+    background-color:transparent;
+/*#@[p_modelo_css_dash_05]*/    
+}
+#fila_datos_inserta{
+/*#@[p_modelo_css_dash_06]*/    
+}
+#font_label_curso{
+    font-family: 'Arial';
+    font-size: 10pt;
+    font-weight: bold;
+    color:#010203;
+/*#@[p_modelo_css_dash_07]*/    
+}
+#fila_boton_inserta{
+/*#@[p_modelo_css_dash_08]*/    
+}
+#boton_inserta{
+/*#@[p_modelo_css_dash_09]*/    
+}
+
+
+</style>
+
+
+<!-- #@[p_modelo_dash_01] -->
+  <div id="inserta_curso" class="container inserta_curso border">
+
+<!-- ********************** -->
+<!-- TITULO DE DASH -->
+<!-- ********************** -->
+
+<!-- #@[p_modelo_dash_02] -->
+    <div id="fila_titulo_inserta" class="row fila_titulo_inserta d-flex align-items-center">
+<!-- #@[p_modelo_dash_03] -->
+        <div id="titulo_inserta" class="col-12 d-flex col-md-12 justify-content-start align-items-center titulo_inserta">
+<!-- #@[p_modelo_dash_04] -->
+          Dash Board
+<!-- #@[p_modelo_dash_05] -->
+        </div>
+<!-- #@[p_modelo_dash_06] -->
+      </div>
+
+    {% if form.errors %}
+        <ul class="user-msg error">
+        {% for field in form %}
+            {% for error in field.errors %}
+            <li>
+                {% if field != '__all__' %}
+                <strong>Error en el control: {{ field.label }}:</strong>
+                {% endif %}
+                {{ error }}
+            </li>
+            {% endfor %}
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+<!-- #@[p_modelo_dash_07] -->
+    <div id="" class="row d-flex align-items-center">
+<!-- #@[p_modelo_dash_08] -->
+      <!-- Controles -->
+        <div class="col-3">
+<!-- #@[p_modelo_dash_09] -->
+          <div id="fila_datos_inserta" class="row fila_datos_inserta d-flex align-items-center">
+<!-- #@[p_modelo_dash_10] -->
+              <div class="col-12 col-md-12">
+<!-- #@[p_modelo_dash_11] -->
+                <form action="" method="post" enctype="multipart/form-data" id="cursoForm" >
+                    {% csrf_token %}
+<!-- #@[p_modelo_dash_12] -->
+                    <div class="row">
+<!-- #@[p_modelo_dash_13] -->
+                      <div class="col">
+                        {% if form.non_field_errors %}
+                          <ol>
+                            {% for error in form.non_field_errors %}
+                              <li class="color_error"><strong>{{ error|escape }}</strong></li>
+                            {% endfor %}
+                          </ol>
+                        {% endif %}
+                      </div>
+                    </div>
+<!-- #@[p_modelo_dash_14] -->
+                    <div class="row mt-4">
+<!-- #@[p_modelo_dash_15] -->
+                      <div id="font_label_curso" class="col font_label_curso">
+@controles
+<!-- #@[p_modelo_dash_16] -->
+                      </div>
+<!-- #@[p_modelo_dash_17] -->
+                    </div>
+<!-- #@[p_modelo_dash_18] -->
+                    <div id="fila_boton_inserta" class="row fila_boton_inserta mt-3 mb-3">
+<!-- #@[p_modelo_dash_19] -->
+                      <div class="col">
+<!-- #@[p_modelo_dash_20] -->
+                        <input id="boton_inserta" type="submit" class="btn btn-primary btn-block mt-3 boton_inserta" value="Desplegar" />
+<!-- #@[p_modelo_dash_21] -->
+                      </div>
+<!-- #@[p_modelo_dash_22] -->
+                    </div>
+<!-- #@[p_modelo_dash_23] -->
+                  </form>               
+                </div>
+<!-- #@[p_modelo_dash_24] -->                
+            </div>
+<!-- #@[p_modelo_dash_25] -->          
+        </div>
+        <!-- Dash -->
+        <div class="col-9">
+<!-- #@[p_modelo_dash_26] -->            
+        </div>
+<!-- #@[p_modelo_dash_27] -->        
+    </div>
+<!-- #@[p_modelo_dash_28] -->    
+  </div>
+
+
+{% endblock %}
+
+ 
+
+

@@ -1,0 +1,143 @@
+{% extends 'core/base.html' %}
+
+{% block cuerpo %}
+
+  {% load static %}
+
+{% if error == '' %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+
+  <script src="{% static 'core/js/js_reporte.js' %}"></script>
+
+  <div class="container-fluid arbol-proyectos">
+    <div class="row mb-2 pt-2">
+      <div class="col-12 titulo-arbol d-flex" >
+      	{% if proyecto.avatar %}
+      		<img src="{{proyecto.avatar.url}}" alt="">
+      	{% endif %}
+        <h3 class="nombre-proyecto ml-2 align-self-end">{{proyecto.nombre}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <h3>Modelo: <a href="{% url 'proyectos:arbol' %}?proyecto_id={{proyecto.id}}" data-toggle="tooltip" data-placement="top" title="Volver al arbol"><span style="color:green">{{modelo.nombre}}</span></a></h3>
+      </div>
+    </div>
+
+  	<div class="row pl-1 pr-1 mt-5" >
+			<div  class="col-2 ui-widget-content border fuentes" >
+        <!-- Lista del modelo y sus propiedades -->
+        <div class="row">
+          <div class="col-12 mt-3">
+            {% for linea in lista %}
+              {% if linea.1 == 'mp' or linea.1 == 'mh' %}
+              <!-- Modelos -->
+                <div id="{{linea.3}}" name="{{linea.0}}" class="modelo" style="font-weight:bold;font-size:10pt;margin-left: {{linea.2}}px;" title="{{linea.5}}">{{linea.0}}
+                </div>
+              {% endif %}
+              {% if linea.1 == 'np' %}
+              <!-- Propiedades en title -->
+                <!-- 0 - {{linea.3}} = nombre del modelo  -->
+                <!-- 1 - {{linea.4}} = zona  -->
+                <!-- 2 - {{linea.5}} = tipo  -->
+                <!-- 3 - {{linea.6}} = textobotones  -->
+                <!-- 4 - {{linea.7}} = largostring  -->
+                <!-- 5 - {{linea.8}} = totaliza  -->
+                <!-- 6 - {{linea.9}} = anchoenreporte  -->
+                <!-- 7 - {{linea.10}} = id_modelo  -->
+                <!-- 8 - {{linea.3}} = id de la propiedad  -->
+
+                <!-- El id de la propiedad de la lista es el id de la propiedad de la base de datos  -->
+
+                <div id="{{linea.3}}" name="{{linea.0}}" class="propiedad" style="z-index:1000;font-size:8pt;margin-left: {{linea.2}}px;"><img name="{{linea.0}}" width="15px" height="15px" class="mr-1" src="{% static 'core/img/modelo.png' %}" alt="" title="{{linea.0}}|{{linea.4}}|{{linea.5}}|{{linea.6}}|{{linea.7}}|{{linea.8}}|{{linea.9}}|{{linea.10}}|{{linea.3}}">{{linea.0}}
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>          
+        </div>
+				<div class="row mt-4 p-0">
+					<div class="col-2  p-0"  >
+            <img class="align-self-start" id="va_izquierda" onclick="hacia_izquierda()" src="{% static 'core/img/hacia_izquierda.png' %}" width="25px" height="15px;" alt="">
+          </div>
+          <div class="col-2  p-0"  >
+            <img class="align-self-start" id="va_derecha" onclick="va_derecha()" src="{% static 'core/img/hacia_derecha.png' %}" width="25px" height="15px;" alt="">
+          </div>
+          <div class="col-2"></div>
+          <div class="col-2  p-0" >
+            <img id="margen" onclick="reduce_margen()" src="{% static 'core/img/mueve_izquierda.png' %}" width="25px" height="15px;" alt="">
+          </div>
+          <div class="col-2  p-0" >
+            <img class="align-self-end" id="margen" onclick="aumenta_margen()" src="{% static 'core/img/mueve_derecha.png' %}" width="25px" height="15px;" alt="">
+          </div>
+        </div>
+				<div class="row mt-4">
+					<div class="col-12">
+              <!-- <a id="enviar" href=""> -->
+							  <img onclick="enviar()" src="{% static 'core/img/enviar.png' %}" width="40px" height="40px;" alt="">
+              <!-- </a> -->
+					</div>
+				</div>
+        <div class="row" style="visibility: hidden;">
+          <div id="json" title="{{font}}" class="col-12">{{json}}</div>
+        </div>
+			</div>
+  <!-- Superficie donde se coloca el formato del reporte -->
+
+      <!-- La zona tien un id: zona_(id del modelo) -->
+      <div id="canvas" class="col-8 canvas ui-widget-content border" style="height: 1000px;">
+        {% for linea in lista %}
+          {% if linea.1 == 'mp' or linea.1 == 'mh' %}
+          <div class="row ml-4 mt-4" style="font-size: 8pt; font-weight: bold;">
+            {{linea.0}}
+          </div>
+          <div id="zona_{{linea.3}}" name="{{linea.0}}" class="row ml-4 mr-4 zona border border-dark" style="position:absolute; left: 0px; height: 25px; width: 563px;"></div>
+          {% endif %}
+        {% endfor %}
+
+      </div>
+			<div class="col-2">
+				<div class="row">
+					<div id="basurero"  class="col-12">
+						<img src="{% static 'core/img/basurero.png' %}" width="40px" height="40px;" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+    <div class="row">
+      <div class="col-12 mt-3">
+        {% for linea in lista %}
+          {% if linea.1 == 'mp' or linea.1 == 'mh' %}
+          <!-- Modelos -->
+            <span class="modelo" name="{{linea.0}}" style="visibility: hidden;">
+              <span class="modelo_valor">{{linea.4}}</span>
+            </span>
+          {% endif %}
+          {% if linea.1 == 'np' %}
+          <!-- Propiedades -->
+          <span class="propiedad" name="{{linea.0}}" style="visibility: hidden;">
+            <span id="zona">{{linea.4}}</span>
+            <span id="tipo">{{linea.5}}</span>
+            <span id="textobotones">{{linea.6}}</span>
+            <span id="largostring">{{linea.7}}</span>
+            <span id="totaliza">{{linea.8}}</span>
+            <span id="anchoenreporte">{{linea.9}}</span>
+          </span>
+          {% endif %}
+        {% endfor %}
+      </div>          
+    </div>
+	</div>
+	
+	<script>
+		$(function(){
+			$('[data-toggle="tooltip"]').tooltip();
+		})
+	</script>
+
+
+
+{% else %}
+    {% include 'core/includes/pagina_error.html'%}
+{% endif %}	
+{% endblock %}  

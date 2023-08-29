@@ -1,0 +1,1209 @@
+{% load static %}
+<script src="{% static 'core/js/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'core/js/popper.min.js' %}"></script>
+  <script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'core/js/js_propios.js' %}"></script>
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    // La lista de los elementos sobre el canvas
+    var diagram = [];
+    // Recupera el canvas
+    var canvas = $( "#droppable" );
+    // Recupera el basurero
+    var basurero = $( "#basurero" );
+    // Recupera el no padre
+    var nop = $( "#nop" );
+    // Recupera el enviar
+    var enviar = $( "#enviar" );
+    // Recupera el proyecto
+    var proyecto = $( "#proyecto" );
+    // Recupera la aplicacion
+    var aplicacion = $( "#aplicacion" );
+    // Recupera la propiedad
+    var modelo = $( "#modelo" );
+    // Recupera la propiedad
+    var propiedad = $( "#propiedad" );
+    // Recupera las propiedades
+    var string = $( "#string" );
+    var boolean = $( "#boolean" );
+    var decimal = $( "#decimal" );
+    var richtextbox = $( "#richtextbox" );
+    var entero = $( "#entero" );
+    var fecha = $( "#fecha" );
+    var hora = $( "#hora" );
+    var horafecha = $( "#horafecha" );
+    var imagen = $( "#imagen" );
+    var radiobutton = $( "#radiobutton" );
+    var textfield = $( "#textfield" );
+    var claseforanea = $( "#claseforanea" );
+    // Elemento que recibe el mousedown
+    var ele_down = null;
+    // Es el elemento que tiene los objetos a dropear
+    var fuentes = $(".fuentes");
+    var exterior = false;
+    var termina_efecto_draggable = false;
+    var proyecto_nuevo = '1';
+    // var id_proyecto = '0';
+    crearJSON();
+    // Establece que los tags con id=draggable seran dragables
+    // Y traslada no al elemento sino a su clon
+    $( "#draggable_modelo" ).draggable({
+      helper:"clone"
+    });
+    $( "#draggable_proyecto" ).draggable({
+      helper:"clone"
+    });
+    $( "#draggable_aplicacion" ).draggable({
+      helper:"clone"
+    });
+    $( "#draggable_modelo" ).draggable({
+      helper:"clone"
+    });
+    paso=0;
+    try {
+          var parametrosUrl = new URLSearchParams(window.location.search);
+          var json = parametrosUrl.get('json');
+          var id = parametrosUrl.get('id');
+          var id_proyecto = parametrosUrl.get('id_proyecto');
+          // alert('lee desde');
+          // alert(json);
+          // alert(JSON.parse(json).propiedades[0].back_color);
+
+          // reconstruye el diagram
+          var lista = JSON.parse(json).propiedades;
+          html = $('div[id="draggable_modelo');
+          for (var i in lista){
+            var elemento ={};
+            elemento._id = lista[i].id;
+            elemento.type = lista[i].type;
+            elemento.id_base = id;
+            paso=2;
+            try{
+              elemento.alto = lista[i].alto;
+              elemento.ancho = lista[i].ancho;
+            }
+            catch(err){
+              elemento.alto = 50;
+              elemento.ancho = 50;
+            };
+            paso=3;
+            elemento.position = html.position();
+            elemento.position.left = lista[i].left;
+            elemento.position.top = lista[i].top;
+            elemento.nombre_objeto = lista[i].nombre_objeto;
+            elemento.nombre = lista[i].nombre;
+            elemento.id_padre = lista[i].id_padre;
+            elemento.borrar = 0;
+            elemento.back_color = lista[i].back_color;
+            elemento.color_letra = lista[i].color_letra;
+            elemento.id_base = parseInt(id);
+            paso=4;
+            elemento.lista = {};
+            elemento.lista.tipo = lista[i].tipo;;
+            elemento.lista.largo_string = lista[i].largo_string;
+            elemento.lista.texto_botones = lista[i].texto_botones;
+            elemento.lista.clase_foranea = lista[i].clase_foranea;
+            paso=5;
+            diagram.push(elemento);
+            proyecto_nuevo = '0';
+            // alert(diagram[0].position);
+            // alert(lista[i]);
+            paso=6;
+          };
+
+          // alert(diagram.length);
+          paso=7;
+          renderDiagram(diagram);
+          paso=8;
+    }
+    catch(err) {
+      // alert(paso);
+      var i = 1;
+    };
+   
+
+    
+    // Define al canvas como elemento apto para recibir draggables
+    canvas.droppable({
+      // Lo que sucede cuando el draggable se suelta en el canvas
+      drop: function( event, ui ) {
+          // Crear un node que representa a cada elemento que se deposita en el canvas
+          // Este node tiene propiedades que identifica a cada elemento
+          // El _id es un numero entero y unico por elemento que representa la fecha y hora actual
+          // La posicion es la posicion del clone del elemento cuando cae sobre el canvas
+          var node = {_id:(new Date()).getTime(),
+                      position: ui.helper.position(),
+                      id_padre: "",
+                      borrar:0,
+                      back_color: "yellow",
+                      nombre:"objeto",
+                      nombre_objeto:"modelo",
+                      color_letra:"black",
+                      id_base:0,
+                      alto:50,
+                      ancho:50,
+                      lista: {tipo:'', largo_string:30, texto_botones:'', clase_foranea:''}};
+          // Acomodo el elemento para compemsar el ancho de fuentes
+          node.position.left -= fuentes.width();
+          // solo se transportan elementos que tengan en el atributo class 'modelo'
+          if (ui.helper.hasClass('modelo')){
+              // Se define un tipo para el node que sea 'Modelo'
+              node.type ='Modelo';
+          }else{
+            // Si no es un elemento 'modelo' se evita crear nada
+            return;
+          };
+          // Se inserta en la lista el node valido
+          diagram.push(node);
+          // Se redibuja toda la coleccion
+          renderDiagram(diagram);
+       }
+    });
+
+    // Funcion que redibuja la coleccion
+    function renderDiagram(diagram){
+      // Se vacia el canvas
+      // alert('render');
+      canvas.empty();
+      // Se recorre la lista de elementos node
+      for(var d in diagram){
+        var node = diagram[d];
+        console.log(node.alto);
+        console.log(node.ancho);
+        // alert(node.alto);
+        html = '';
+        // Si el elemento node tiene el tipo 'Modelo'
+        // alert('tipo ' + node.type);
+        if (node.type == "Modelo"){
+          // alert('reconstruye');
+          str_id = node._id.toString().substr(9,13);
+          str_padre = node.id_padre.toString().substr(9,13);
+          // se lee el nombre del modelo
+          // Se formas el Html que queremos represente a ese elemento draggable
+          html = '<div id =' + '"' + node._id + '"' + ' title =' + '"' + node.id_padre + '"' + ' class="draggeado" style="display: flex; justify-content: start;align-items: start; padding-top:2px; height:' + node.alto.toString() + 'px; width: ' + node.ancho.toString() + 'px; border: 1pt solid black;">'
+          // html += '<a href="" style="height: 20px; width: 50px; font-size: 8pt; ">' + str_id + ' ' + str_padre + '</a>'
+          html += '<span class="' + node.nombre_objeto + '"' + ' style="height: 20px; width: ' + node.ancho.toString() + 'px; font-size: 8pt; text-align: left; padding-left:2px; padding-top:1px; color:' + node.color_letra + '">' + node.nombre + '<br>' + node.lista.tipo + '</span>'
+          html += '</div>'
+          // alert(node.lista.tipo);
+        }
+        // Se definen propiedades CSS para el elemento HTML
+        // alert(node.nombre_objeto + ' ' + node.back_color);
+        var dom = $(html).css({
+          "position": "absolute",
+          "top": node.position.top,
+          "left": node.position.left,
+          "z-index": 2,
+          "background-color": node.back_color,
+          "color": node.color_letra
+          }).draggable({
+            stop: function(event,ui){
+              // Se recupera el id del elemento que se mueve
+              // alert('3' + exterior + ' ' + node.nombre_objeto + ' ' + node.back_color);
+              var id = ui.helper.attr("id");
+              // Encuentra el indice del diagram
+              var index_diagram = 0;
+              for (var i in diagram){
+                  if (diagram[i]._id == id){
+                    index_diagram = i;
+                    break;
+                  }
+              };              
+              // Cambio del nombre del objeto
+              var input_modelo=$('#nombre_modelo');
+              var nombre_modelo = input_modelo.val();
+              if (nombre_modelo != ''){
+                diagram[index_diagram].nombre = nombre_modelo;
+                nombre_modelo += ' ' + diagram[index_diagram].lista.tipo;
+                $('div.draggeado[id=' + ui.helper.attr("id") + '] > span').html(nombre_modelo);
+                input_modelo.val('');
+              };
+              // Alto y ancho
+              input=$('#alto_ancho').val();
+              if (input != ''){
+                try{
+                  alto = (input.split(",")[0]);
+                  ancho = (input.split(",")[1]);
+                  // alert(ancho);
+                }catch{
+                  alto = 50;
+                  ancho = 50;
+                };
+                diagram[index_diagram].alto = alto;
+                diagram[index_diagram].ancho = ancho;
+                $('div.draggeado[id=' + ui.helper.attr("id") + ']').css("width", ancho);
+                $('div.draggeado[id=' + ui.helper.attr("id") + ']').css("height", alto);
+              };
+              // Color de fondo
+              input=$('#color_fondo').val();
+              if (input != ''){
+                try{
+                  diagram[index_diagram].back_color = input;
+                  $('div.draggeado[id=' + ui.helper.attr("id") + ']').css("background-color", input);    
+                }catch(err){
+                };
+              };
+              // Texto botones, largo string, foranea
+              span = $('div[id="' + id + '"] > span');
+              if (span.attr('class') == "propiedad"){
+                var input=$('#longitud_string').val();
+                if (input != ''){
+                  try{
+                    diagram[index_diagram].lista.largo_string = parseInt(input);
+                  }catch{
+                    diagram[index_diagram].lista.largo_string = 30;
+                  };
+                };
+                input=$('#texto_botones').val();
+                if (input != ''){
+                  diagram[index_diagram].lista.texto_botones = input;
+                }else{
+                  if (diagram[index_diagram].tipo != 'radiobutton'){
+                    diagram[index_diagram].lista.texto_botones = '';
+                  };
+                };
+                input=$('#clase_foranea').val();
+                if (input != ''){
+                  diagram[index_diagram].lista.clase_foranea = input;
+                };
+                
+              };
+
+              if (exterior == false){
+                for (var i in diagram){
+                  // Si el id del elemento que se mueve coincide con el id del draggable
+                  // se estabelece la nueva posicion del elemento draggable original
+                  if (diagram[i]._id == id){
+                    diagram[i].position.left = ui.position.left;
+                    diagram[i].position.top = ui.position.top;
+                    // if (nombre_modelo != ''){
+                    //   diagram[i].nombre = nombre_modelo;
+                    // };
+                    break;
+                  }
+                };
+              }else{
+                exterior = false;
+              };
+              une();
+            }
+          }).attr("id",node._id);
+          dom.droppable({
+            drop: function(event,ui){
+              //  Casos en los que no permite draggear sober el droppable
+              // 1. No se puede draggrear un padre hacia un hijo
+              // 2. No se puede draggear un hijo que ya tenga padre hacia otro padre
+              for (var i in diagram){
+                // Si el elemento de diagram es igual al que se mueve y quiere ser hijo
+                if (diagram[i]._id == ui.helper.attr("id")){
+                  // En este caso this es el droppable
+                  // El atributo id_padre del diagrama se hace igual al elemento droppable
+                  // El atributo title del html que se mueve se hace igual al elemento droppable
+                  if ($(this).attr("title") != ui.helper.attr("id")){
+                    // solo pueden unirde aplicacion con proyecto, modelo con aplicacion y propiedad con modelo
+                    div_droppeado = $('div[id="' + $(this).attr("id") + '"]');
+                    div_droppeable = $('div[id="' + ui.helper.attr("id") + '"]');
+                    span_droppeado = $('div[id="' + $(this).attr("id") + '"] > span');
+                    span_droppeable = $('div[id="' + ui.helper.attr("id") + '"] > span');
+                    // alert(span_droppeable.attr('class'));
+                    // alert(span_droppeado.attr('class'));
+                    if (span_droppeable.attr("class") == 'proyecto'){
+                      return;
+                    };
+                    if (span_droppeable.attr("class") == 'aplicacion' && (span_droppeado.attr("class") != "proyecto" )){
+                      return;
+                    };
+                    if (span_droppeable.attr("class") == 'modelo' && (span_droppeado.attr("class") != "aplicacion" && span_droppeado.attr("class") != 'modelo')){
+                      return;
+                    };
+                    if (span_droppeable.attr("class") == 'propiedad' && span_droppeado.attr("class") != "modelo"){
+                      return;
+                    };
+                    diagram[i].id_padre = $(this).attr("id");
+                    var color = 'red';
+                    var color_letra = "black";
+                    var nombre_padre = "modelo";
+                    if (diagram[i].nombre_objeto == "aplicacion"){
+                      nombre_padre = "proyecto";
+                      color = "gray";
+                    };
+                    if (diagram[i].nombre_objeto == 'modelo' && diagram[i].id_padre == ''){
+                      nombre_padre = "modelo";
+                      color = "yellow";
+                    };
+                    if (diagram[i].nombre_objeto == "propiedad" ){
+                      nombre_padre = "modelo";
+                      color = "blue";
+                      color_letra = "white"
+                    };
+                    if (diagram[i].nombre_objeto == "modelo" && span_droppeado.attr('class') == "aplicacion"){
+                      nombre_padre = "aplicacion";
+                      color = "yellow";
+                    };
+                    diagram[i].back_color = color;
+                    diagram[i].color_letra = color_letra;
+                    diagram[i].nombre_padre = nombre_padre;
+                    ui.helper.css("background-color",color);
+                    ui.helper.css("color",color_letra);
+                    ui.helper.attr("title",$(this).attr("id"));
+                    domA = $('div.draggeado[id=' + ui.helper.attr("id") + '] > span');
+                    str_id = diagram[i]._id.toString().substr(9,13);
+                    str_padre = diagram[i].id_padre.toString().substr(9,13);
+                    // domA.html(str_id + ' ' + str_padre);
+                  }
+                };
+                // alert(diagram[i].id_padre);
+              }
+            }
+          });
+        // Se inserta en el canvas el HTML del elemento dom
+        // Mantiene el color
+        // alert('2' + exterior + ' ' + node.nombre_objeto + ' ' + node.back_color);
+        canvas.append(dom);
+        div = "<div id='" + node._id + "1" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "2" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "3" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "4" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        div = "<div id='" + node._id + "5" + "' style='position:absolute;visibility:hidden;border:1pt solid black;'></div>";
+        canvas.append(div);
+        une();
+      };
+      actualizar();
+    };
+
+    function leer(){
+      // alert('leo');
+      var nuevos = $("div.draggeado");
+      // alert(nuevos);
+    };
+
+
+function createJSON() {
+  var jsonTexto = '{"color":"blanco","km":100000,"esNuevo":false,"rueda":{"marca":"desconocida","estado":"malo"}}';
+  var coche = JSON.parse(jsonTexto);
+  alert(coche.color);
+};
+
+function crearJSON() {
+    var properties = new Object();
+    properties.version = "10";
+    properties.finish = "0";
+    properties.number = 3;
+     
+    var arrayProperties = new Array();
+    arrayProperties.push(properties);
+     
+     
+     
+    var miObjeto = new Object();
+    miObjeto.nombre = "Pedro";
+    miObjeto.edad = 12;
+    miObjeto.mascota = "Gato";
+    miObjeto.properties = arrayProperties;
+     
+    var myString = JSON.stringify(miObjeto);
+    // alert(myString);
+    var js = JSON.parse(myString);
+    js.properties.forEach(elemento=>{
+      // alert(elemento.version);
+    });
+    // alert(myString);
+    // alert(JSON.parse(myString)["nombre"]);
+    // alert(JSON.parse(myString)["properties"][0].version);
+
+};
+
+function objeto_over(){
+  console.log('entro');
+};
+
+function actualizar(){
+// $(document).ready(function(){
+  var width_previo=0;
+  var height_previo=0;
+  var html_previo;
+  var div;
+  $('div.draggeado').mouseenter(function(){
+    div = $('div.draggeado[id=' + this.id + ']');
+    for (var i in diagram){
+      if (diagram[i]._id == this.id){
+        var alto = 0;
+        var ancho = 0;
+        // Lee el texto de alto,ancho
+        input=$('#alto_ancho').val();
+        if (input != ''){
+          try{
+            alto = (input.split(",")[0]);
+            ancho = (input.split(",")[1]);
+          }catch{
+            alto = div.css("height");
+            ancho = div.css("width");
+          };
+        }else{
+          alto = div.css("height");
+          ancho = div.css("width");
+        };
+        div.css("width", ancho);
+        div.css("height", alto);
+        diagram[i].alto = parseInt(alto);
+        diagram[i].ancho = parseInt(ancho);
+        height_previo = diagram[i].alto;
+        width_previo = diagram[i].ancho;
+        console.log('cambios');
+        // lee el input de nombre
+        // Cambio del nombre del objeto
+        var input_modelo=$('#nombre_modelo');
+        var nombre_modelo = input_modelo.val();
+        if (nombre_modelo != ''){
+          diagram[i].nombre = nombre_modelo;
+          nombre_modelo += ' ' + diagram[i].lista.tipo;
+          div.children().html(nombre_modelo);
+          input_modelo.val('');
+        };
+        html_previo = div.children().html();
+        // Color de fondo
+        var input=$('#color_fondo');
+        if (input.val() != ''){
+          try{
+            diagram[i].back_color = input.val();
+            div.css("background-color", input);    
+          }catch(err){
+          };
+          input.val('');
+        };
+        // Texto botones, largo string, foranea
+        if (div.children().attr('class') == "propiedad"){
+          var input=$('#longitud_string');
+          if (input.val() != ''){
+            try{
+              diagram[i].lista.largo_string = parseInt(input.val());
+            }catch{
+              diagram[i].lista.largo_string = 30;
+            };
+          };
+          input.val('');
+          input=$('#texto_botones');
+          if (input.val() != ''){
+            diagram[i].lista.texto_botones = input.val();
+          }else{
+            if (diagram[i].tipo != 'radiobutton'){
+              diagram[i].lista.texto_botones = '';
+            };
+          };
+          input.val('');
+          input=$('#clase_foranea');
+          if (input.val() != ''){
+            diagram[i].lista.clase_foranea = input.val();
+          };
+          input.val('');
+          
+        };
+
+        break;
+      };
+    };
+  });
+  $('div.draggeado').dblclick(function(){
+    div = $('div.draggeado[id=' + this.id + ']');
+    html_previo = div.children().html();
+    for (var i in diagram){
+      var html = '';
+      if (diagram[i]._id == this.id){
+        if (diagram[i].nombre_objeto == 'propiedad'){
+          div.css("height", 100);
+          div.children().css('width',200);
+          div.css("width", 200);
+          html_origen = '<b style="color:yellow">Nombre:&nbsp;</b>' + html_previo.split('<br>')[0] + '<br>' + '<b style="color:yellow">Tipo:&nbsp;</b>' + html_previo.split('<br>')[1]
+          html = '<br><b style="color:yellow">Largo string:</b>&nbsp;' + diagram[i].lista.largo_string + '<br><b style="color:yellow">Texto botones:&nbsp;</b>' + diagram[i].lista.texto_botones + '<br><b style="color:yellow">Foranea:&nbsp;</b>' + diagram[i].lista.clase_foranea
+          div.children().html(html_origen + html);
+        };
+        break;
+      };
+    };
+
+  });
+  $('div.draggeado').mouseout(function(event,ui){
+    for (var i in diagram){
+      if (diagram[i]._id == this.id){
+        $('div.draggeado[id=' + this.id + ']').css("height", height_previo);
+        $('div.draggeado[id=' + this.id + ']').css("width", width_previo);
+        div = $('div.draggeado[id=' + this.id + ']');
+        div.children().html(html_previo);
+        break;
+      };
+    };
+    // $('div.draggeado').css("background-color", "lightgray");
+  });
+  // $('div.draggeado').mousedown(function(event,ui){
+  //   for (var i in diagram){
+  //     if (diagram[i]._id == this.id){
+          // switch(event.which) {
+          //     case 1:
+          //       break;
+          //     case 3:
+          //       break;
+          //     case 2:
+          //       $('div.draggeado[id=' + this.id + ']').css("height", 100);
+          //       break;
+          //     default:
+          //       $('#divId').html('You have a strange Mouse!');
+          //   };
+        // $('div.draggeado[id=' + this.id + ']').css("height", previo);
+  //       break;
+  //     };
+  //   };
+  //   // $('div.draggeado').css("background-color", "lightgray");
+  // });  
+}
+// (function(){
+//   hijos = $('div[class="draggeado"]');
+//   alert(hijos.length);
+//   // for (var i in hijos){
+//   //   alert('hiojo ',hijos[i]);
+//   // }
+// })
+
+(function(){
+  var envio = $('#enviar');
+      envio.on('click',function(){
+
+        // construye desde diagram
+        var arreglo = new Array();
+        // var nuevo = '0';
+        for (var i in diagram){
+          var obj = new Object;
+          obj.id = diagram[i]._id;
+          obj.type = diagram[i].type;
+          obj.id_base = diagram[i].id_base;
+          obj.left = diagram[i].position.left;
+          obj.top = diagram[i].position.top;
+          obj.alto = diagram[i].alto;
+          obj.ancho = diagram[i].ancho;
+          obj.id_padre = diagram[i].id_padre;
+          obj.clase_foranea = diagram[i].lista.clase_foranea;
+          obj.back_color = diagram[i].back_color;
+          obj.nombre = diagram[i].nombre;
+          obj.nombre_objeto = diagram[i].nombre_objeto;
+          obj.color_letra = diagram[i].color_letra;
+          obj.tipo = diagram[i].lista.tipo;
+          obj.largo_string = diagram[i].lista.largo_string;
+          obj.texto_botones = diagram[i].lista.texto_botones;
+          arreglo.push(obj);
+        };
+        json_envio = new Object();
+        json_envio.propiedades = arreglo;
+          // alert('envia hasta ' + diagram.length.toString());
+
+// alert(JSON.stringify(json_envio));
+// alert(JSON.parse(JSON.stringify(json_envio.propiedades[0].id)));
+console.log(diagram);
+        if (diagram.length > 0){
+          envio.attr('href','http://127.0.0.1:8000/proyectos/lista_json/?criterio=&json=' + JSON.stringify(json_envio) + '&nuevo=' + proyecto_nuevo + '&id=' + id + '&id_proyecto=' + id_proyecto);
+        }else{
+          envio.attr('href','http://127.0.0.1:8000/proyectos/lista_json/?criterio=&json=' + JSON.stringify(json_envio) + '&nuevo=2');
+
+        }
+      })
+}());
+
+    proyecto.droppable({
+      drop:function(event,ui){
+        // alert('proyecto');
+        exterior = true;
+        for (var i in diagram){
+          if (diagram[i].nombre_objeto == "proyecto"){
+            renderDiagram(diagram);
+            return;
+          }
+        };
+        if (ui.helper.attr('title') != ""){
+          renderDiagram(diagram);
+          return;
+        };
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        if (hijos.length > 0){
+          renderDiagram(diagram);
+          return;
+        };
+
+        ui.helper.attr("title",'');
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].id_padre = "";
+            diagram[i].back_color = "beige";
+            diagram[i].nombre_objeto = "proyecto";
+            diagram[i].color_letra = "blue";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    aplicacion.droppable({
+      drop:function(event,ui){
+        exterior = true;
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        // if (hijos.length > 0){
+        //   renderDiagram(diagram);
+        //   return;
+        // };
+        // if (ui.helper.attr('title') != ""){
+        //   renderDiagram(diagram);
+        //   return;
+        // };
+
+        ui.helper.attr("title",'');
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            div = $('div[id="' + ui.helper.attr("id") + '"]');
+            span = $('div[id="' + ui.helper.attr("id") + '"] > span');
+              // alert((span.attr("class")));
+            if (span.attr("class") != "aplicacion"){
+              // alert('title ' + ui.helper.attr('title'));
+              if (ui.helper.attr('title') != ""){
+
+                renderDiagram(diagram);
+                return;
+              };
+              if (hijos.length > 0){
+                renderDiagram(diagram);
+                return;
+              };
+              diagram[i].id_padre = "";
+            };
+            diagram[i].back_color = "gray";
+            diagram[i].nombre_objeto = "aplicacion";
+            diagram[i].color_letra = "white";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    modelo.droppable({
+      drop:function(event,ui){
+        exterior = true;
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        if (hijos.length > 0){
+          renderDiagram(diagram);
+          return;
+        };
+        if (ui.helper.attr("title") != ""){
+          renderDiagram(diagram);
+          return;
+        };
+
+        ui.helper.attr("title","");
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].id_padre = "";
+            diagram[i].back_color = "yellow";
+            diagram[i].nombre_objeto = "modelo";
+            diagram[i].color_letra = "black";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    propiedad.droppable({
+      drop:function(event,ui){
+        exterior = true;
+        hijos = $('div[title="' + ui.helper.attr("id") + '"]');
+        if (hijos.length > 0){
+          renderDiagram(diagram);
+          return;
+        };
+        if (ui.helper.attr("title") != ""){
+          renderDiagram(diagram);
+          return;
+        };
+
+        ui.helper.attr("title","");
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].id_padre = "";
+            diagram[i].back_color = "blue";
+            diagram[i].nombre_objeto = "propiedad";
+            diagram[i].color_letra = "white";
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    string.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'string');
+      }
+    });
+
+    boolean.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'boolean');
+      }
+    });
+
+    decimal.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'decimal');
+      }
+    });
+
+    hora.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'hora');
+      }
+    });
+
+    fecha.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'fecha');
+      }
+    });
+
+    horafecha.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'horafecha');
+      }
+    });
+
+    richtextbox.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'richtextbox');
+      }
+    });
+
+    entero.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'entero');
+      }
+    });
+
+    imagen.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'imagen');
+      }
+    });
+
+    radiobutton.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'radiobutton');
+      }
+    });
+
+    textfield.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'textfield');
+      }
+    });
+
+    claseforanea.droppable({
+      drop:function(event,ui){
+        asignaPropiedad(ui, 'foranea');
+      }
+    });
+
+
+    function asignaPropiedad(ui,tipo){
+      // alert('entro');
+        exterior = true;
+        span = $('div[id="' + ui.helper.attr("id") + '"] > span');
+        if (span.attr('class') != "propiedad"){
+          renderDiagram(diagram);
+          return;
+        };
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            diagram[i].lista.tipo = tipo;
+            break;
+          };
+        };
+        renderDiagram(diagram);
+    };
+
+    nop.droppable({
+      drop:function(event,ui){
+        exterior=true;
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            if (diagram[i].nombre_objeto == "proyecto"){
+              break;
+            };
+            diagram[i].id_padre = "";
+            ui.helper.attr("title",'');
+            if (diagram[i].nombre_objeto == "modelo"){
+              diagram[i].back_color = "yellow";
+            };
+            break;
+          };
+        };
+        renderDiagram(diagram);
+      }
+    });
+
+    basurero.droppable({
+      drop: function(event,ui){
+        for (var i in diagram){
+          if (diagram[i]._id == ui.helper.attr("id")){
+            Borrar(diagram,diagram[i],1);
+            break;
+          };
+        };
+        temp = [];
+        for (var i in diagram){
+          if (diagram[i].borrar == 0){
+              temp.push(diagram[i]);
+          };
+        };
+        // Actualizar el diagram
+        diagram = temp;
+        renderDiagram(diagram);
+      }
+    });
+
+  } );
+
+  function redibujaDiagram(diagram){
+    for (var i in diagram){
+      if (diagram.id_padre== ''){
+        // es modelo raiz ver cuantos hijos tiene
+        hijos = diagram.length;
+        if (hijos > 0){
+          // tiene un solo hijo
+          if (hijos==1){
+            for (var j in diagram){
+              if (diagram[j].id_padre == diagram[i]._id){
+                diagram[j].position.top = diagram[i].position.top + 100;
+              }
+            }
+          };
+        }
+      }
+    };
+    renderDiagram(diagram);
+  };
+
+  function Borrar(diagram, elemento,pasada){
+      for (var i in diagram){
+        if (diagram[i]._id == elemento._id){
+          elemento.borrar = 1
+        };
+        if (diagram[i].id_padre == elemento._id){
+          Borrar(diagram,diagram[i],pasada+1);
+        };
+      };
+      return diagram;
+  };
+
+  // function une(ui){
+  //   // buscar hijos
+  //   hijos = $('div[title=' + "'" + ui.helper.attr("id") + "'" + ']');
+  //   if (ui.helper.attr("title") != ''){
+  //     // es un hijo
+  //     // cambiar top y left de sus div para unirlo con su padre
+  //     // antes volver ui en html
+  //     div = $('div[id=' + "'" + ui.helper.attr("id") + "'" + ']');
+  //     unir(div);
+  //   };
+  //   // procesar hijos
+  //   for (let i = 0; i < hijos.length; i++) {
+  //     unir(hijos.slice(i));
+  //   }
+  // };
+
+  function une(){
+    elementos = $('div.draggeado');
+    // alert(elementos.length);
+    for (let i = 0; i < elementos.length; i++) {
+              // alert(elementos.slice(i).attr("title"));
+      if (elementos.slice(i).attr("title") != ""){
+
+        unir(elementos.slice(i));
+      }
+    }
+  };
+
+function unir(ui_hijo){
+  // alert(ui_hijo);
+    // encontrar al padre
+    ui_padre = $('div[id=' + "'" + ui_hijo.attr("title") + "'" + ']');
+    // encontrar las div de union del hijo
+    // divs = $('div[id^=' + "'" + ui_hijo.attr("id") + "'" + ']');
+    // Inivisibilizar las div
+    divs = $('div[id^=' + "'" + ui_hijo.attr("id") + "'" + ']');
+    for (let i = 0; i < divs.length; i++){
+      if (divs.slice(i).attr("id") != ui_hijo.attr("id")){
+        divs.slice(i).css('visibility','hidden');
+      };
+    };
+    // encontrar los top y left de ambos
+    Xp = parseInt(ui_padre.css("left"));
+    Yp = parseInt(ui_padre.css("top"));
+    Xh = parseInt(ui_hijo.css("left"));
+    Yh = parseInt(ui_hijo.css("top"));
+    w = parseInt(ui_hijo.css("width"));
+    h = parseInt(ui_hijo.css("height"));
+    wp = parseInt(ui_padre.css("width"));
+    hp = parseInt(ui_padre.css("height"));
+    wh = parseInt(ui_hijo.css("width"));
+    hh = parseInt(ui_hijo.css("height"));
+    desdeX = Xp + wp/2;
+    desdeY = Yp + hp;
+    hastaX = Xh + wh/2;
+    hastaY = Yh;
+    separacion = 15;
+    // Ver donde se encuentra el hijo
+    // 1) Debajo del padre a la derecha
+    if ((Xp + wp)< Xh && (Yp + hp) < Yh ){
+      // alert('1');
+      delta = Math.abs(Yh - (Yp + hp));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX;
+      by = hastaY - delta/2;
+      var valores = [by,bx,(hastaY-by),1,ay,ax,1,(bx-ax),desdeY,ax,(ay-desdeY),1];
+      procesaDiv(ui_hijo, valores,3);
+
+      // div1 = $('div[id=' + "'" + ui_hijo.attr("id") + "1'" + ']');
+      // div1.css("top",by.toString() + 'px');
+      // div1.css("left",bx.toString() + 'px');
+      // div1.css("height",(hastaY - by).toString() + 'px');
+      // div1.css("visibility",'visible');
+      // div2 = $('div[id=' + "'" + ui_hijo.attr("id") + "2'" + ']');
+      // div2.css("top",by.toString() + 'px');
+      // div2.css("left",ax.toString() + 'px');
+      // div2.css("width",(bx - ax).toString() + 'px');
+      // div2.css("height",'1px');
+      // div2.css("visibility",'visible');
+      // div3 = $('div[id=' + "'" + ui_hijo.attr("id") + "3'" + ']');
+      // div3.css("top",desdeY.toString() + 'px');
+      // div3.css("left",ax.toString() + 'px');
+      // div3.css("height",(ay-desdeY).toString() + 'px');
+      // div3.css("width",'1px');
+      // div3.css("visibility",'visible');
+    };
+    // 2) Debajo del padre a la izquierda
+    if(Xp > (Xh + wh) && (Yp + hp) < Yh){
+      // alert('2');
+      delta = Math.abs(Yh - (Yp + hp));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX;
+      by = hastaY - delta/2;
+      var valores = [by,bx,(hastaY-by),1,by,bx,1,(ax-bx),desdeY,ax,(ay-desdeY),1];
+      procesaDiv(ui_hijo, valores,3);
+    };
+    // 3) Encima del padre a la derecha
+    if((Xp + wp) < Xh && Yp > (Yh + hh)){
+      // alert('3');
+      delta = Math.abs(Xh - (Xp + wp));
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xp + wp + delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by-cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 4) Encima del padre a la izquierda
+    if(Xp > (Xh + wh) && Yp > (Yh + hh)){
+      // alert('4');
+      delta = Math.abs(Xp - (Xh + wh));
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xp - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - w/3;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by-cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 5) Debajo del padre a la derecha y en su ambito Y
+    if((Xp + wp) < Xh && Yh > Yp && Yh < (Yp + hp)){
+      // alert('5');
+      delta = Math.abs(Xh - (Xp + wp));
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xh - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by-cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 6) Debajo del padre a la izquierda y en su ambito Y
+    if(Xp > (Xh + wh) && Yh > Yp && Yh < (Yp + hp)){
+      // alert('6');
+      delta = Math.abs(Xp - (Xh + wh));
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xp - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by-cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 7) Arriba del padre a la derecha y en su ambito Y
+    if(Xh > (Xp + wp) && Yp > Yh && Yp < (Yh + hh)){
+      // alert('7');
+      delta = Math.abs(Xh - (Xp + wp));
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xh - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by-cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 8) Arriba del padre a la izquierda y en su ambito Y
+    if(Xp > (Xh + wh) && Yh + hh > Yp && Yh + hh < Yp + hp){
+      // alert('8');
+      delta = Math.abs(Xp - (Xh + wh));
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xp - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by-cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 9) Debajo del padre a la derecha y en su ambito X
+    if((Xh > Xp && Xh < (Xp + wp)) && (Yp + hp) < Yh){
+      // alert('9');
+      delta = Math.abs(Yh-(Yp + hp));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX
+      by = ay;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),by,bx,(hastaY - by),1];
+      procesaDiv(ui_hijo, valores,3);
+    };
+    // 10) Debajo del padre a la izquierda y en su ambito X
+    if(Xh + wh < Xp + wp && Xh + wh > Xp && (Yp + hp) < Yh){
+      // alert('10');
+      delta = Math.abs(Yh-(Yp + hp));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX
+      by = ay;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),by,bx,(hastaY - by),1];
+      procesaDiv(ui_hijo, valores,3);
+    };
+    // 11) Arriba del padre a la derecha y en su ambito X
+    if(Yh + hh < Yp && Xh > Xp && Xh < Xp + wp){
+      // alert('11');
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xp - separacion;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by - cy),1,cy,cx,1,(dx-cx),dy,dx,(hastaY - dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 12) Arriba del padre a la izquierda y en su ambito X
+    if(Yh + hh < Yp && Xh + wh < Xp + wp && Xh + wh > Xp){
+      // alert('12');
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xp + w + separacion;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),cy,cx,(by - cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY - dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 13) Debajo del padre a la derecha entre el padre
+    if ((Xh > Xp) && Xh < (Xp + wp) && (Xh + wh/2) > (Xp + wp/2) && (Yp + hp) < Yh ){
+      // alert('1');
+      delta = Math.abs(Yh - (Yp + hp));
+      ax = desdeX;
+      ay = desdeY + delta/2;
+      bx = hastaX;
+      by = hastaY - delta/2;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,ay,ax,1,(bx-ax),by,bx,(hastaY - by),1];
+      procesaDiv(ui_hijo, valores,3);
+    };
+    // 14) Debajo del padre cubriendolo
+    if ((Xh < Xp) && (Xh + wh) > (Xp + wp) && (Yp + hp) < Yh ){
+      ax = desdeX;
+      ay = desdeY;
+      bx = ax;
+      by = Yh;
+      var valores = [ay,ax,(by-ay),1];
+      procesaDiv(ui_hijo, valores,1);
+    };
+
+    // 15) A la izquierda del padre cubriendolo
+    if(Xp > (Xh + wh) &&  Yh < Yp && (Yh + hh) > (Yp + hp)){
+      delta = Math.abs(Xp - (Xh + wh));
+      ax = desdeX;
+      ay = desdeY + separacion;
+      bx = Xp - delta/2;
+      by = ay;
+      cx = bx;
+      cy = hastaY - separacion;
+      dx = hastaX;
+      dy = cy;
+      var valores = [desdeY,desdeX,(ay-desdeY),1,by,bx,1,(ax-bx),cy,cx,(by-cy),1,dy,dx,1,(cx-dx),dy,dx,(hastaY-dy),1];
+      procesaDiv(ui_hijo, valores,5);
+    };
+    // 16) Encima del padre cubriendolo
+    if (Xh < Xp && Xh + wh > Xp + wp && (Yh + hh) < Yp ){
+      ax = desdeX;
+      ay = desdeY;
+      bx = ax;
+      by = Yh + hh;
+      var valores = [by,bx,(ay-by),1];
+      procesaDiv(ui_hijo, valores,1);
+    };
+
+  };
+
+function procesaDiv(ui, valores,numero){
+  j = 0;
+  for (let i = 0; i < numero; i++) {
+      div = $('div[id=' + "'" + ui.attr("id") + (i+1).toString() + "'" + ']');
+      div.css("top",valores[j].toString() + 'px');
+      div.css("left",valores[j+1].toString() + 'px');
+      div.css("height",valores[j+2].toString() + 'px');
+      div.css("width",valores[j+3].toString() + 'px');
+      div.css("visibility",'visible');
+      j+=4;
+  }
+};
+
+  </script>
+
+  

@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Insert at Cursor in CKEditor</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+<div id="items_en_uso">
+    <input id="insert" type="button" value="Insert at Cursor"/>
+  <span style="background:#c9c9c9;padding:3px;" class="item" id="item">Hola</span><br><br>
+  <span style="background:#c9c9c9;padding:3px;" id="item_2">adios</span><br><br>
+  <span style="background:#c9c9c9;padding:3px;" id="item_3">buenas</span><br><br>
+  <span style="background:#c9c9c9;padding:3px;" id="item_4">malas</span><br><br>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <script>
+            $("[id^='item']").click(function() {
+                alert("Has pulsado el elemento: " + $(this).attr('id'));
+});
+        </script>
+    </body>
+</html>

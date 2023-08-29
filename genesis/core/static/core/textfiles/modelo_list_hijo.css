@@ -1,0 +1,85 @@
+main .lista_@modelohijo{
+	margin-top: @margintoppx;
+/*#@[p_list_hijo_01]*/
+}
+
+main .lista_@modelohijo .fila_titulo_lista-@modelohijo{
+	background-color: @colorfondotitulolista@modelohijo;
+	height: @altotitulolista@modelohijo;
+/*#@[p_list_hijo_02]*/
+}
+
+main .lista_@modelohijo .fila_titulo_lista_@modelohijo .titulo_lista-@modelohijo{
+	font-family: @titulolista@modelohijofontfamily;
+	font-size: @titulolista@modelohijofontsizept;
+	font-weight: @titulolista@modelohijofontweight;
+	color:@colortitulolista@modelohijo;
+/*#@[p_list_hijo_03]*/
+}
+
+main .lista_@modelohijo .fila_comentario_lista_@modelohijo{
+	background-color: @colorfondocomentariolista@modelohijo;
+/*#@[p_list_hijo_04]*/
+}
+
+main .lista_@modelohijo .fila_comentario_lista_@modelohijo .comentario_lista_@modelohijo{
+	font-family: @comentariolista@modelohijofontfamily;
+	font-size: @comentariolista@modelohijofontsizept;
+	font-weight: @comentariolista@modelohijofontweight;
+	color:@colorcomentariolista@modelohijo;
+/*#@[p_list_hijo_05]*/
+}
+
+main .lista_@modelohijo .fila_columnas_@modelohijo{
+	font-family: @columnaslista@modelohijofontfamily;
+	font-size: @columnaslista@modelohijofontsizept;
+	font-weight: @columnaslista@modelohijofontweight;
+	color:@colorcolumnaslista@modelohijo;
+	background-color:@colorfondocolumnaslista@modelohijo;
+	height: @altocolumnaslista@modelohijopx;
+/*#@[p_list_hijo_06]*/
+}
+
+main .lista_@modelohijo .fila_datos_@modelohijo{
+	font-family: @textolista@modelohijofontfamily;
+	font-size: @textolista@modelohijofontsizept;
+	font-weight: @textolista@modelohijofontweight;
+	color:@colortextolista@modelohijo;
+	background-color:@colorfondotextolista@modelohijo;
+/*#@[p_list_hijo_07]*/
+}
+
+main .lista_@modelohijo .editar_borrar_lista_@modelohijo{
+	font-family: @editarborrar@modelohijofontfamily;
+	font-size: @editarborrar@modelohijofontsizept;
+	font-weight: @editarborrar@modelohijofontweight;
+	color:@coloreditarborrar@modelohijo;
+/*#@[p_list_hijo_08]*/
+}
+
+main .lista_@modelohijo .editar_borrar_lista_@modelohijo{
+	font-family: @editarborrar@modelohijofontfamily;
+	font-size: @editarborrar@modelohijofontsizept;
+	font-weight: @editarborrar@modelohijofontweight;
+	color:@coloreditarborrar@modelohijo;
+/*#@[p_list_hijo_09]*/
+}
+
+main .fila_nuevo_@modelohijo a{
+	font-family: @nuevomodelo@modelohijofontfamily;
+	font-size: @nuevomodelo@modelohijofontsizept;
+	font-weight: @nuevomodelo@modelohijofontweight;
+	color:@colorlinknuevomodelo@modelohijo;
+/*#@[p_list_hijo_10]*/
+}
+
+/*#@[p_list_hijo_11]*/
+
+
+
+
+
+
+
+
+ 

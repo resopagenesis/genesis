@@ -1,0 +1,20 @@
+{% load static %}
+				{% if not request.user.is_authenticated %}
+					<a href="{% url 'registration:registro' %}">
+						<img src="{% static 'core/img/registroSF.png' %}" width="20px" height="20px" alt=""  data-toggle="tooltip" title="Crear un nuevo usuario">
+						<span class="opcionmenu" data-toggle="tooltip" title="Crear un nuevo usuario">Registro</span>
+					</a>
+					<a href="{% url 'login' %}">
+						<img src="{% static 'core/img/loginSF.png' %}" width="20px" height="20px" alt="" data-toggle="tooltip" title="Iniciar la sesion">
+						<span class="opcionmenu" data-toggle="tooltip" title="Iniciar la sesion">Login</span>
+					</a>
+				{% else %}
+					<a href="{% url 'registration:profile' %}">
+						<img src="{% static 'core/img/perfilSF.png' %}" width="20px" height="20px" alt="" data-toggle="tooltip" title="Datos adicionales del usaurio">
+						<span class="opcionmenu"  data-toggle="tooltip" title="Datos adicionales del usaurio">Perfil</span>
+					</a>
+					<a href="{% url 'logout' %}">
+						<img src="{% static 'core/img/logoutSF.png' %}" width="20px" height="20px" alt=""  data-toggle="tooltip" title="Terminar la sesion">
+						<span class="opcionmenu"  data-toggle="tooltip" title="Terminar la sesion">Logout</span>
+					</a>
+				{% endif %} 
